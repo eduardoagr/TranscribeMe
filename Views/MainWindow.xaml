@@ -1,0 +1,82 @@
+﻿<Window x:Class="TranscribeMe.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TranscribeMe"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Background="Transparent"
+        Height="600"
+        Width="600">
+
+    <Border Background="#272537"
+            CornerRadius="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Transcribe Me"
+                       Foreground="White"
+                       Margin="10,0,0,0"
+                       FontSize="23"
+                       VerticalAlignment="Center" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <syncfusion:SfHubTile Background="#FF77954A">
+                    <syncfusion:SfHubTile.Header>
+                        <TextBlock Text="MUSIC"
+                                   Foreground="White"
+                                   FontSize="18"
+                                   FontStyle="Oblique"/>
+                    </syncfusion:SfHubTile.Header>
+                    <syncfusion:SfHubTile.Title>
+                        <TextBlock Text="Trascrbe"
+                                   Foreground="White"
+                                   FontSize="18"
+                                   HorizontalAlignment="Center"
+                                   FontStyle="Oblique" />
+                    </syncfusion:SfHubTile.Title>
+                </syncfusion:SfHubTile>
+
+                <syncfusion:SfHubTile Grid.Column="1">
+                    <syncfusion:SfHubTile.Header>
+                        <TextBlock Text="Translate"
+                                   Foreground="White"
+                                   FontSize="18"
+                                   FontStyle="Oblique" />
+                    </syncfusion:SfHubTile.Header>
+                    <syncfusion:SfHubTile.Title>
+                        <TextBlock Text="Translate"
+                                   Foreground="White"
+                                   FontSize="18"
+                                   HorizontalAlignment="Center"
+                                   FontStyle="Oblique" />
+                    </syncfusion:SfHubTile.Title>
+                </syncfusion:SfHubTile>
+
+                <TextBox Grid.Row="1"
+                         Grid.ColumnSpan="2"
+                         IsEnabled="{Binding IsVisible }"
+                         Margin="10" />
+
+
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
