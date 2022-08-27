@@ -2,13 +2,25 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <StartupObject>TranscribeMe.App</StartupObject>
+    <ApplicationIcon>Images\clipboard_paste_01.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+    <Content Include="Images\clipboard_paste_01.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.23.0" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="NAudio" Version="2.1.0" />
+    <PackageReference Include="NAudio.Lame" Version="2.0.1" />
+    <PackageReference Include="PropertyChanged.Fody" PrivateAssets="All" Version="3.4.1" />
+    <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
     <PackageReference Include="Syncfusion.Licensing" Version="20.2.0.45" />
     <PackageReference Include="Syncfusion.SfHubTile.WPF" Version="20.2.0.45" />
     <PackageReference Include="Syncfusion.Shared.WPF" Version="20.2.0.45" />
