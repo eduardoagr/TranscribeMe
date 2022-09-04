@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <Folder Include="Audios\" />
-    <Folder Include="Model\" />
   </ItemGroup>
 
   <ItemGroup>
