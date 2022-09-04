@@ -6,11 +6,11 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <StartupObject>TranscribeMe.App</StartupObject>
-    <ApplicationIcon>Images\clipboard_paste_01.ico</ApplicationIcon>
+    <ApplicationIcon>Images\clipboard_paste.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Images\clipboard_paste_01.ico" />
+    <Content Include="Images\clipboard_paste.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="Audios\" />
+    <Folder Include="Model\" />
   </ItemGroup>
 
   <ItemGroup>
