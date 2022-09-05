@@ -1,16 +1,22 @@
-﻿using System;
+﻿
+
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
+
+using Fonts;
 
 using Helpers;
 
 using Microsoft.CognitiveServices.Speech;
 using Microsoft.CognitiveServices.Speech.Audio;
 using Microsoft.Win32;
+
+using Model;
 
 using MvvmHelpers.Commands;
 
@@ -25,24 +31,78 @@ namespace TranscribeMe.ViewModel;
 [AddINotifyPropertyChangedInterface]
 public class MainWindowViewModel
 {
-    public bool IsEnable
+
+    public Command ExitCommand
     {
         get; set;
     }
+
     public Command AzureCommand
     {
         get; set;
     }
 
+    public ObservableCollection<Tile>? Tiles
+    {
+        get; set;
+    }
     public List<char> Words
     {
         get; set;
     }
 
+
     public MainWindowViewModel()
     {
         AzureCommand = new Command(AzureActionAsync);
+        ExitCommand = new Command(ExiAction);
+        InitCollection();
         Words = new List<char>();
+    }
+
+    private void InitCollection()
+    {
+
+        Tiles = new ObservableCollection<Tile>()
+        {
+            new Tile()
+            {
+                IsTileActive = true,
+                TileTitle = "AudioTranscription",
+                TileCommand = AzureCommand,
+                TileColor = new SolidColorBrush(Color.FromRgb(242, 80, 34)),
+                TileIcon = IconFont.VolumeHigh
+            },
+             new Tile()
+            {
+                IsTileActive = true,
+                TileTitle = "DocumentTrnslation",
+                TileCommand = AzureCommand,
+                TileColor = new SolidColorBrush(Color.FromRgb(127, 186, 0)),
+                TileIcon = IconFont.FileDocument
+            },
+              new Tile()
+            {
+                IsTileActive = false,
+                TileTitle = "VideoToText",
+                TileCommand = AzureCommand,
+                TileColor = new SolidColorBrush(Color.FromRgb(0, 164, 239)),
+                TileIcon = IconFont.FileVideo
+            },
+               new Tile()
+            {
+                IsTileActive = false,
+                TileTitle = "Account",
+                TileCommand = AzureCommand,
+                TileColor = new SolidColorBrush(Color.FromRgb(255, 185, 0)),
+                TileIcon = IconFont.Account
+            }
+        };
+    }
+
+    private void ExiAction()
+    {
+        Application.Current.Shutdown();
     }
 
     private async void AzureActionAsync(object obj)
@@ -56,7 +116,7 @@ public class MainWindowViewModel
 
         switch (str)
         {
-            case "Audio":
+            case "AudioTranscription":
                 const string ext = ".wav";
                 var dlg = new OpenFileDialog
                 {
@@ -79,33 +139,15 @@ public class MainWindowViewModel
 
                     await ConvertToTextAsync(filePath);
                 }
-
-                break;
-            case "Document":
-                Debug.WriteLine("deddew");
-                break;
-            default:
-                MessageBox.Show("An error has occurred");
                 break;
         }
     }
 
-    private void TranscribeaMeAction(object obj)
-    {
-        //TODO: call transcription Api
-    }
     private async Task ConvertToTextAsync(string FilePath)
     {
         // Configure speech service
-        const string KEY = "c5ba659727324477b4b34e14bec0cee6";
-        const string Region = "westeurope";
-        var config = SpeechConfig.FromSubscription(KEY, Region);
-        config.OutputFormat = OutputFormat.Detailed;
-        config.EnableDictation();
 
-
-        // Configure voice
-        config.SpeechSynthesisVoiceName = "en-US-AriaNeural";
+        var config = SpeechConfig.FromSubscription(Config.Constants.AZURE_KEY, Config.Constants.AZURE_REGION);
 
         // Configure speech recognition
 
@@ -123,7 +165,6 @@ public class MainWindowViewModel
         Task.WaitAny(new[] { taskCompleteionSource.Task });
 
         await speechRecognizer.StopContinuousRecognitionAsync().ConfigureAwait(false);
-
     }
 
     private void SpeechRecognizer_SessionStopped(object? sender, SessionEventArgs e)
@@ -142,16 +183,14 @@ public class MainWindowViewModel
             Application.Current.Dispatcher.Invoke(() =>
             {
                 var spellWindow = new SpellCheckWindow();
-                spellWindow.Show();
+                spellWindow.ShowDialog();
             });
         }
     }
 
     private void SpeechRecognizer_SessionStarted(object? sender, SessionEventArgs e)
     {
-        IsEnable = false;
     }
-
     private void SpeechRecognizer_Recognized(object? sender, SpeechRecognitionEventArgs e)
     {
         if (e.Result.Reason == ResultReason.RecognizedSpeech)

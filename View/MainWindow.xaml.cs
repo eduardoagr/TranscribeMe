@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 using TranscribeMe.ViewModel;
 
@@ -13,5 +14,13 @@ public partial class MainWindow : Window
         InitializeComponent();
 
         DataContext = new MainWindowViewModel();
+    }
+
+    private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ChangedButton == MouseButton.Left)
+        {
+            DragMove();
+        }
     }
 }

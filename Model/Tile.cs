@@ -1,41 +1,41 @@
 ﻿
 using System.Windows.Media;
 
-using MahApps.Metro.IconPacks;
-
 using MvvmHelpers.Commands;
+
+using PropertyChanged;
 
 namespace Model;
 
+[AddINotifyPropertyChangedInterface]
 public class Tile
 {
-    public string? TileTitle
+    public string TileTitle
     {
         get; set;
     }
 
-    public PackIconMaterialKind? TileIcon
+    public string TileIcon
     {
         get; set;
     }
-
-    public Color? TileColor
+    public Brush TileColor
     {
         get; set;
     }
-    public Command? Command
+    public Command TileCommand
     {
         get; set;
     }
-    private bool _IsEnable;
-    public bool IsEnable
+    private bool _IsTileActive;
+    public bool IsTileActive
     {
-        get => _IsEnable;
+        get => _IsTileActive;
         set
         {
-            if (_IsEnable != value)
+            if (_IsTileActive != value)
             {
-                _IsEnable = value;
+                _IsTileActive = value;
                 SetColor();
             }
         }
@@ -43,13 +43,13 @@ public class Tile
 
     private void SetColor()
     {
-        if (IsEnable)
+        if (IsTileActive)
         {
             TileColor = TileColor;
         }
         else
         {
-            TileColor = Color.FromRgb(192, 192, 192);
+            TileColor = new SolidColorBrush(Color.FromRgb(192, 192, 192));
         }
     }
 }

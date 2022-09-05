@@ -11,17 +11,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Fonts\Material.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Include="Images\clipboard_paste.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+		<PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
 		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.23.0" />
 		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1293.44" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
 		<PackageReference Include="NAudio" Version="2.1.0" />
 		<PackageReference Include="NAudio.Lame" Version="2.0.1" />
-		<PackageReference Include="PropertyChanged.Fody" PrivateAssets="All" Version="3.4.1" />
+		<PackageReference Include="PropertyChanged.Fody" PrivateAssets="All" Version="4.0.1" />
 		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
 		<PackageReference Include="Syncfusion.Licensing" Version="20.2.0.46" />
 		<PackageReference Include="Syncfusion.SfHubTile.WPF" Version="20.2.0.46" />
@@ -36,6 +40,10 @@
 		<Reference Include="System.Speech">
 			<HintPath>..\..\..\..\..\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\System.Speech.dll</HintPath>
 		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Fonts\Material.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 
 using Microsoft.Web.WebView2.Core;
 
@@ -26,5 +27,13 @@ public partial class SpellCheckWindow : Window
     {
         var msg = Clipboard.GetText();
         await web.ExecuteScriptAsync($"document.getElementById('grammarbot').setAttribute('data-mce-placeholder', 'Press CTRL + V, To paste the text')");
+    }
+
+    private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ChangedButton == MouseButton.Left)
+        {
+            DragMove();
+        }
     }
 }
