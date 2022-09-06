@@ -109,37 +109,37 @@ public class MainWindowViewModel
     {
         var str = obj as string;
 
-        if (string.IsNullOrEmpty(str))
+        if (!string.IsNullOrEmpty(str))
         {
-            return;
-        }
 
-        switch (str)
-        {
-            case "AudioTranscription":
-                const string ext = ".wav";
-                var dlg = new OpenFileDialog
-                {
-                    DefaultExt = ".mp3",
-                    Filter = "Audio files (.mp3)|*.mp3"
-                };
 
-                var res = dlg.ShowDialog();
+            switch (str)
+            {
+                case "AudioTranscription":
+                    const string ext = ".wav";
+                    var dlg = new OpenFileDialog
+                    {
+                        DefaultExt = ".mp3",
+                        Filter = "Audio files (.mp3)|*.mp3"
+                    };
 
-                if (res! == true)
-                {
-                    var AudioName = Path.GetFileNameWithoutExtension(dlg.SafeFileName);
-                    var projectPath = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.FullName;
-                    var FoderName = Path.Combine(projectPath!, "Audios");
-                    var filePath = Path.Combine(FoderName, $"{AudioName}{ext}");
+                    var res = dlg.ShowDialog();
 
-                    using var mp3 = new Mp3FileReader(dlg.FileName);
-                    using var ws = WaveFormatConversionStream.CreatePcmStream(mp3);
-                    WaveFileWriter.CreateWaveFile(filePath, ws);
+                    if (res! == true)
+                    {
+                        var AudioName = Path.GetFileNameWithoutExtension(dlg.SafeFileName);
+                        var projectPath = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.FullName;
+                        var FoderName = Path.Combine(projectPath!, "Audios");
+                        var filePath = Path.Combine(FoderName, $"{AudioName}{ext}");
 
-                    await ConvertToTextAsync(filePath);
-                }
-                break;
+                        using var mp3 = new Mp3FileReader(dlg.FileName);
+                        using var ws = WaveFormatConversionStream.CreatePcmStream(mp3);
+                        WaveFileWriter.CreateWaveFile(filePath, ws);
+
+                        await ConvertToTextAsync(filePath);
+                    }
+                    break;
+            }
         }
     }
 

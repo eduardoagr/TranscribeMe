@@ -16,7 +16,27 @@
     MouseDown="Window_MouseDown"
     mc:Ignorable="d">
 
-    <Border Background="#272537" CornerRadius="20">
+    <Window.Resources>
+
+        <Style x:Key="HubTileStyle"
+               TargetType="{x:Type syncfusion:SfHubTile}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="{Binding TileColor}" />
+                </Trigger>
+                <Trigger Property="IsEnabled"
+                         Value="False">
+                    <Setter Property="Background"
+                            Value="LightGray" />
+                </Trigger>
+            </Style.Triggers>
+            </Style>
+
+    </Window.Resources>
+       
+            <Border Background="#272537" CornerRadius="20">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -41,7 +61,9 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <syncfusion:SfHubTile Background="{Binding TileColor}" IsEnabled="{Binding IsTileActive}">
+                        <syncfusion:SfHubTile Style="{StaticResource HubTileStyle}"
+                                              IsEnabled="{Binding IsTileActive}">
+                            
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="Click">
                                     <behaviors:InvokeCommandAction
