@@ -4,79 +4,87 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:iconPacks="clr-namespace:MahApps.Metro.IconPacks;assembly=MahApps.Metro.IconPacks.Material"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-    Width="600"
-    Height="600"
+    Width="450"
+    Height="450"
     AllowsTransparency="True"
     Background="Transparent"
     ResizeMode="NoResize"
-    WindowStartupLocation="CenterScreen"
     WindowStyle="None"
+    MouseDown="Window_MouseDown"
     mc:Ignorable="d">
 
-    <Border Background="#272537" CornerRadius="20">
+    <Window.Resources>
+
+        <Style x:Key="HubTileStyle"
+               TargetType="{x:Type syncfusion:SfHubTile}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="{Binding TileColor}" />
+                </Trigger>
+                <Trigger Property="IsEnabled"
+                         Value="False">
+                    <Setter Property="Background"
+                            Value="LightGray" />
+                </Trigger>
+            </Style.Triggers>
+            </Style>
+
+    </Window.Resources>
+       
+            <Border Background="#272537" CornerRadius="20">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="75" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <TextBlock
-                Margin="10,0,0,0"
-                VerticalAlignment="Center"
-                FontSize="23"
-                Foreground="White"
-                Text="Transcribe Me" />
+            <Button
+                HorizontalAlignment="Right"
+                materialDesign:RippleAssist.Feedback="Transparent"
+                Background="{x:Null}"
+                BorderBrush="{x:Null}"
+                Command="{Binding ExitCommand}"
+                Focusable="False">
+                <materialDesign:PackIcon Kind="Close" />
+            </Button>
 
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                </Grid.RowDefinitions>
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding Tiles}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Margin="40" Columns="2" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <syncfusion:SfHubTile Style="{StaticResource HubTileStyle}"
+                                              IsEnabled="{Binding IsTileActive}">
+                            
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="Click">
+                                    <behaviors:InvokeCommandAction
+                                        Command="{Binding TileCommand}"
+                                        CommandParameter="{Binding TileTitle}"
+                                        PassEventArgsToCommand="True" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
 
-                <syncfusion:SfHubTile Background="#FF1FAEFF">
+                            <Label
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Content="{Binding TileIcon}"
+                                FontFamily="{StaticResource Material}"
+                                FontSize="120"
+                                Foreground="White" />
 
-                    <behaviors:Interaction.Triggers>
-                        <behaviors:EventTrigger EventName="Click">
-                            <behaviors:InvokeCommandAction Command="{Binding AzureCommand}" CommandParameter="Audio" />
-                        </behaviors:EventTrigger>
-                    </behaviors:Interaction.Triggers>
-
-                    <iconPacks:PackIconMaterial
-                        Width="120"
-                        Height="120"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Foreground="White"
-                        Kind="Music" />
-
-                </syncfusion:SfHubTile>
-
-                <syncfusion:SfHubTile Grid.Column="1">
-
-                    <behaviors:Interaction.Triggers>
-                        <behaviors:EventTrigger EventName="Click">
-                            <behaviors:InvokeCommandAction
-                                Command="{Binding AzureCommand}"
-                                CommandParameter="Document"
-                                PassEventArgsToCommand="True" />
-                        </behaviors:EventTrigger>
-                    </behaviors:Interaction.Triggers>
-
-                    <iconPacks:PackIconMaterial
-                        Width="120"
-                        Height="120"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Foreground="White"
-                        Kind="FileDocumentOutline" />
-                </syncfusion:SfHubTile>
-            </Grid>
+                        </syncfusion:SfHubTile>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
     </Border>
 </Window>

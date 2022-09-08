@@ -1,50 +1,57 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <StartupObject>TranscribeMe.App</StartupObject>
-    <ApplicationIcon>Images\clipboard_paste.ico</ApplicationIcon>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<StartupObject>TranscribeMe.App</StartupObject>
+		<PublishSingleFile>true</PublishSingleFile>
+		<ApplicationIcon>Images\clipboard_paste.ico</ApplicationIcon>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="Images\clipboard_paste.ico" />
-  </ItemGroup>
+	<ItemGroup>
+	  <None Remove="Fonts\Material.ttf" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
-    <PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.23.0" />
-    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1293.44" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
-    <PackageReference Include="NAudio" Version="2.1.0" />
-    <PackageReference Include="NAudio.Lame" Version="2.0.1" />
-    <PackageReference Include="PropertyChanged.Fody" PrivateAssets="All" Version="3.4.1" />
-    <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
-    <PackageReference Include="Syncfusion.Licensing" Version="20.2.0.46" />
-    <PackageReference Include="Syncfusion.SfHubTile.WPF" Version="20.2.0.46" />
-    <PackageReference Include="Syncfusion.Shared.WPF" Version="20.2.0.46" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="Images\clipboard_paste.ico" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Audios\" />
-    <Folder Include="Model\" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
+		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.23.0" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1293.44" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+		<PackageReference Include="NAudio" Version="2.1.0" />
+		<PackageReference Include="NAudio.Lame" Version="2.0.1" />
+		<PackageReference Include="PropertyChanged.Fody" PrivateAssets="All" Version="4.0.1" />
+		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+		<PackageReference Include="Syncfusion.Licensing" Version="20.2.0.46" />
+		<PackageReference Include="Syncfusion.SfHubTile.WPF" Version="20.2.0.46" />
+		<PackageReference Include="Syncfusion.Shared.WPF" Version="20.2.0.46" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="System.Speech">
-      <HintPath>..\..\..\..\..\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\System.Speech.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Audios\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="C:\Users\egome\.nuget\packages\naudio.lame\2.0.1\build\libmp3lame.32.dll" Link="NAudio\libmp3lame.32.dll" />
-  </ItemGroup>
+	<ItemGroup>
+		<Reference Include="System.Speech">
+			<HintPath>..\..\..\..\..\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\System.Speech.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="C:\Users\egome\.nuget\packages\naudio.lame\2.0.1\build\libmp3lame.64.dll" Link="NAudio\libmp3lame.64.dll" />
-  </ItemGroup>
+	<ItemGroup>
+	  <Resource Include="Fonts\Material.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="C:\Users\egome\.nuget\packages\naudio.lame\2.0.1\build\libmp3lame.32.dll" Link="NAudio\libmp3lame.32.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="C:\Users\egome\.nuget\packages\naudio.lame\2.0.1\build\libmp3lame.64.dll" Link="NAudio\libmp3lame.64.dll" />
+	</ItemGroup>
 
 </Project>
