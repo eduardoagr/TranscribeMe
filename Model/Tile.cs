@@ -6,33 +6,28 @@ namespace Model;
 
 public class Tile
 {
-    public string TileTitle
+    public string? TileIdentifier
     {
         get; set;
     }
-    public string TileIcon
+    public string? TileIcon
     {
         get; set;
     }
-    public Brush TileColor
+    public Brush? TileColor
     {
         get; set;
     }
-    public Command TileCommand
+    public Command? TileCommand
     {
         get; set;
     }
-    private bool _IsTileActive;
-    public bool IsTileActive
+    public bool? IsTileActive
     {
-        get => _IsTileActive;
-        set
-        {
-            if (_IsTileActive != value)
-            {
-                _IsTileActive = value;
-
-            }
-        }
+        get; set;
+    }
+    public string? TileTitle
+    {
+        get; set;
     }
 }

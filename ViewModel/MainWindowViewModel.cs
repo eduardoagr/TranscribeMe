@@ -1,30 +1,4 @@
-﻿
-
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
-
-using Fonts;
-
-using Helpers;
-
-using Microsoft.CognitiveServices.Speech;
-using Microsoft.CognitiveServices.Speech.Audio;
-using Microsoft.Win32;
-
-using Model;
-
-using MvvmHelpers.Commands;
-
-using NAudio.Wave;
-
-using PropertyChanged;
-
-using View;
+﻿using Syncfusion.DocIO.DLS;
 
 namespace TranscribeMe.ViewModel;
 
@@ -58,6 +32,8 @@ public class MainWindowViewModel
         ExitCommand = new Command(ExiAction);
         InitCollection();
         Words = new List<char>();
+
+        Tiles![0].IsTileActive = false;
     }
 
     private void InitCollection()
@@ -68,7 +44,8 @@ public class MainWindowViewModel
             new Tile()
             {
                 IsTileActive = true,
-                TileTitle = "AudioTranscription",
+                TileTitle = "Audio to text",
+                TileIdentifier = "1",
                 TileCommand = AzureCommand,
                 TileColor = new SolidColorBrush(Color.FromRgb(242, 80, 34)),
                 TileIcon = IconFont.VolumeHigh
@@ -76,7 +53,8 @@ public class MainWindowViewModel
              new Tile()
             {
                 IsTileActive = true,
-                TileTitle = "DocumentTrnslation",
+                TileTitle = "Translate document",
+                TileIdentifier = "2",
                 TileCommand = AzureCommand,
                 TileColor = new SolidColorBrush(Color.FromRgb(127, 186, 0)),
                 TileIcon = IconFont.FileDocument
@@ -84,7 +62,8 @@ public class MainWindowViewModel
               new Tile()
             {
                 IsTileActive = false,
-                TileTitle = "VideoToText",
+                TileIdentifier = "3",
+                TileTitle = "Video to text" ,
                 TileCommand = AzureCommand,
                 TileColor = new SolidColorBrush(Color.FromRgb(0, 164, 239)),
                 TileIcon = IconFont.FileVideo
@@ -92,6 +71,7 @@ public class MainWindowViewModel
                new Tile()
             {
                 IsTileActive = false,
+                TileIdentifier = "4",
                 TileTitle = "Account",
                 TileCommand = AzureCommand,
                 TileColor = new SolidColorBrush(Color.FromRgb(255, 185, 0)),
@@ -115,7 +95,7 @@ public class MainWindowViewModel
 
             switch (str)
             {
-                case "AudioTranscription":
+                case "1":
                     const string ext = ".wav";
                     var dlg = new OpenFileDialog
                     {
@@ -169,6 +149,12 @@ public class MainWindowViewModel
 
     private void SpeechRecognizer_SessionStopped(object? sender, SessionEventArgs e)
     {
+
+        var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        var folder = Path.Combine(path, "Transcribed");
+        var filename = Path.Combine(folder, "Hello.docx");
+        Directory.CreateDirectory(folder);
+
         var sb = new StringBuilder();
 
         foreach (var item in Words)
@@ -176,20 +162,22 @@ public class MainWindowViewModel
             sb.Append(item);
         }
 
-        BackgroundClipboard.SetText(sb.ToString());
+        using var document = new WordDocument();
 
-        if (!string.IsNullOrEmpty(BackgroundClipboard.GetText()))
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                var spellWindow = new SpellCheckWindow();
-                spellWindow.ShowDialog();
-            });
-        }
+        document.EnsureMinimal();
+
+        document.LastParagraph.AppendText(sb.ToString());
+
+        document.Save(filename);
+
+        MessageBox.Show("Created");
     }
 
     private void SpeechRecognizer_SessionStarted(object? sender, SessionEventArgs e)
     {
+
+
+        Debug.WriteLine("Started");
     }
     private void SpeechRecognizer_Recognized(object? sender, SpeechRecognitionEventArgs e)
     {
