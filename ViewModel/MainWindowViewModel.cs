@@ -32,8 +32,6 @@ public class MainWindowViewModel
         ExitCommand = new Command(ExiAction);
         InitCollection();
         Words = new List<char>();
-
-        Tiles![0].IsTileActive = false;
     }
 
     private void InitCollection()
@@ -149,6 +147,7 @@ public class MainWindowViewModel
 
     private void SpeechRecognizer_SessionStopped(object? sender, SessionEventArgs e)
     {
+        Tiles![0].IsTileActive = true;
 
         var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         var folder = Path.Combine(path, "Transcribed");
@@ -175,7 +174,7 @@ public class MainWindowViewModel
 
     private void SpeechRecognizer_SessionStarted(object? sender, SessionEventArgs e)
     {
-
+        Tiles![0].IsTileActive = false;
 
         Debug.WriteLine("Started");
     }
