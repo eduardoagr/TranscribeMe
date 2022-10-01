@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-using TranscribeMe.ViewModel;
+﻿using TranscribeMe.ViewModel;
 
 namespace TranscribeMe;
 /// <summary>

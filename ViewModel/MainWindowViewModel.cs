@@ -1,133 +1,233 @@
-﻿using Syncfusion.DocIO.DLS;
+﻿using Config;
+
+using MediaToolkit;
+using MediaToolkit.Model;
+using MediaToolkit.Options;
+
+using Microsoft.CognitiveServices.Speech;
+using Microsoft.CognitiveServices.Speech.Audio;
+
+using NAudio.Wave;
+
+using Syncfusion.DocIO.DLS;
+
+using TranscribeMe.Services;
 
 namespace TranscribeMe.ViewModel;
 
 [AddINotifyPropertyChangedInterface]
-public class MainWindowViewModel
-{
-
-    public Command ExitCommand
-    {
+public class MainWindowViewModel {
+    public Command ExitCommand {
         get; set;
     }
 
-    public Command AzureCommand
-    {
+    public Command AzureCommand {
         get; set;
     }
 
-    public ObservableCollection<Tile>? Tiles
-    {
+    public ObservableCollection<Tile>? Tiles {
         get; set;
     }
-    public List<char> Words
-    {
+    public List<char> Words {
         get; set;
     }
 
 
-    public MainWindowViewModel()
-    {
+    public MainWindowViewModel() {
         AzureCommand = new Command(AzureActionAsync);
         ExitCommand = new Command(ExiAction);
         InitCollection();
         Words = new List<char>();
     }
-
-    private void InitCollection()
-    {
-
+    private void InitCollection() {
         Tiles = new ObservableCollection<Tile>()
         {
             new Tile()
             {
                 IsTileActive = true,
                 TileTitle = "Audio to text",
-                TileIdentifier = "1",
+                TileIdentifier = (int)TilesIdentifiers.Audio,
                 TileCommand = AzureCommand,
-                TileColor = new SolidColorBrush(Color.FromRgb(242, 80, 34)),
                 TileIcon = IconFont.VolumeHigh
             },
              new Tile()
             {
                 IsTileActive = true,
-                TileTitle = "Translate document",
-                TileIdentifier = "2",
+                TileIdentifier = (int)TilesIdentifiers.Video,
+                TileTitle = "Video to text" ,
                 TileCommand = AzureCommand,
-                TileColor = new SolidColorBrush(Color.FromRgb(127, 186, 0)),
-                TileIcon = IconFont.FileDocument
+                TileIcon = IconFont.FileVideo
             },
               new Tile()
             {
-                IsTileActive = false,
-                TileIdentifier = "3",
-                TileTitle = "Video to text" ,
+                IsTileActive = true,
+                TileTitle = "image to text",
+                TileIdentifier = (int)TilesIdentifiers.Ocr,
                 TileCommand = AzureCommand,
-                TileColor = new SolidColorBrush(Color.FromRgb(0, 164, 239)),
-                TileIcon = IconFont.FileVideo
+                TileIcon = IconFont.EyeCircle
+
+
+            },
+                 new Tile()
+            {
+                IsTileActive = true,
+                TileTitle = "Translate document",
+                TileIdentifier = (int)TilesIdentifiers.document,
+                TileCommand = AzureCommand,
+                TileIcon = IconFont.FileDocument
+
             },
                new Tile()
             {
-                IsTileActive = false,
-                TileIdentifier = "4",
+                IsTileActive = true,
+                TileIdentifier = (int)TilesIdentifiers.Account,
                 TileTitle = "Account",
                 TileCommand = AzureCommand,
-                TileColor = new SolidColorBrush(Color.FromRgb(255, 185, 0)),
                 TileIcon = IconFont.Account
+            },
+              new Tile()
+            {
+                IsTileActive = true,
+                TileIdentifier = (int)TilesIdentifiers.About,
+                TileTitle = "About TranscribeMe",
+                TileCommand = AzureCommand,
+                TileIcon = IconFont.Help
             }
         };
     }
 
-    private void ExiAction()
-    {
+    private void ExiAction() {
         Application.Current.Shutdown();
     }
 
-    private async void AzureActionAsync(object obj)
-    {
-        var str = obj as string;
+    private async void AzureActionAsync(object obj) {
+        OpenFileDialog dlg;
+        var AudioFolderPath = CreateFolder(ConstantsHelpers.AUDIO);
+        const string ext = ".wav";
 
-        if (!string.IsNullOrEmpty(str))
-        {
+        switch (obj) {
+            case (int)TilesIdentifiers.Audio:
 
+                var AudioName = CreateDialog(out dlg, ConstantsHelpers.AUDIO);
 
-            switch (str)
-            {
-                case "1":
-                    const string ext = ".wav";
-                    var dlg = new OpenFileDialog
-                    {
-                        DefaultExt = ".mp3",
-                        Filter = "Audio files (.mp3)|*.mp3"
-                    };
+                var Audiofilename = Path.Combine(AudioFolderPath, $"{AudioName}{ext}");
 
-                    var res = dlg.ShowDialog();
+                Converter(dlg, Audiofilename, out _, out _);
 
-                    if (res! == true)
-                    {
-                        var AudioName = Path.GetFileNameWithoutExtension(dlg.SafeFileName);
-                        var projectPath = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.FullName;
-                        var FoderName = Path.Combine(projectPath!, "Audios");
-                        var filePath = Path.Combine(FoderName, $"{AudioName}{ext}");
+                break;
 
-                        using var mp3 = new Mp3FileReader(dlg.FileName);
-                        using var ws = WaveFormatConversionStream.CreatePcmStream(mp3);
-                        WaveFileWriter.CreateWaveFile(filePath, ws);
+            case (int)TilesIdentifiers.Video:
 
-                        await ConvertToTextAsync(filePath);
-                    }
-                    break;
-            }
+                var VideoName = CreateDialog(out dlg, ConstantsHelpers.VIDEO);
+
+                var VideoFilename = Path.Combine(AudioFolderPath, $"{VideoName}{ext}");
+
+                var inputFile = new MediaFile { Filename = dlg.FileName };
+                var outputFile = new MediaFile { Filename = VideoFilename };
+                var options = new ConversionOptions {
+                    AudioSampleRate = AudioSampleRate.Hz22050
+                };
+                var engine = new Engine();
+
+                if (!string.IsNullOrEmpty(inputFile.Filename)) {
+                    engine.Convert(inputFile, outputFile, options);
+                }
+
+                break;
+
+            case (int)TilesIdentifiers.Ocr:
+                break;
+
+            case (int)TilesIdentifiers.Account:
+                Debug.WriteLine("Account", "Debug");
+                break;
+
+            case (int)TilesIdentifiers.document:
+
+                var storageService = new AzureStorageService();
+
+                var DocumentName = CreateDialog(out dlg, ConstantsHelpers.DOCUMENTS);
+
+                var path = CreateFolder(ConstantsHelpers.TRANSLATIONS);
+
+                if (!string.IsNullOrEmpty(dlg.FileName)) {
+                    var sourceUri = await storageService.UploadToAzureBlobStorage(Path.GetFullPath(dlg.FileName));
+
+                    var targetUri = await storageService.SaveFromdAzureBlobStorage(Path.GetFullPath(dlg.FileName), path);
+
+                    await AzureTranslationService.TranslatorAsync(sourceUri, targetUri);
+                }
+
+                break;
+
+            case (int)TilesIdentifiers.About:
+                Debug.WriteLine("about", "Debug");
+
+                break;
         }
     }
 
-    private async Task ConvertToTextAsync(string FilePath)
-    {
-        // Configure speech service
+    private void Converter(OpenFileDialog dlg, string filename, out Mp3FileReader? mp3, out WaveStream? ws) {
+        if (!string.IsNullOrEmpty(dlg.FileName)) {
+            mp3 = new Mp3FileReader(dlg.FileName);
+            ws = WaveFormatConversionStream.CreatePcmStream(mp3);
+            WaveFileWriter.CreateWaveFile(filename, ws);
+        } else {
+            mp3 = null;
+            ws = null;
+            return;
+        }
+    }
 
-        var config = SpeechConfig.FromSubscription(Config.Constants.AZURE_KEY, Config.Constants.AZURE_REGION);
+    private string? CreateDialog(out OpenFileDialog dlg, string type) {
+        var filter = string.Empty;
 
-        // Configure speech recognition
+        switch (type) {
+            case ConstantsHelpers.AUDIO:
+                filter = ConstantsHelpers.AUDIOFILES;
+                break;
+            case ConstantsHelpers.VIDEO:
+                filter = ConstantsHelpers.VIDEOFILES;
+                break;
+            case ConstantsHelpers.DOCUMENTS:
+                filter = ConstantsHelpers.DOCUMENTSFIILES;
+                break;
+            case ConstantsHelpers.IMAGES:
+                filter = ConstantsHelpers.IMAGEFILES;
+                break;
+            default:
+                break;
+        }
+
+        dlg = new OpenFileDialog {
+            Filter = filter,
+        };
+        var res = dlg.ShowDialog();
+
+        if (res == true) {
+            return Path.GetFileNameWithoutExtension(dlg.FileName);
+        }
+
+        return null;
+    }
+
+    private static string CreateFolder(string FolderName = ConstantsHelpers.AUDIO) {
+        var directoryPath = Directory.CreateDirectory(Path.Combine(
+                               Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                                                                ConstantsHelpers.TRANSCRIBEME, FolderName));
+
+        return directoryPath.FullName;
+    }
+
+
+    private async Task ConvertToTextAsync(string FilePath) {
+        //Configure speech service
+
+        var config = SpeechConfig.FromSubscription(ConstantsHelpers.AZURE_KEY, ConstantsHelpers.AZURE_REGION);
+
+        config.EnableDictation();
+
+        //Configure speech recognition
 
         var taskCompleteionSource = new TaskCompletionSource<int>();
 
@@ -145,19 +245,14 @@ public class MainWindowViewModel
         await speechRecognizer.StopContinuousRecognitionAsync().ConfigureAwait(false);
     }
 
-    private void SpeechRecognizer_SessionStopped(object? sender, SessionEventArgs e)
-    {
+    private void SpeechRecognizer_SessionStopped(object? sender, SessionEventArgs e) {
         Tiles![0].IsTileActive = true;
 
-        var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        var folder = Path.Combine(path, "Transcribed");
-        var filename = Path.Combine(folder, "Hello.docx");
-        Directory.CreateDirectory(folder);
+        CreateFolder(ConstantsHelpers.TRANSLATIONS)
 
         var sb = new StringBuilder();
 
-        foreach (var item in Words)
-        {
+        foreach (var item in Words) {
             sb.Append(item);
         }
 
@@ -172,24 +267,28 @@ public class MainWindowViewModel
         MessageBox.Show("Created");
     }
 
-    private void SpeechRecognizer_SessionStarted(object? sender, SessionEventArgs e)
-    {
+    private void SpeechRecognizer_SessionStarted(object? sender, SessionEventArgs e) {
         Tiles![0].IsTileActive = false;
 
         Debug.WriteLine("Started");
     }
-    private void SpeechRecognizer_Recognized(object? sender, SpeechRecognitionEventArgs e)
-    {
-        if (e.Result.Reason == ResultReason.RecognizedSpeech)
-        {
-            foreach (var item in e.Result.Text)
-            {
+    private void SpeechRecognizer_Recognized(object? sender, SpeechRecognitionEventArgs e) {
+        if (e.Result.Reason == ResultReason.RecognizedSpeech) {
+            foreach (var item in e.Result.Text) {
                 Words.Add(item);
             }
         }
     }
 
-    private void SpeechRecognizer_Recognizing(object? sender, SpeechRecognitionEventArgs e)
-    {
+    private void SpeechRecognizer_Recognizing(object? sender, SpeechRecognitionEventArgs e) {
+    }
+
+    enum TilesIdentifiers {
+        Audio = 0,
+        Video = 1,
+        Ocr = 2,
+        document = 3,
+        Account = 4,
+        About = 5,
     }
 }

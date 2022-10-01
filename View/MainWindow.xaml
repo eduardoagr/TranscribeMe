@@ -1,41 +1,35 @@
-﻿<Window x:Class="TranscribeMe.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-        Width="450"
-        Loaded="Window_Loaded"
-        Height="450"
-        AllowsTransparency="True"
-        Background="Transparent"
-        ResizeMode="NoResize"
-        WindowStyle="None"
-        mc:Ignorable="d">
+﻿<Window
+    x:Class="TranscribeMe.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
+    Width="800"
+    Height="600"
+    AllowsTransparency="True"
+    Background="Transparent"
+    Loaded="Window_Loaded"
+    ResizeMode="NoResize"
+    WindowStyle="None"
+    mc:Ignorable="d">
 
     <Window.Resources>
-        <Style x:Key="TileStyle"
-               TargetType="{x:Type mah:Tile}">
+        <Style x:Key="TileStyle" TargetType="{x:Type mah:Tile}">
+            <Setter Property="FontWeight" Value="Bold" />
             <Style.Triggers>
-                <Trigger Property="IsEnabled"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="{Binding TileColor}" />
+                <Trigger Property="IsEnabled" Value="True">
+                    <Setter Property="Background" Value="{Binding TileColor}" />
                 </Trigger>
-                <Trigger Property="IsEnabled"
-                         Value="False">
-                    <Setter Property="Background"
-                            Value="#9A9A9A" />
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#9A9A9A" />
                 </Trigger>
             </Style.Triggers>
         </Style>
     </Window.Resources>
 
-    <Border Background="#050A30"
-            CornerRadius="20">
+    <Border Background="#3700b3" CornerRadius="20">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -43,42 +37,45 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Button HorizontalContentAlignment="Right"
-                    HorizontalAlignment="Right"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Command="{Binding ExitCommand}"
-                    Focusable="False"
-                    materialDesign:RippleAssist.IsDisabled="True"
-                    Margin="10">
-                <materialDesign:PackIcon Kind="CloseCircle"/>
-            </Button>
+            <Ellipse
+                Margin="10"
+                Fill="Crimson" 
+                HorizontalAlignment="Right"
+                Width="30" Height="30">
+                <behaviours:Interaction.Triggers>
+                    <behaviours:EventTrigger EventName="MouseLeftButtonDown">
+                        <behaviours:InvokeCommandAction Command="{Binding ExitCommand}" PassEventArgsToCommand="True"/>
+                    </behaviours:EventTrigger>
+                </behaviours:Interaction.Triggers>
+            </Ellipse>
 
-            <ItemsControl Grid.Row="1"
-                          ItemsSource="{Binding Tiles}">
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding Tiles}" Grid.ColumnSpan="2">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="2" />
+                        <UniformGrid Rows="2" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <mah:Tile Width="150"
-                                  materialDesign:RippleAssist.RippleOnTop="True"
-                                  Height="150"
-                                  TitleFontSize="15"
-                                  Title="{Binding TileTitle}"
-                                  Command="{Binding TileCommand}"
-                                  CommandParameter="{Binding TileIdentifier}"
-                                  IsEnabled="{Binding IsTileActive}"
-                                  Style="{StaticResource TileStyle}">
+                        <mah:Tile
+                            Title="{Binding TileTitle}"
+                            Width="150"
+                            Height="150"
+                            Margin="10"
+                            materialDesign:RippleAssist.RippleOnTop="True"
+                            Command="{Binding TileCommand}"
+                            CommandParameter="{Binding TileIdentifier}"
+                            IsEnabled="{Binding IsTileActive}"
+                            Style="{StaticResource TileStyle}"
+                            TitleFontSize="12">
 
-                            <Label HorizontalContentAlignment="Center"
-                                   VerticalContentAlignment="Center"
-                                   Content="{Binding TileIcon}"
-                                   FontFamily="{StaticResource Material}"
-                                   FontSize="80"
-                                   Foreground="White" />
+                            <Label
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Content="{Binding TileIcon}"
+                                FontFamily="{StaticResource Material}"
+                                FontSize="80"
+                                Foreground="White" />
                         </mah:Tile>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

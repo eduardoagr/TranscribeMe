@@ -1,12 +1,8 @@
-﻿using System.Windows.Media;
-
-using MvvmHelpers.Commands;
-
-namespace Model;
+﻿namespace Model;
 
 public class Tile
 {
-    public string? TileIdentifier
+    public int? TileIdentifier
     {
         get; set;
     }
@@ -14,10 +10,7 @@ public class Tile
     {
         get; set;
     }
-    public Brush? TileColor
-    {
-        get; set;
-    }
+    public Brush? TileColor { get; set; } = new SolidColorBrush(Color.FromRgb(1, 135, 134));
     public Command? TileCommand
     {
         get; set;

@@ -9,14 +9,10 @@ global using System.Windows.Media;
 
 global using Fonts;
 
-global using Microsoft.CognitiveServices.Speech;
-global using Microsoft.CognitiveServices.Speech.Audio;
 global using Microsoft.Win32;
 
 global using Model;
 
 global using MvvmHelpers.Commands;
-
-global using NAudio.Wave;
 
 global using PropertyChanged;

@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-using Config;
+﻿using Config;
 
 using Syncfusion.Licensing;
 
@@ -12,8 +10,7 @@ public partial class App : Application
 {
     public App()
     {
-        //Register Syncfusion license
-        SyncfusionLicenseProvider.RegisterLicense(Constants.SYNCFUSION_KEY);
+        SyncfusionLicenseProvider.RegisterLicense(ConstantsHelpers.SYNCFUSION_KEY);
     }
 
 }
