@@ -43,7 +43,7 @@ public class MainWindowViewModel {
         {
             new Tile(){
                 IsTileActive = true,
-                TileTitle = LocalizedStrings.Instance["AudioToText"],
+                TileTitle = Strings.AudioToText,
                 TileIdentifier = (int)TilesIdentifiers.Audio,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.VolumeHigh
@@ -51,20 +51,20 @@ public class MainWindowViewModel {
              new Tile(){
                 IsTileActive = true,
                 TileIdentifier = (int)TilesIdentifiers.Video,
-                TileTitle = LocalizedStrings.Instance["VideoToText"] ,
+                TileTitle = Resources.Strings.VideoToText,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.FileVideo
             },
               new Tile(){
                 IsTileActive = true,
-                TileTitle = LocalizedStrings.Instance["ImageToText"],
+                TileTitle = Strings.ImageToText,
                 TileIdentifier = (int)TilesIdentifiers.Ocr,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.EyeCircle
             },
                  new Tile(){
                 IsTileActive = true,
-                TileTitle = LocalizedStrings.Instance["TranslateDocument"],
+                TileTitle = Strings.TranslateDocument,
                 TileIdentifier = (int)TilesIdentifiers.document,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.FileDocument
@@ -73,14 +73,14 @@ public class MainWindowViewModel {
                new Tile(){
                 IsTileActive = true,
                 TileIdentifier = (int)TilesIdentifiers.Account,
-                TileTitle = LocalizedStrings.Instance["Account"],
+                TileTitle = Strings.Account,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.Account
             },
               new Tile(){
                 IsTileActive = true,
                 TileIdentifier = (int)TilesIdentifiers.About,
-                TileTitle = LocalizedStrings.Instance["About"],
+                TileTitle = Strings.About,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.Help
             }
