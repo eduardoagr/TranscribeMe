@@ -11,27 +11,20 @@ using NAudio.Wave;
 
 using Syncfusion.DocIO.DLS;
 
+using TranscribeMe.Resources;
 using TranscribeMe.Services;
 
 namespace TranscribeMe.ViewModel;
 
 [AddINotifyPropertyChangedInterface]
 public class MainWindowViewModel {
-    public Command ExitCommand {
-        get; set;
-    }
+    public Command ExitCommand { get; set; }
 
-    public Command AzureCommand {
-        get; set;
-    }
+    public Command AzureCommand { get; set; }
 
-    public ObservableCollection<Tile>? Tiles {
-        get; set;
-    }
-    public List<char> Words {
-        get; set;
-    }
+    public ObservableCollection<Tile>? Tiles { get; set; }
 
+    public List<char> Words { get; set; }
 
     public MainWindowViewModel() {
         AzureCommand = new Command(AzureActionAsync);
@@ -39,57 +32,55 @@ public class MainWindowViewModel {
         InitCollection();
         Words = new List<char>();
     }
+
+    //    AudioToText
+    //VideoToText
+    //TranslateDocument
+    //Account
+    //About
     private void InitCollection() {
         Tiles = new ObservableCollection<Tile>()
         {
-            new Tile()
-            {
+            new Tile(){
                 IsTileActive = true,
-                TileTitle = "Audio to text",
+                TileTitle = LocalizedStrings.Instance["AudioToText"],
                 TileIdentifier = (int)TilesIdentifiers.Audio,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.VolumeHigh
             },
-             new Tile()
-            {
+             new Tile(){
                 IsTileActive = true,
                 TileIdentifier = (int)TilesIdentifiers.Video,
-                TileTitle = "Video to text" ,
+                TileTitle = LocalizedStrings.Instance["VideoToText"] ,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.FileVideo
             },
-              new Tile()
-            {
+              new Tile(){
                 IsTileActive = true,
-                TileTitle = "image to text",
+                TileTitle = LocalizedStrings.Instance["ImageToText"],
                 TileIdentifier = (int)TilesIdentifiers.Ocr,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.EyeCircle
-
-
             },
-                 new Tile()
-            {
+                 new Tile(){
                 IsTileActive = true,
-                TileTitle = "Translate document",
+                TileTitle = LocalizedStrings.Instance["TranslateDocument"],
                 TileIdentifier = (int)TilesIdentifiers.document,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.FileDocument
 
             },
-               new Tile()
-            {
+               new Tile(){
                 IsTileActive = true,
                 TileIdentifier = (int)TilesIdentifiers.Account,
-                TileTitle = "Account",
+                TileTitle = LocalizedStrings.Instance["Account"],
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.Account
             },
-              new Tile()
-            {
+              new Tile(){
                 IsTileActive = true,
                 TileIdentifier = (int)TilesIdentifiers.About,
-                TileTitle = "About TranscribeMe",
+                TileTitle = LocalizedStrings.Instance["About"],
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.Help
             }
@@ -248,7 +239,8 @@ public class MainWindowViewModel {
     private void SpeechRecognizer_SessionStopped(object? sender, SessionEventArgs e) {
         Tiles![0].IsTileActive = true;
 
-        CreateFolder(ConstantsHelpers.TRANSLATIONS)
+        var pathToSave = CreateFolder(ConstantsHelpers.TRANSLATIONS);
+
 
         var sb = new StringBuilder();
 
@@ -262,7 +254,7 @@ public class MainWindowViewModel {
 
         document.LastParagraph.AppendText(sb.ToString());
 
-        document.Save(filename);
+        //document.Save(filename);
 
         MessageBox.Show("Created");
     }
