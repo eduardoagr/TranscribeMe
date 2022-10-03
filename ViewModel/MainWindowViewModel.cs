@@ -291,6 +291,6 @@ public class MainWindowViewModel {
         toastXml.LoadXml(xml);
         var toast = new ToastNotification(toastXml);
 
-        ToastNotificationManager.CreateToastNotifier("Sample toast").Show(toast);
+        ToastNotificationManager.CreateToastNotifier("Transcribed").Show(toast);
     }
 }
