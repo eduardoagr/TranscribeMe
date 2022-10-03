@@ -11,6 +11,8 @@ using NAudio.Wave;
 
 using Syncfusion.DocIO.DLS;
 
+using System.Net;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 
 using TranscribeMe.Resources;
@@ -136,16 +138,23 @@ public class MainWindowViewModel {
 
                 var storageService = new AzureStorageService();
 
-                CreateDialog(out dlg, ConstantsHelpers.DOCUMENTS);
+                 CreateDialog(out dlg, ConstantsHelpers.DOCUMENTS);
 
                 var path = CreateFolder(ConstantsHelpers.TRANSLATIONS);
 
                 if (!string.IsNullOrEmpty(dlg.FileName)) {
                     var sourceUri = await storageService.UploadToAzureBlobStorage(Path.GetFullPath(dlg.FileName));
 
-                    var targetUri = await storageService.SaveFromdAzureBlobStorage(Path.GetFullPath(dlg.FileName), path);
+                    var targetUri = await storageService.SaveFromdAzureBlobStorage(Path.GetFullPath(dlg.FileName));
 
                     await AzureTranslationService.TranslatorAsync(sourceUri, targetUri);
+
+                   var PathToSave = Path.Combine(path, dlg.FileName);
+
+                    using var client = new HttpClient();
+                    using var s = await client.GetStreamAsync(targetUri);
+                    using var fs = new FileStream(PathToSave, FileMode.OpenOrCreate);
+                    await s.CopyToAsync(fs);
                 }
 
                 break;
