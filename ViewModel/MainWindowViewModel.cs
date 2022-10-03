@@ -136,14 +136,14 @@ public class MainWindowViewModel {
 
                 var storageService = new AzureStorageService();
 
-                var DocumentName = CreateDialog(out dlg, ConstantsHelpers.DOCUMENTS);
+                CreateDialog(out dlg, ConstantsHelpers.DOCUMENTS);
 
                 var path = CreateFolder(ConstantsHelpers.TRANSLATIONS);
 
                 if (!string.IsNullOrEmpty(dlg.FileName)) {
                     var sourceUri = await storageService.UploadToAzureBlobStorage(Path.GetFullPath(dlg.FileName));
 
-                    var targetUri = await storageService.SaveFromdAzureBlobStorage(Path.GetFullPath(dlg.FileName));
+                    var targetUri = await storageService.SaveFromdAzureBlobStorage(Path.GetFullPath(dlg.FileName), path);
 
                     await AzureTranslationService.TranslatorAsync(sourceUri, targetUri);
                 }
