@@ -1,23 +1,4 @@
-﻿using Config;
-
-using MediaToolkit;
-using MediaToolkit.Model;
-using MediaToolkit.Options;
-
-using Microsoft.CognitiveServices.Speech;
-using Microsoft.CognitiveServices.Speech.Audio;
-
-using NAudio.Wave;
-
-using Syncfusion.DocIO.DLS;
-
-using System.Net;
-using System.Net.Http;
-using System.Text.RegularExpressions;
-
-using TranscribeMe.Resources;
-using TranscribeMe.Services;
-
+﻿
 namespace TranscribeMe.ViewModel;
 
 [AddINotifyPropertyChangedInterface]
@@ -104,7 +85,7 @@ public class MainWindowViewModel {
 
                 Converter(dlg, Audiofilename, out _, out _);
 
-                await ConvertToTextAsync(Audiofilename);
+                await ConvertToTextAsync(Audiofilename, (int)TilesIdentifiers.Audio);
 
                 break;
 
@@ -138,23 +119,24 @@ public class MainWindowViewModel {
 
                 var storageService = new AzureStorageService();
 
-                 CreateDialog(out dlg, ConstantsHelpers.DOCUMENTS);
+                CreateDialog(out dlg, ConstantsHelpers.DOCUMENTS);
 
                 var path = CreateFolder(ConstantsHelpers.TRANSLATIONS);
 
                 if (!string.IsNullOrEmpty(dlg.FileName)) {
+
                     var sourceUri = await storageService.UploadToAzureBlobStorage(Path.GetFullPath(dlg.FileName));
 
                     var targetUri = await storageService.SaveFromdAzureBlobStorage(Path.GetFullPath(dlg.FileName));
 
                     await AzureTranslationService.TranslatorAsync(sourceUri, targetUri);
 
-                   var PathToSave = Path.Combine(path, dlg.FileName);
+                    var PathToSave = Path.Combine(path, dlg.FileName);
 
-                    using var client = new HttpClient();
-                    using var s = await client.GetStreamAsync(targetUri);
-                    using var fs = new FileStream(PathToSave, FileMode.OpenOrCreate);
-                    await s.CopyToAsync(fs);
+                    //using var client = new HttpClient();
+                    //using var s = await client.GetStreamAsync(targetUri);
+                    //using var fs = new FileStream(PathToSave, FileMode.OpenOrCreate);
+                    //await s.CopyToAsync(fs);
                 }
 
                 break;
@@ -201,6 +183,7 @@ public class MainWindowViewModel {
         dlg = new OpenFileDialog {
             Filter = filter,
         };
+
         var res = dlg.ShowDialog();
 
         if (res == true) {
@@ -219,7 +202,7 @@ public class MainWindowViewModel {
     }
 
 
-    private async Task ConvertToTextAsync(string FilePath) {
+    private async Task ConvertToTextAsync(string FilePath, int TileIndexWorking) {
         //Configure speech service
 
         var config = SpeechConfig.FromSubscription(ConstantsHelpers.AZURE_KEY, ConstantsHelpers.AZURE_REGION);
@@ -232,10 +215,66 @@ public class MainWindowViewModel {
 
         using var audioConfig = AudioConfig.FromWavFileInput(FilePath);
         using var speechRecognizer = new SpeechRecognizer(config, audioConfig);
-        speechRecognizer.Recognizing += SpeechRecognizer_Recognizing;
-        speechRecognizer.Recognized += SpeechRecognizer_Recognized;
-        speechRecognizer.SessionStarted += SpeechRecognizer_SessionStarted;
-        speechRecognizer.SessionStopped += SpeechRecognizer_SessionStopped;
+
+        speechRecognizer.Recognized += (sender, e) => {
+            if (e.Result.Reason == ResultReason.RecognizedSpeech) {
+                foreach (var item in e.Result.Text) {
+                    Words.Add(item);
+                }
+            }
+        };
+
+        speechRecognizer.SessionStarted += (sender, e) => {
+
+            Tiles![TileIndexWorking].IsTileActive = false;
+
+            Debug.WriteLine("Session started");
+        };
+
+        speechRecognizer.SessionStopped += (sender, e) => {
+
+            Tiles![TileIndexWorking].IsTileActive = true;
+
+            const string ext = ".docx";
+
+            var pathToSave = CreateFolder(ConstantsHelpers.TRANSCRIPTIONS);
+
+            var filename = Path.Combine(pathToSave, $"{Path.GetFileNameWithoutExtension(FilePath)}{ext}");
+
+            var sb = new StringBuilder();
+
+            foreach (var item in Words) {
+                sb.Append(item);
+            }
+
+            using var document = new WordDocument();
+
+            document.EnsureMinimal();
+
+            document.LastParagraph.AppendText(sb.ToString());
+
+            // Find all the text which start with capital letters next to period (.) in the Word document.
+
+            //For example . Text or .Text
+
+            TextSelection[] textSelections = document.FindAll(new Regex(@"[.]\s+[A-Z]|[.][A-Z]"));
+
+            for (int i = 0; i < textSelections.Length; i++) {
+
+                WTextRange textToFind = textSelections[i].GetAsOneRange();
+
+                //Replace the period (.) with enter(\n).
+
+                string replacementText = textToFind.Text.Replace(".", ".\n\n");
+
+                textToFind.Text = replacementText;
+
+            }
+
+            document.Save(filename);
+
+            CreateAndShowPrompt("Your document is ready");
+        };
 
         await speechRecognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);
 
@@ -244,72 +283,12 @@ public class MainWindowViewModel {
         await speechRecognizer.StopContinuousRecognitionAsync().ConfigureAwait(false);
     }
 
-    private void SpeechRecognizer_SessionStopped(object? sender, SessionEventArgs e) {
+    private void CreateAndShowPrompt(string message) {
+        var xml = $"<?xml version=\"1.0\"?><toast><visual><binding template=\"ToastText01\"><text id=\"1\">{message}</text></binding></visual></toast>";
+        var toastXml = new XmlDocument();
+        toastXml.LoadXml(xml);
+        var toast = new ToastNotification(toastXml);
 
-        Tiles![0].IsTileActive = true;
-
-        var filename = "Azure.docx";
-
-        var pathToSave = CreateFolder(ConstantsHelpers.TRANSCRIPTIONS);
-
-        Path.Combine(pathToSave, filename);
-
-        var sb = new StringBuilder();
-
-        foreach (var item in Words) {
-            sb.Append(item);
-        }
-
-        using var document = new WordDocument();
-
-        document.EnsureMinimal();
-
-        document.LastParagraph.AppendText(sb.ToString());
-
-        // Find all the text which start with capital letters next to period (.) in the Word document.
-
-        //For example . Text or .Text
-
-        TextSelection[] textSelections = document.FindAll(new Regex(@"[.]\s+[A-Z]|[.][A-Z]"));
-
-        for (int i = 0; i < textSelections.Length; i++) {
-
-            WTextRange textToFind = textSelections[i].GetAsOneRange();
-
-            //Replace the period (.) with enter(\n).
-
-            string replacementText = textToFind.Text.Replace(".", ".\n");
-
-            textToFind.Text = replacementText;
-
-        }
-
-        document.Save(filename);
-
-        MessageBox.Show("Created");
-    }
-
-    private void SpeechRecognizer_SessionStarted(object? sender, SessionEventArgs e) {
-        Tiles![0].IsTileActive = false;
-
-        Debug.WriteLine("Started");
-    }
-    private void SpeechRecognizer_Recognized(object? sender, SpeechRecognitionEventArgs e) {
-        if (e.Result.Reason == ResultReason.RecognizedSpeech) {
-            foreach (var item in e.Result.Text) {
-                Words.Add(item);
-            }
-        }
-    }
-
-    private void SpeechRecognizer_Recognizing(object? sender, SpeechRecognitionEventArgs e) {
-    }
-    enum TilesIdentifiers {
-        Audio = 0,
-        Video = 1,
-        Ocr = 2,
-        document = 3,
-        Account = 4,
-        About = 5,
+        ToastNotificationManager.CreateToastNotifier("Sample toast").Show(toast);
     }
 }
