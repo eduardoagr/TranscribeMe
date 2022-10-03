@@ -104,6 +104,8 @@ public class MainWindowViewModel {
 
                 if (!string.IsNullOrEmpty(inputFile.Filename)) {
                     engine.Convert(inputFile, outputFile, options);
+
+                    await ConvertToTextAsync(VideoFilename, (int)TilesIdentifiers.Video);
                 }
 
                 break;
