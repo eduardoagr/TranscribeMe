@@ -59,22 +59,22 @@
                     <DataTemplate>
                         <mah:Tile
                             Title="{Binding TileTitle}"
-                            Width="150"
-                            Height="150"
+                            Width="200"
+                            Height="200"
                             Margin="10"
                             materialDesign:RippleAssist.RippleOnTop="True"
                             Command="{Binding TileCommand}"
                             CommandParameter="{Binding TileIdentifier}"
                             IsEnabled="{Binding IsTileActive}"
                             Style="{StaticResource TileStyle}"
-                            TitleFontSize="12">
+                            TitleFontSize="14">
 
                             <Label
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
                                 Content="{Binding TileIcon}"
                                 FontFamily="{StaticResource Material}"
-                                FontSize="80"
+                                FontSize="120"
                                 Foreground="White" />
                         </mah:Tile>
                     </DataTemplate>

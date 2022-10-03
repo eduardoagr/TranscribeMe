@@ -16,15 +16,18 @@ namespace TranscribeMe.Services {
 
             await operation.WaitForCompletionAsync();
 
-
-            MessageBox.Show($"  Status: {operation.Status}");
-            MessageBox.Show($"  Created on: {operation.CreatedOn}");
-            MessageBox.Show($"  Last modified: {operation.LastModified}");
-            MessageBox.Show($"  Total documents: {operation.DocumentsTotal}");
-            MessageBox.Show($"    Succeeded: {operation.DocumentsSucceeded}");
-            MessageBox.Show($"    Failed: {operation.DocumentsFailed}");
-            MessageBox.Show($"    In Progress: {operation.DocumentsInProgress}");
-            MessageBox.Show($"Not started: {operation.DocumentsNotStarted}");
+            await foreach (var document in operation.Value) {
+                MessageBox.Show($"Document with Id: {document.Id}");
+                MessageBox.Show($"  Status:{document.Status}");
+                if (document.Status == DocumentTranslationStatus.Succeeded) {
+                    MessageBox.Show($"  Translated Document Uri: {document.TranslatedDocumentUri}");
+                    MessageBox.Show($"  Translated to language: {document.TranslatedToLanguageCode}.");
+                    MessageBox.Show($"  Document source Uri: {document.SourceDocumentUri}");
+                } else {
+                    MessageBox.Show($"  Error Code: {document.Error.Code}");
+                    MessageBox.Show($"  Message: {document.Error.Message}");
+                }
+            }
 
         }
     }

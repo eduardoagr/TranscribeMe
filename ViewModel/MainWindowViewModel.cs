@@ -11,6 +11,8 @@ using NAudio.Wave;
 
 using Syncfusion.DocIO.DLS;
 
+using System.Text.RegularExpressions;
+
 using TranscribeMe.Resources;
 using TranscribeMe.Services;
 
@@ -33,17 +35,12 @@ public class MainWindowViewModel {
         Words = new List<char>();
     }
 
-    //    AudioToText
-    //VideoToText
-    //TranslateDocument
-    //Account
-    //About
     private void InitCollection() {
         Tiles = new ObservableCollection<Tile>()
         {
             new Tile(){
                 IsTileActive = true,
-                TileTitle = Strings.AudioToText,
+                TileTitle = Lang.AudioToText,
                 TileIdentifier = (int)TilesIdentifiers.Audio,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.VolumeHigh
@@ -51,20 +48,20 @@ public class MainWindowViewModel {
              new Tile(){
                 IsTileActive = true,
                 TileIdentifier = (int)TilesIdentifiers.Video,
-                TileTitle = Resources.Strings.VideoToText,
+                TileTitle = Lang.VideoToText,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.FileVideo
             },
               new Tile(){
                 IsTileActive = true,
-                TileTitle = Strings.ImageToText,
+                TileTitle = Lang.ImageToText,
                 TileIdentifier = (int)TilesIdentifiers.Ocr,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.EyeCircle
             },
                  new Tile(){
                 IsTileActive = true,
-                TileTitle = Strings.TranslateDocument,
+                TileTitle = Lang.TranslateDocument,
                 TileIdentifier = (int)TilesIdentifiers.document,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.FileDocument
@@ -73,14 +70,14 @@ public class MainWindowViewModel {
                new Tile(){
                 IsTileActive = true,
                 TileIdentifier = (int)TilesIdentifiers.Account,
-                TileTitle = Strings.Account,
+                TileTitle = Lang.Account,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.Account
             },
               new Tile(){
                 IsTileActive = true,
                 TileIdentifier = (int)TilesIdentifiers.About,
-                TileTitle = Strings.About,
+                TileTitle = Lang.About,
                 TileCommand = AzureCommand,
                 TileIcon = IconFont.Help
             }
@@ -104,6 +101,8 @@ public class MainWindowViewModel {
                 var Audiofilename = Path.Combine(AudioFolderPath, $"{AudioName}{ext}");
 
                 Converter(dlg, Audiofilename, out _, out _);
+
+                await ConvertToTextAsync(Audiofilename);
 
                 break;
 
@@ -144,7 +143,7 @@ public class MainWindowViewModel {
                 if (!string.IsNullOrEmpty(dlg.FileName)) {
                     var sourceUri = await storageService.UploadToAzureBlobStorage(Path.GetFullPath(dlg.FileName));
 
-                    var targetUri = await storageService.SaveFromdAzureBlobStorage(Path.GetFullPath(dlg.FileName), path);
+                    var targetUri = await storageService.SaveFromdAzureBlobStorage(Path.GetFullPath(dlg.FileName));
 
                     await AzureTranslationService.TranslatorAsync(sourceUri, targetUri);
                 }
@@ -237,10 +236,14 @@ public class MainWindowViewModel {
     }
 
     private void SpeechRecognizer_SessionStopped(object? sender, SessionEventArgs e) {
+
         Tiles![0].IsTileActive = true;
 
-        var pathToSave = CreateFolder(ConstantsHelpers.TRANSLATIONS);
+        var filename = "Azure.docx";
 
+        var pathToSave = CreateFolder(ConstantsHelpers.TRANSCRIPTIONS);
+
+        Path.Combine(pathToSave, filename);
 
         var sb = new StringBuilder();
 
@@ -254,7 +257,25 @@ public class MainWindowViewModel {
 
         document.LastParagraph.AppendText(sb.ToString());
 
-        //document.Save(filename);
+        // Find all the text which start with capital letters next to period (.) in the Word document.
+
+        //For example . Text or .Text
+
+        TextSelection[] textSelections = document.FindAll(new Regex(@"[.]\s+[A-Z]|[.][A-Z]"));
+
+        for (int i = 0; i < textSelections.Length; i++) {
+
+            WTextRange textToFind = textSelections[i].GetAsOneRange();
+
+            //Replace the period (.) with enter(\n).
+
+            string replacementText = textToFind.Text.Replace(".", ".\n");
+
+            textToFind.Text = replacementText;
+
+        }
+
+        document.Save(filename);
 
         MessageBox.Show("Created");
     }
@@ -274,7 +295,6 @@ public class MainWindowViewModel {
 
     private void SpeechRecognizer_Recognizing(object? sender, SpeechRecognitionEventArgs e) {
     }
-
     enum TilesIdentifiers {
         Audio = 0,
         Video = 1,
