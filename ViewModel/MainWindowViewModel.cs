@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.Toolkit.Uwp.Notifications;
+
 namespace TranscribeMe.ViewModel;
 
 public class MainWindowViewModel {
@@ -78,17 +80,15 @@ public class MainWindowViewModel {
         switch (obj) {
             case (int)TilesIdentifiers.Audio:
 
+                CreateAndShowPrompt("Your document is ready");
+
                 var AudioName = CreateDialog(out dlg, ConstantsHelpers.AUDIO);
 
                 var Audiofilename = Path.Combine(AudioFolderPath, $"{AudioName}{ext}");
 
-                ToggleTile(true, (int)TilesIdentifiers.Audio);
-
                 Converter(dlg, Audiofilename, out _, out _);
 
-                await ConvertToTextAsync(Audiofilename);
-
-                ToggleTile(false, (int)TilesIdentifiers.Audio);
+                await ConvertToTextAsync(Audiofilename, AudioName!, (int)TilesIdentifiers.Audio);
 
                 break;
 
@@ -108,7 +108,7 @@ public class MainWindowViewModel {
                 if (!string.IsNullOrEmpty(inputFile.Filename)) {
                     engine.Convert(inputFile, outputFile, options);
 
-                    await ConvertToTextAsync(VideoFilename);
+                    //await ConvertToTextAsync(VideoFilename);
                 }
 
                 break;
@@ -207,7 +207,7 @@ public class MainWindowViewModel {
     }
 
 
-    private async Task ConvertToTextAsync(string FilePath) {
+    private async Task ConvertToTextAsync(string FilePath, string FileName, int Id) {
         //Configure speech service
 
         var config = SpeechConfig.FromSubscription(ConstantsHelpers.AZURE_KEY, ConstantsHelpers.AZURE_REGION);
@@ -219,87 +219,84 @@ public class MainWindowViewModel {
         var taskCompleteionSource = new TaskCompletionSource<int>();
 
         using var audioConfig = AudioConfig.FromWavFileInput(FilePath);
-        using var speechRecognizer = new SpeechRecognizer(config, audioConfig);
+        if (!string.IsNullOrEmpty(FileName)) {
+            using var speechRecognizer = new SpeechRecognizer(config, audioConfig);
 
-        speechRecognizer.Recognized += (sender, e) => {
-            if (e.Result.Reason == ResultReason.RecognizedSpeech) {
-                foreach (var item in e.Result.Text) {
-                    Words.Add(item);
+            speechRecognizer.Recognized += (sender, e) => {
+                if (e.Result.Reason == ResultReason.RecognizedSpeech) {
+                    foreach (var item in e.Result.Text) {
+                        Words.Add(item);
+                    }
                 }
-            }
-        };
+            };
 
-        speechRecognizer.SessionStarted += (sender, e) => {
+            speechRecognizer.SessionStarted += (sender, e) => {
 
-            Debug.WriteLine("Session started");
-        };
+                Tiles![Id].IsTileActive = false;
 
-        speechRecognizer.SessionStopped += (sender, e) => {
+                Debug.WriteLine("Session started");
+            };
 
-            const string ext = ".docx";
+            speechRecognizer.SessionStopped += (sender, e) => {
 
-            var pathToSave = CreateFolder(ConstantsHelpers.TRANSCRIPTIONS);
+                const string ext = ".docx";
 
-            var filename = Path.Combine(pathToSave, $"{Path.GetFileNameWithoutExtension(FilePath)}{ext}");
+                var pathToSave = CreateFolder(ConstantsHelpers.TRANSCRIPTIONS);
 
-            var sb = new StringBuilder();
+                var filename = Path.Combine(pathToSave, $"{Path.GetFileNameWithoutExtension(FilePath)}{ext}");
 
-            foreach (var item in Words) {
-                sb.Append(item);
-            }
+                var sb = new StringBuilder();
 
-            using var document = new WordDocument();
+                foreach (var item in Words) {
+                    sb.Append(item);
+                }
 
-            document.EnsureMinimal();
+                using var document = new WordDocument();
 
-            document.LastParagraph.AppendText(sb.ToString());
+                document.EnsureMinimal();
 
-            // Find all the text which start with capital letters next to period (.) in the Word document.
+                document.LastParagraph.AppendText(sb.ToString());
 
-            //For example . Text or .Text
+                // Find all the text which start with capital letters next to period (.) in the Word document.
 
-            TextSelection[] textSelections = document.FindAll(new Regex(@"[.]\s+[A-Z]|[.][A-Z]"));
+                //For example . Text or .Text
 
-            for (int i = 0; i < textSelections.Length; i++) {
+                TextSelection[] textSelections = document.FindAll(new Regex(@"[.]\s+[A-Z]|[.][A-Z]"));
 
-                WTextRange textToFind = textSelections[i].GetAsOneRange();
+                for (int i = 0; i < textSelections.Length; i++) {
 
-                //Replace the period (.) with enter(\n).
+                    WTextRange textToFind = textSelections[i].GetAsOneRange();
 
-                string replacementText = textToFind.Text.Replace(".", ".\n\n");
+                    //Replace the period (.) with enter(\n).
 
-                textToFind.Text = replacementText;
+                    string replacementText = textToFind.Text.Replace(".", ".\n\n");
 
-            }
+                    textToFind.Text = replacementText;
 
-            document.Save(filename);
+                }
 
-            CreateAndShowPrompt("Your document is ready");
+                document.Save(filename);
 
-        };
+                Tiles![Id].IsTileActive = true;
 
-        await speechRecognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);
 
-        Task.WaitAny(new[] { taskCompleteionSource.Task });
+            };
 
-        await speechRecognizer.StopContinuousRecognitionAsync().ConfigureAwait(false);
+            await speechRecognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);
+
+            Task.WaitAny(new[] { taskCompleteionSource.Task });
+
+            await speechRecognizer.StopContinuousRecognitionAsync().ConfigureAwait(false);
+        }
+
     }
 
     private void CreateAndShowPrompt(string message) {
-        var xml = $"<?xml version=\"1.0\"?><toast><visual><binding template=\"ToastText01\"><text id=\"1\">{message}</text></binding></visual></toast>";
-        var toastXml = new XmlDocument();
-        toastXml.LoadXml(xml);
-        var toast = new ToastNotification(toastXml);
-
-        ToastNotificationManager.CreateToastNotifier("Transcribed").Show(toast);
-    }
-
-    private void ToggleTile(bool isWoking, int id) {
-
-        if (isWoking) {
-            Tiles![id].IsTileActive = false;
-        } else {
-            Tiles![id].IsTileActive = true;
-        }
+        new ToastContentBuilder()
+         .AddArgument("action", "viewConversation")
+         .AddArgument("conversationId", 9813)
+         .AddAppLogoOverride(new Uri(Path.GetFullPath(@"\Images\Word.png"), UriKind.Absolute), ToastGenericAppLogoCrop.Circle)
+         .AddText(message)
+         .Show(); //
     }
 }

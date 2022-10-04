@@ -124,15 +124,15 @@
     <value>Account</value>
   </data>
   <data name="AudioToText" xml:space="preserve">
-    <value>Extract text from audio</value>
+    <value>Audio to text</value>
   </data>
   <data name="ImageToText" xml:space="preserve">
-    <value>Extract tet from image</value>
+    <value>Image to text</value>
   </data>
   <data name="TranslateDocument" xml:space="preserve">
     <value>Translate document</value>
   </data>
   <data name="VideoToText" xml:space="preserve">
-    <value>Extract text from video</value>
+    <value>Video to text</value>
   </data>
 </root>

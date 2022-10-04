@@ -79,7 +79,7 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extract text from audio.
+        ///   Looks up a localized string similar to Audio to text.
         /// </summary>
         public static string AudioToText {
             get {
@@ -88,7 +88,7 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extract tet from image.
+        ///   Looks up a localized string similar to Image to text.
         /// </summary>
         public static string ImageToText {
             get {
@@ -106,7 +106,7 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extract text from video.
+        ///   Looks up a localized string similar to Video to text.
         /// </summary>
         public static string VideoToText {
             get {

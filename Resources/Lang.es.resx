@@ -124,15 +124,15 @@
     <value>Cuenta</value>
   </data>
   <data name="AudioToText" xml:space="preserve">
-    <value>Extraer texto de un audio</value>
+    <value>Audio a texto</value>
   </data>
   <data name="ImageToText" xml:space="preserve">
-    <value>Extraer texto de una image</value>
+    <value>Imagen a texto</value>
   </data>
   <data name="TranslateDocument" xml:space="preserve">
-    <value>Traducció de document</value>
+    <value>Traducción de document</value>
   </data>
   <data name="VideoToText" xml:space="preserve">
-    <value>Extraer audio de un video</value>
+    <value>Video a texto</value>
   </data>
 </root>

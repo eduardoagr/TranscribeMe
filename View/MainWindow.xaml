@@ -12,6 +12,7 @@
     Background="Transparent"
     Loaded="Window_Loaded"
     ResizeMode="NoResize"
+    Focusable='False'
     WindowStyle="None"
     mc:Ignorable="d">
 
@@ -59,8 +60,8 @@
                     <DataTemplate>
                         <mah:Tile
                             Title="{Binding TileTitle}"
-                            Width="200"
-                            Height="200"
+                            Width="150"
+                            Height="150"
                             Margin="10"
                             materialDesign:RippleAssist.RippleOnTop="True"
                             Command="{Binding TileCommand}"
@@ -70,11 +71,9 @@
                             TitleFontSize="14">
 
                             <Label
-                                HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center"
                                 Content="{Binding TileIcon}"
                                 FontFamily="{StaticResource Material}"
-                                FontSize="120"
+                                FontSize="80"
                                 Foreground="White" />
                         </mah:Tile>
                     </DataTemplate>
