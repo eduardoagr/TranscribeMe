@@ -1,7 +1,6 @@
 ﻿
 namespace TranscribeMe.ViewModel;
 
-[AddINotifyPropertyChangedInterface]
 public class MainWindowViewModel {
     public Command ExitCommand { get; set; }
 
@@ -83,9 +82,13 @@ public class MainWindowViewModel {
 
                 var Audiofilename = Path.Combine(AudioFolderPath, $"{AudioName}{ext}");
 
+                ToggleTile(true, (int)TilesIdentifiers.Audio);
+
                 Converter(dlg, Audiofilename, out _, out _);
 
-                await ConvertToTextAsync(Audiofilename, (int)TilesIdentifiers.Audio);
+                await ConvertToTextAsync(Audiofilename);
+
+                ToggleTile(false, (int)TilesIdentifiers.Audio);
 
                 break;
 
@@ -105,7 +108,7 @@ public class MainWindowViewModel {
                 if (!string.IsNullOrEmpty(inputFile.Filename)) {
                     engine.Convert(inputFile, outputFile, options);
 
-                    await ConvertToTextAsync(VideoFilename, (int)TilesIdentifiers.Video);
+                    await ConvertToTextAsync(VideoFilename);
                 }
 
                 break;
@@ -204,7 +207,7 @@ public class MainWindowViewModel {
     }
 
 
-    private async Task ConvertToTextAsync(string FilePath, int TileIndexWorking) {
+    private async Task ConvertToTextAsync(string FilePath) {
         //Configure speech service
 
         var config = SpeechConfig.FromSubscription(ConstantsHelpers.AZURE_KEY, ConstantsHelpers.AZURE_REGION);
@@ -228,14 +231,10 @@ public class MainWindowViewModel {
 
         speechRecognizer.SessionStarted += (sender, e) => {
 
-            Tiles![TileIndexWorking].IsTileActive = false;
-
             Debug.WriteLine("Session started");
         };
 
         speechRecognizer.SessionStopped += (sender, e) => {
-
-            Tiles![TileIndexWorking].IsTileActive = true;
 
             const string ext = ".docx";
 
@@ -276,6 +275,7 @@ public class MainWindowViewModel {
             document.Save(filename);
 
             CreateAndShowPrompt("Your document is ready");
+
         };
 
         await speechRecognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);
@@ -292,5 +292,14 @@ public class MainWindowViewModel {
         var toast = new ToastNotification(toastXml);
 
         ToastNotificationManager.CreateToastNotifier("Transcribed").Show(toast);
+    }
+
+    private void ToggleTile(bool isWoking, int id) {
+
+        if (isWoking) {
+            Tiles![id].IsTileActive = false;
+        } else {
+            Tiles![id].IsTileActive = true;
+        }
     }
 }
