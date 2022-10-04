@@ -69,11 +69,9 @@
 
                     document.Save(filename);
 
-                    ToastService.CreateAndShowPrompt();
-
                     tiles![Id].IsTileActive = true;
 
-
+                    ToastService.LaunchToastNotification(filename);
                 };
 
                 await speechRecognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);

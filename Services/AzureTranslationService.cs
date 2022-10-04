@@ -1,8 +1,6 @@
 ﻿using Azure;
 using Azure.AI.Translation.Document;
 
-using Config;
-
 namespace TranscribeMe.Services {
     public class AzureTranslationService {
 
@@ -20,7 +18,7 @@ namespace TranscribeMe.Services {
 
             tiles[id].IsTileActive = true;
 
-            ToastService.CreateAndShowPrompt();
+            //ToastService.CreateAndShowPrompt();
 
 
             await foreach (var document in operation.Value) {
