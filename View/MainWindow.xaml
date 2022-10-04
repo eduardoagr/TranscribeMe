@@ -30,7 +30,7 @@
         </Style>
     </Window.Resources>
 
-    <Border Background="#3700b3" CornerRadius="20">
+    <Border Background="#32166F" CornerRadius="20">
 
         <Grid>
             <Grid.RowDefinitions>

@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Toolkit.Uwp.Notifications;
+﻿using TranscribeMe.View;
 
 namespace TranscribeMe.ViewModel;
 
@@ -86,8 +85,6 @@ public class MainWindowViewModel {
         switch (obj) {
             case (int)TilesIdentifiers.Audio:
 
-                CreateAndShowPrompt();
-
                 var AudioName = CreateDialog(out dlg, ConstantsHelpers.AUDIO);
 
                 var Audiofilename = Path.Combine(AudioFolderPath, $"{AudioName}{ext}");
@@ -109,6 +106,7 @@ public class MainWindowViewModel {
                 var options = new ConversionOptions {
                     AudioSampleRate = AudioSampleRate.Hz22050
                 };
+
                 var engine = new Engine();
 
                 if (!string.IsNullOrEmpty(inputFile.Filename)) {
@@ -128,8 +126,6 @@ public class MainWindowViewModel {
 
             case (int)TilesIdentifiers.document:
 
-
-
                 CreateDialog(out dlg, ConstantsHelpers.DOCUMENTS);
 
                 var path = CreateFolderService.CreateFolder(ConstantsHelpers.TRANSLATIONS);
@@ -140,7 +136,7 @@ public class MainWindowViewModel {
 
                     var targetUri = await StorageService.SaveFromdAzureBlobStorage(Path.GetFullPath(dlg.FileName));
 
-                    await AzureTranslationService.TranslatorAsync(sourceUri, targetUri);
+                    await AzureTranslationService.TranslatorAsync(sourceUri, targetUri, 3, Tiles!);
 
                     var PathToSave = Path.Combine(path, dlg.FileName);
 
@@ -153,7 +149,8 @@ public class MainWindowViewModel {
                 break;
 
             case (int)TilesIdentifiers.About:
-                Debug.WriteLine("about", "Debug");
+                var about = new AboutWindow();
+                about.ShowDialog();
 
                 break;
         }

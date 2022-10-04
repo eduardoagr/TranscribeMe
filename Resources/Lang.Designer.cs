@@ -61,7 +61,7 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About TranscribeMe.
+        ///   Looks up a localized string similar to About Transcribed.
         /// </summary>
         public static string About {
             get {
