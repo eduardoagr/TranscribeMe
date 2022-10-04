@@ -12,9 +12,15 @@ public class MainWindowViewModel {
 
     public List<char> Words { get; set; }
 
+    public AzureStorageService StorageService { get; set; }
+
+    public AzureTranscriptionService AzureTranscription { get; set; }
+
     public MainWindowViewModel() {
         AzureCommand = new Command(AzureActionAsync);
         ExitCommand = new Command(ExiAction);
+        StorageService = new AzureStorageService();
+        AzureTranscription = new AzureTranscriptionService();
         InitCollection();
         Words = new List<char>();
     }
@@ -74,13 +80,13 @@ public class MainWindowViewModel {
 
     private async void AzureActionAsync(object obj) {
         OpenFileDialog dlg;
-        var AudioFolderPath = CreateFolder(ConstantsHelpers.AUDIO);
+        var AudioFolderPath = CreateFolderService.CreateFolder(ConstantsHelpers.AUDIO);
         const string ext = ".wav";
 
         switch (obj) {
             case (int)TilesIdentifiers.Audio:
 
-                CreateAndShowPrompt("Your document is ready");
+                CreateAndShowPrompt();
 
                 var AudioName = CreateDialog(out dlg, ConstantsHelpers.AUDIO);
 
@@ -88,7 +94,7 @@ public class MainWindowViewModel {
 
                 Converter(dlg, Audiofilename, out _, out _);
 
-                await ConvertToTextAsync(Audiofilename, AudioName!, (int)TilesIdentifiers.Audio);
+                await AzureTranscription.ConvertToTextAsync(Audiofilename, AudioName!, 0, Tiles!, Words);
 
                 break;
 
@@ -108,7 +114,7 @@ public class MainWindowViewModel {
                 if (!string.IsNullOrEmpty(inputFile.Filename)) {
                     engine.Convert(inputFile, outputFile, options);
 
-                    //await ConvertToTextAsync(VideoFilename);
+                    await AzureTranscription.ConvertToTextAsync(VideoFilename, VideoName!, 1, Tiles!, Words);
                 }
 
                 break;
@@ -122,17 +128,17 @@ public class MainWindowViewModel {
 
             case (int)TilesIdentifiers.document:
 
-                var storageService = new AzureStorageService();
+
 
                 CreateDialog(out dlg, ConstantsHelpers.DOCUMENTS);
 
-                var path = CreateFolder(ConstantsHelpers.TRANSLATIONS);
+                var path = CreateFolderService.CreateFolder(ConstantsHelpers.TRANSLATIONS);
 
                 if (!string.IsNullOrEmpty(dlg.FileName)) {
 
-                    var sourceUri = await storageService.UploadToAzureBlobStorage(Path.GetFullPath(dlg.FileName));
+                    var sourceUri = await StorageService.UploadToAzureBlobStorage(Path.GetFullPath(dlg.FileName));
 
-                    var targetUri = await storageService.SaveFromdAzureBlobStorage(Path.GetFullPath(dlg.FileName));
+                    var targetUri = await StorageService.SaveFromdAzureBlobStorage(Path.GetFullPath(dlg.FileName));
 
                     await AzureTranslationService.TranslatorAsync(sourceUri, targetUri);
 
@@ -196,107 +202,5 @@ public class MainWindowViewModel {
         }
 
         return null;
-    }
-
-    private static string CreateFolder(string FolderName = ConstantsHelpers.AUDIO) {
-        var directoryPath = Directory.CreateDirectory(Path.Combine(
-                               Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                                                                ConstantsHelpers.TRANSCRIBEME, FolderName));
-
-        return directoryPath.FullName;
-    }
-
-
-    private async Task ConvertToTextAsync(string FilePath, string FileName, int Id) {
-        //Configure speech service
-
-        var config = SpeechConfig.FromSubscription(ConstantsHelpers.AZURE_KEY, ConstantsHelpers.AZURE_REGION);
-
-        config.EnableDictation();
-
-        //Configure speech recognition
-
-        var taskCompleteionSource = new TaskCompletionSource<int>();
-
-        using var audioConfig = AudioConfig.FromWavFileInput(FilePath);
-        if (!string.IsNullOrEmpty(FileName)) {
-            using var speechRecognizer = new SpeechRecognizer(config, audioConfig);
-
-            speechRecognizer.Recognized += (sender, e) => {
-                if (e.Result.Reason == ResultReason.RecognizedSpeech) {
-                    foreach (var item in e.Result.Text) {
-                        Words.Add(item);
-                    }
-                }
-            };
-
-            speechRecognizer.SessionStarted += (sender, e) => {
-
-                Tiles![Id].IsTileActive = false;
-
-                Debug.WriteLine("Session started");
-            };
-
-            speechRecognizer.SessionStopped += (sender, e) => {
-
-                const string ext = ".docx";
-
-                var pathToSave = CreateFolder(ConstantsHelpers.TRANSCRIPTIONS);
-
-                var filename = Path.Combine(pathToSave, $"{Path.GetFileNameWithoutExtension(FilePath)}{ext}");
-
-                var sb = new StringBuilder();
-
-                foreach (var item in Words) {
-                    sb.Append(item);
-                }
-
-                using var document = new WordDocument();
-
-                document.EnsureMinimal();
-
-                document.LastParagraph.AppendText(sb.ToString());
-
-                // Find all the text which start with capital letters next to period (.) in the Word document.
-
-                //For example . Text or .Text
-
-                TextSelection[] textSelections = document.FindAll(new Regex(@"[.]\s+[A-Z]|[.][A-Z]"));
-
-                for (int i = 0; i < textSelections.Length; i++) {
-
-                    WTextRange textToFind = textSelections[i].GetAsOneRange();
-
-                    //Replace the period (.) with enter(\n).
-
-                    string replacementText = textToFind.Text.Replace(".", ".\n\n");
-
-                    textToFind.Text = replacementText;
-
-                }
-
-                document.Save(filename);
-
-                Tiles![Id].IsTileActive = true;
-
-
-            };
-
-            await speechRecognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);
-
-            Task.WaitAny(new[] { taskCompleteionSource.Task });
-
-            await speechRecognizer.StopContinuousRecognitionAsync().ConfigureAwait(false);
-        }
-
-    }
-
-    private void CreateAndShowPrompt(string message) {
-        new ToastContentBuilder()
-         .AddArgument("action", "viewConversation")
-         .AddArgument("conversationId", 9813)
-         .AddAppLogoOverride(new Uri(Path.GetFullPath(@"\Images\Word.png"), UriKind.Absolute), ToastGenericAppLogoCrop.Circle)
-         .AddText(message)
-         .Show(); //
     }
 }

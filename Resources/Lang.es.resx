@@ -129,6 +129,12 @@
   <data name="ImageToText" xml:space="preserve">
     <value>Imagen a texto</value>
   </data>
+  <data name="ToastMsg1" xml:space="preserve">
+    <value>Su documento esta listo</value>
+  </data>
+  <data name="ToastMsg2" xml:space="preserve">
+    <value>Haga click en abrir</value>
+  </data>
   <data name="TranslateDocument" xml:space="preserve">
     <value>Traducción de document</value>
   </data>

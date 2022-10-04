@@ -97,6 +97,24 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your document is ready.
+        /// </summary>
+        public static string ToastMsg1 {
+            get {
+                return ResourceManager.GetString("ToastMsg1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click on open.
+        /// </summary>
+        public static string ToastMsg2 {
+            get {
+                return ResourceManager.GetString("ToastMsg2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Translate document.
         /// </summary>
         public static string TranslateDocument {

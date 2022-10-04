@@ -6,7 +6,9 @@ using Config;
 namespace TranscribeMe.Services {
     public class AzureTranslationService {
 
-        public static async Task TranslatorAsync(Uri sourceUrl, Uri TargetUrl, string language = "es") {
+        public static async Task TranslatorAsync(Uri sourceUrl, Uri TargetUrl, int id, ObservableCollection<Tile> tiles, string language = "es") {
+
+            tiles[id].IsTileActive = false;
 
             DocumentTranslationClient client = new(new Uri(ConstantsHelpers.ENDPOINT), new AzureKeyCredential(ConstantsHelpers.KEY));
 
@@ -15,6 +17,11 @@ namespace TranscribeMe.Services {
             DocumentTranslationOperation operation = await client.StartTranslationAsync(input);
 
             await operation.WaitForCompletionAsync();
+
+            tiles[id].IsTileActive = true;
+
+            ToastService.CreateAndShowPrompt();
+
 
             await foreach (var document in operation.Value) {
                 MessageBox.Show($"Document with Id: {document.Id}");
