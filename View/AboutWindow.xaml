@@ -2,7 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:res="clr-namespace:TranscribeMe.Resources" 
         mc:Ignorable="d"
         x:Name="About"
         Title="About Transcribed" Height="480" Width="500">
@@ -10,37 +12,38 @@
     <StackPanel Margin="10">
 
         <TextBlock Text="Transcribed" FontWeight="Bold" Foreground="#32166F" FontSize="20"/>
+
+        <TextBlock Text="{x:Static res:Lang.Transcribed}" FontSize="14" Foreground="#32166F"/>
         
-        <TextBlock Text="A complete suite of services, that can help you make you job easier" FontSize="14" Foreground="#32166F"/>
-        
-        <TextBlock Text="These services are: " FontSize="14" Foreground="#32166F"/>
+        <TextBlock Text="{x:Static res:Lang.SubIntro}" FontSize="14" Foreground="#32166F"/>
        
         <BulletDecorator Margin="10,2,0,0">
             <BulletDecorator.Bullet>
                 <Ellipse Height="10" Width="10" Fill="#32166F"/>
             </BulletDecorator.Bullet>
-            <TextBlock>Extract text from an audio file (mp3, wav)</TextBlock>
+            <TextBlock Text="{x:Static res:Lang.AudioService}"/>
         </BulletDecorator>
         <BulletDecorator Margin="10,2,0,0">
             <BulletDecorator.Bullet>
                 <Ellipse Height="10" Width="10" Fill="#32166F"/>
             </BulletDecorator.Bullet>
-            <TextBlock>Extract text form a video (mp4)</TextBlock>
+            <TextBlock Text="{x:Static res:Lang.VideoService}"/>
         </BulletDecorator>
         <BulletDecorator Margin="10,2,0,0"> 
             <BulletDecorator.Bullet>
                 <Ellipse Height="10" Width="10" Fill="#32166F"/>
             </BulletDecorator.Bullet>
-            <TextBlock>Translate document into multiple languages (pdf, docx, doc)</TextBlock>
+            <TextBlock Text="{x:Static res:Lang.TranlationService}"/>
         </BulletDecorator>
         <BulletDecorator Margin="10,2,0,0">
             <BulletDecorator.Bullet>
                 <Ellipse Height="10" Width="10" Fill="#32166F"/>
             </BulletDecorator.Bullet>
-            <TextBlock>Extract text from images (jpeg, png)</TextBlock>
+            <TextBlock Text="{x:Static res:Lang.ImageService}"/>
         </BulletDecorator>
-        <TextBlock Text="Instructions:" TextDecorations="Underline" Margin="0,2,0,0" FontSize="14" FontWeight="Bold"/>
-        <TextBlock  Text="You are presented with four tiles, each tile correspond to a different service "/>
+        <TextBlock Text="{x:Static res:Lang.Instructions}"
+                   TextDecorations="Underline" Margin="0,2,0,0" FontSize="14" FontWeight="Bold"/>
+        <TextBlock Text="{x:Static res:Lang.Detail}"/>
 
         <mah:Tile HorizontalAlignment="Left"
                             Background="#018786"
@@ -48,8 +51,8 @@
                             Height="60"
                             Margin="10"
                             TitleFontSize="14"/>
-        
-        <TextBlock Text="Once you Press on the tile, it will start, the service, and it will become disabled"/>
+
+        <TextBlock Text="{x:Static res:Lang.SubDetail}"/>
 
         <mah:Tile HorizontalAlignment="Left"
                             Background="#018786"
@@ -58,7 +61,7 @@
                   IsEnabled="False"
                             Margin="10"
                             TitleFontSize="14"/>
-        <TextBlock Text="When is finished, it will create a word document"/>
+        <TextBlock Text="{x:Static res:Lang.FinalInstruction}"/>
         <Button Content="OK" HorizontalAlignment="Right" Background="#32166F" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=About}"/>
 
     </StackPanel>

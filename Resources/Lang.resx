@@ -123,11 +123,32 @@
   <data name="Account" xml:space="preserve">
     <value>Account</value>
   </data>
+  <data name="AudioService" xml:space="preserve">
+    <value>Extract text from an audio file (mp3, wav)</value>
+  </data>
   <data name="AudioToText" xml:space="preserve">
     <value>Audio to text</value>
   </data>
+  <data name="Detail" xml:space="preserve">
+    <value>You are presented with four tiles, each tile correspond to a different service</value>
+  </data>
+  <data name="FinalInstruction" xml:space="preserve">
+    <value>Cuando haya terminado la tarea, se creará un documento de Word, el cual estara localizado en la carpeta transcribed</value>
+  </data>
+  <data name="ImageService" xml:space="preserve">
+    <value>Extract text from images (jpeg, png)</value>
+  </data>
   <data name="ImageToText" xml:space="preserve">
     <value>Image to text</value>
+  </data>
+  <data name="Instructions" xml:space="preserve">
+    <value>Instructions:</value>
+  </data>
+  <data name="SubDetail" xml:space="preserve">
+    <value>Once you Press on the tile, it will start, the service, and it will become disabled</value>
+  </data>
+  <data name="SubIntro" xml:space="preserve">
+    <value>These services are:</value>
   </data>
   <data name="ToastMsg1" xml:space="preserve">
     <value>Your document is ready</value>
@@ -135,8 +156,17 @@
   <data name="ToastMsg2" xml:space="preserve">
     <value>Click on open</value>
   </data>
+  <data name="TranlationService" xml:space="preserve">
+    <value>Translate documents into multiple languages (pdf, docx, doc)</value>
+  </data>
+  <data name="Transcribed" xml:space="preserve">
+    <value>A complete suite of services, that can help you make your job easier</value>
+  </data>
   <data name="TranslateDocument" xml:space="preserve">
     <value>Translate document</value>
+  </data>
+  <data name="VideoService" xml:space="preserve">
+    <value>Extract text form a video (mp4)</value>
   </data>
   <data name="VideoToText" xml:space="preserve">
     <value>Video to text</value>

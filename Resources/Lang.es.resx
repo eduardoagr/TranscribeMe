@@ -123,11 +123,32 @@
   <data name="Account" xml:space="preserve">
     <value>Cuenta</value>
   </data>
+  <data name="AudioService" xml:space="preserve">
+    <value>Extraer texto de un archivo de audio (mp3, wav)</value>
+  </data>
   <data name="AudioToText" xml:space="preserve">
     <value>Audio a texto</value>
   </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Se le presentan cuatro botones, cada boton corresponde a un servicio diferente</value>
+  </data>
+  <data name="FinalInstruction" xml:space="preserve">
+    <value>When the task is finished, a word document is created, which will be located in the transcribed folder</value>
+  </data>
+  <data name="ImageService" xml:space="preserve">
+    <value>Extraer texto de imágenes (jpeg, png)</value>
+  </data>
   <data name="ImageToText" xml:space="preserve">
     <value>Imagen a texto</value>
+  </data>
+  <data name="Instructions" xml:space="preserve">
+    <value>Instrucciones:</value>
+  </data>
+  <data name="SubDetail" xml:space="preserve">
+    <value>Una vez que presione en el boton, se iniciará, el servicio y el boton se deshabilitará</value>
+  </data>
+  <data name="SubIntro" xml:space="preserve">
+    <value>Estos servicios son:</value>
   </data>
   <data name="ToastMsg1" xml:space="preserve">
     <value>Su documento esta listo</value>
@@ -135,8 +156,17 @@
   <data name="ToastMsg2" xml:space="preserve">
     <value>Haga click en abrir</value>
   </data>
+  <data name="TranlationService" xml:space="preserve">
+    <value>Traducir documentos a varios idiomas (pdf, docx, doc)</value>
+  </data>
+  <data name="Transcribed" xml:space="preserve">
+    <value>Un conjunto completo de servicios, que pueden ayudarle a hacer su trabajo más fácil</value>
+  </data>
   <data name="TranslateDocument" xml:space="preserve">
     <value>Traducción de document</value>
+  </data>
+  <data name="VideoService" xml:space="preserve">
+    <value>Extraer texto de un vídeo (mp4)</value>
   </data>
   <data name="VideoToText" xml:space="preserve">
     <value>Video a texto</value>

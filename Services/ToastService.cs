@@ -8,9 +8,10 @@ namespace TranscribeMe.Services {
             ToastNotificationManagerCompat.OnActivated += toastArgs => {
                 // Obtain the arguments from the notification
                 ToastArguments args = ToastArguments.Parse(toastArgs.Argument);
-                var startInfo = new ProcessStartInfo();
-                startInfo.FileName = "WINWORD.EXE";
-                startInfo.Arguments = FilePath;
+                var startInfo = new ProcessStartInfo {
+                    FileName = "WINWORD.EXE",
+                    Arguments = FilePath
+                };
                 startInfo.Arguments = "doc";
                 Process.Start(startInfo);
             };

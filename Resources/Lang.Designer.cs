@@ -79,6 +79,15 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extract text from an audio file (mp3, wav).
+        /// </summary>
+        public static string AudioService {
+            get {
+                return ResourceManager.GetString("AudioService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Audio to text.
         /// </summary>
         public static string AudioToText {
@@ -88,11 +97,65 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are presented with four tiles, each tile correspond to a different service.
+        /// </summary>
+        public static string Detail {
+            get {
+                return ResourceManager.GetString("Detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cuando haya terminado la tarea, se creará un documento de Word, el cual estara localizado en la carpeta transcribed.
+        /// </summary>
+        public static string FinalInstruction {
+            get {
+                return ResourceManager.GetString("FinalInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extract text from images (jpeg, png).
+        /// </summary>
+        public static string ImageService {
+            get {
+                return ResourceManager.GetString("ImageService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Image to text.
         /// </summary>
         public static string ImageToText {
             get {
                 return ResourceManager.GetString("ImageToText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instructions:.
+        /// </summary>
+        public static string Instructions {
+            get {
+                return ResourceManager.GetString("Instructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Once you Press on the tile, it will start, the service, and it will become disabled.
+        /// </summary>
+        public static string SubDetail {
+            get {
+                return ResourceManager.GetString("SubDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These services are:.
+        /// </summary>
+        public static string SubIntro {
+            get {
+                return ResourceManager.GetString("SubIntro", resourceCulture);
             }
         }
         
@@ -115,11 +178,38 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Translate documents into multiple languages (pdf, docx, doc).
+        /// </summary>
+        public static string TranlationService {
+            get {
+                return ResourceManager.GetString("TranlationService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A complete suite of services, that can help you make your job easier.
+        /// </summary>
+        public static string Transcribed {
+            get {
+                return ResourceManager.GetString("Transcribed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Translate document.
         /// </summary>
         public static string TranslateDocument {
             get {
                 return ResourceManager.GetString("TranslateDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extract text form a video (mp4).
+        /// </summary>
+        public static string VideoService {
+            get {
+                return ResourceManager.GetString("VideoService", resourceCulture);
             }
         }
         
