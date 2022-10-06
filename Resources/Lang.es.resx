@@ -130,10 +130,10 @@
     <value>Audio a texto</value>
   </data>
   <data name="Detail" xml:space="preserve">
-    <value>Se le presentan cuatro botones, cada boton corresponde a un servicio diferente</value>
+    <value>Se le presentan varios botones, cada botón ejecuta servicio diferente</value>
   </data>
   <data name="FinalInstruction" xml:space="preserve">
-    <value>When the task is finished, a word document is created, which will be located in the transcribed folder</value>
+    <value>Cuando finaliza la tarea, se crea un documento de Word, que estara ubicado en la carpeta llamda Transcribed</value>
   </data>
   <data name="ImageService" xml:space="preserve">
     <value>Extraer texto de imágenes (jpeg, png)</value>

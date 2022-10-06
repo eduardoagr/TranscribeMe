@@ -1,7 +1,7 @@
 ﻿namespace TranscribeMe.Services {
     public class AzureTranscriptionService {
 
-        public async Task ConvertToTextAsync(string FilePath, string FileName, int Id, ObservableCollection<Tile> tiles, List<char> Characers) {
+        public static async Task ConvertToTextAsync(string FilePath, string FileName, int Id, ObservableCollection<Tile> tiles, List<char> Characers) {
             //Configure speech service
 
             var config = SpeechConfig.FromSubscription(ConstantsHelpers.AZURE_KEY, ConstantsHelpers.AZURE_REGION);
@@ -71,7 +71,7 @@
 
                     tiles![Id].IsTileActive = true;
 
-                    ToastService.LaunchToastNotification(filename);
+                    ToastService.LaunchToastNotification(filename, Path.GetExtension(filename));
                 };
 
                 await speechRecognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);

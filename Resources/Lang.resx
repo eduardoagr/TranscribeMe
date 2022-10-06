@@ -130,10 +130,10 @@
     <value>Audio to text</value>
   </data>
   <data name="Detail" xml:space="preserve">
-    <value>You are presented with four tiles, each tile correspond to a different service</value>
+    <value>You are presented with several tiles, each tile correspond to a different service</value>
   </data>
   <data name="FinalInstruction" xml:space="preserve">
-    <value>Cuando haya terminado la tarea, se creará un documento de Word, el cual estara localizado en la carpeta transcribed</value>
+    <value>When the task is finished, a word document is created, which will be located in the transcribed folder</value>
   </data>
   <data name="ImageService" xml:space="preserve">
     <value>Extract text from images (jpeg, png)</value>
@@ -145,7 +145,7 @@
     <value>Instructions:</value>
   </data>
   <data name="SubDetail" xml:space="preserve">
-    <value>Once you Press on the tile, it will start, the service, and it will become disabled</value>
+    <value>Once you press on the tile, it will start, the service, and it will become disabled</value>
   </data>
   <data name="SubIntro" xml:space="preserve">
     <value>These services are:</value>

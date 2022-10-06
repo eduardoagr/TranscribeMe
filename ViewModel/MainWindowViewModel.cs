@@ -91,7 +91,7 @@ public class MainWindowViewModel {
 
                 Converter(dlg, Audiofilename, out _, out _);
 
-                await AzureTranscription.ConvertToTextAsync(Audiofilename, AudioName!, 0, Tiles!, Words);
+                await AzureTranscriptionService.ConvertToTextAsync(Audiofilename, AudioName!, 0, Tiles!, Words);
 
                 break;
 
@@ -112,7 +112,7 @@ public class MainWindowViewModel {
                 if (!string.IsNullOrEmpty(inputFile.Filename)) {
                     engine.Convert(inputFile, outputFile, options);
 
-                    await AzureTranscription.ConvertToTextAsync(VideoFilename, VideoName!, 1, Tiles!, Words);
+                    await AzureTranscriptionService.ConvertToTextAsync(VideoFilename, VideoName!, 1, Tiles!, Words);
                 }
 
                 break;
@@ -132,18 +132,22 @@ public class MainWindowViewModel {
 
                 if (!string.IsNullOrEmpty(dlg.FileName)) {
 
-                    var sourceUri = await StorageService.UploadToAzureBlobStorage(Path.GetFullPath(dlg.FileName));
+                    string FileName = Path.GetFullPath(dlg.FileName);
 
-                    var targetUri = await StorageService.SaveFromdAzureBlobStorage(Path.GetFullPath(dlg.FileName));
+                    var sourceUri = await StorageService.UploadToAzureBlobStorage(FileName);
 
-                    await AzureTranslationService.TranslatorAsync(sourceUri, targetUri, 3, Tiles!);
+                    var targetUri = await StorageService.SaveFromdAzureBlobStorage();
 
-                    var PathToSave = Path.Combine(path, dlg.FileName);
+                    var status = await AzureTranslationService.TranslatorAsync(sourceUri, targetUri, 3, Tiles!);
 
-                    //using var client = new HttpClient();
-                    //using var s = await client.GetStreamAsync(targetUri);
-                    //using var fs = new FileStream(PathToSave, FileMode.OpenOrCreate);
-                    //await s.CopyToAsync(fs);
+                    if (status) {
+
+                        var PathToSave = Path.Combine(path, Path.GetFileName(dlg.FileName));
+
+                        await StorageService.DownloadFileFromBlobAsync(PathToSave, FileName);
+
+                        await StorageService.DeteleFromBlobAsync(FileName);
+                    }
                 }
 
                 break;

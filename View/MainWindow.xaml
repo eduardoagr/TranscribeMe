@@ -62,13 +62,11 @@
                             Title="{Binding TileTitle}"
                             Width="150"
                             Height="150"
-                            Margin="10"
-                            materialDesign:RippleAssist.RippleOnTop="True"
                             Command="{Binding TileCommand}"
                             CommandParameter="{Binding TileIdentifier}"
                             IsEnabled="{Binding IsTileActive}"
                             Style="{StaticResource TileStyle}"
-                            TitleFontSize="14">
+                            TitleFontSize="11">
 
                             <Label
                                 Content="{Binding TileIcon}"

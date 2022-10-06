@@ -97,7 +97,7 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are presented with four tiles, each tile correspond to a different service.
+        ///   Looks up a localized string similar to You are presented with several tiles, each tile correspond to a different service.
         /// </summary>
         public static string Detail {
             get {
@@ -106,7 +106,7 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cuando haya terminado la tarea, se creará un documento de Word, el cual estara localizado en la carpeta transcribed.
+        ///   Looks up a localized string similar to When the task is finished, a word document is created, which will be located in the transcribed folder.
         /// </summary>
         public static string FinalInstruction {
             get {
@@ -142,7 +142,7 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Once you Press on the tile, it will start, the service, and it will become disabled.
+        ///   Looks up a localized string similar to Once you press on the tile, it will start, the service, and it will become disabled.
         /// </summary>
         public static string SubDetail {
             get {

@@ -1,30 +1,35 @@
-﻿using Microsoft.Toolkit.Uwp.Notifications;
+﻿
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace TranscribeMe.Services {
     public class ToastService {
 
-        public static void LaunchToastNotification(string FilePath) {
+        public static void LaunchToastNotification(string FilePath, string ext) {
 
             ToastNotificationManagerCompat.OnActivated += toastArgs => {
                 // Obtain the arguments from the notification
                 ToastArguments args = ToastArguments.Parse(toastArgs.Argument);
-                var startInfo = new ProcessStartInfo {
-                    FileName = "WINWORD.EXE",
-                    Arguments = FilePath
-                };
-                startInfo.Arguments = "doc";
-                Process.Start(startInfo);
+
+                // Need to dispatch to UI thread if performing UI operations
+                Application.Current.Dispatcher.Invoke(delegate {
+                    // TODO: Show the corresponding content
+                    if (ext == ".pdf") {
+                        MessageBox.Show(".pdf");
+                    } else {
+                        Microsoft.Office.Interop.Word.Application ap = new();
+                        var document = ap.Documents.Open(FilePath); ;
+                    }
+                });
             };
 
             new ToastContentBuilder()
-                .AddText(Lang.ToastMsg1)
-                .AddText(Lang.ToastMsg2)
-                .AddAppLogoOverride(new Uri("file:///" + Path.GetFullPath(@"Images\Word.png"), UriKind.Absolute), ToastGenericAppLogoCrop.Circle)
-                .AddButton(new ToastButton()
-                    .SetContent("Open document")
-                    .AddArgument("action", "openDec")
-                    .AddArgument("doc", FilePath))
-                .Show();
+            .AddText(Lang.ToastMsg1)
+            .AddText(Lang.ToastMsg2)
+            .AddAppLogoOverride(new Uri("file:///" + Path.GetFullPath(@"Images\Word.png"), UriKind.Absolute), ToastGenericAppLogoCrop.Circle)
+            .AddButton(new ToastButton()
+                .SetContent("Open document")
+                .AddArgument("action", "openDec"))
+            .Show();
         }
     }
 }

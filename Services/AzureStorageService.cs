@@ -1,8 +1,6 @@
 ﻿using Azure.Storage;
 using Azure.Storage.Blobs;
 
-using Config;
-
 namespace TranscribeMe.Services {
     public class AzureStorageService {
         readonly string ConectionString = ConstantsHelpers.AZURE_STORAGE_CONNECTIONSTRING;
@@ -27,7 +25,7 @@ namespace TranscribeMe.Services {
 
         }
 
-        public async Task<Uri> SaveFromdAzureBlobStorage(string FilePath) {
+        public Task<Uri> SaveFromdAzureBlobStorage() {
 
             ContainerClient = new BlobContainerClient(ConectionString, ConstantsHelpers.AZURE_CONTAINER_TRANSLATED_DOCUMENT);
 
@@ -39,10 +37,24 @@ namespace TranscribeMe.Services {
             blobSasBuilder.SetPermissions(Azure.Storage.Sas.BlobSasPermissions.Write | Azure.Storage.Sas.BlobSasPermissions.List);
             var sasToken = blobSasBuilder.ToSasQueryParameters(new StorageSharedKeyCredential(ConstantsHelpers.AZUTE_STORAGE_ACCOUNT_NAME, ConstantsHelpers.AZUTE_STORAGE_ACCOUNT_KEY)).ToString();
 
-            var blob = ContainerClient.GetBlobClient(Path.GetFileName(FilePath));
-            await blob.UploadAsync(FilePath, true);
+            return Task.FromResult(new Uri($"{ConstantsHelpers.AZURE_DOWNLOAD_DOCUMENTS}?{sasToken}"));
+        }
 
-            return new Uri($"{ConstantsHelpers.AZURE_DOWNLOAD_DOCUMENTS}?{sasToken}");
+        public async Task DeteleFromBlobAsync(string filePath) {
+
+            ContainerClient = new BlobContainerClient(ConectionString, ConstantsHelpers.AZURE_CONTAINER_ORIGINAL_DOCUMENT);
+
+            var blob = ContainerClient.GetBlobClient(Path.GetFileName(filePath));
+            await blob.DeleteIfExistsAsync();
+
+        }
+
+        public async Task DownloadFileFromBlobAsync(string pathToSave, string FilePath) {
+
+            ContainerClient = new BlobContainerClient(ConectionString, ConstantsHelpers.AZURE_CONTAINER_TRANSLATED_DOCUMENT);
+
+            var blob = ContainerClient.GetBlobClient(Path.GetFileName(FilePath));
+            await blob.DownloadToAsync(pathToSave);
         }
     }
 }
