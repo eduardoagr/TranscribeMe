@@ -11,13 +11,12 @@ namespace TranscribeMe.Services {
                 ToastArguments args = ToastArguments.Parse(toastArgs.Argument);
 
                 // Need to dispatch to UI thread if performing UI operations
-                Application.Current.Dispatcher.Invoke(delegate {
+                Application.Current.Dispatcher.Invoke(async delegate {
                     // TODO: Show the corresponding content
                     if (ext == ".pdf") {
                         MessageBox.Show(".pdf");
                     } else {
-                        Microsoft.Office.Interop.Word.Application ap = new();
-                        var document = ap.Documents.Open(FilePath); ;
+                        //
                     }
                 });
             };
