@@ -16,9 +16,8 @@ namespace TranscribeMe.Services {
 
             await operation.WaitForCompletionAsync();
 
-            tiles[id].IsTileActive = true;
-
             if (operation.Status == DocumentTranslationStatus.Succeeded) {
+                tiles[id].IsTileActive = true;
                 return true;
             }
             return false;

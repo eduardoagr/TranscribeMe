@@ -4,20 +4,17 @@ using Microsoft.Toolkit.Uwp.Notifications;
 namespace TranscribeMe.Services {
     public class ToastService {
 
-        public static void LaunchToastNotification(string FilePath, string ext) {
+        public static void LaunchToastNotification(string FilePath) {
 
             ToastNotificationManagerCompat.OnActivated += toastArgs => {
-                // Obtain the arguments from the notification
                 ToastArguments args = ToastArguments.Parse(toastArgs.Argument);
 
-                // Need to dispatch to UI thread if performing UI operations
-                Application.Current.Dispatcher.Invoke(async delegate {
-                    // TODO: Show the corresponding content
-                    if (ext == ".pdf") {
-                        MessageBox.Show(".pdf");
-                    } else {
-                        //
-                    }
+                Application.Current.Dispatcher.Invoke(delegate {
+                    Process wordProcess = new Process();
+                    wordProcess.StartInfo.FileName = FilePath;
+                    wordProcess.StartInfo.UseShellExecute = true;
+                    wordProcess.Start();
+                    return Task.CompletedTask;
                 });
             };
 

@@ -71,7 +71,7 @@
 
                     tiles![Id].IsTileActive = true;
 
-                    ToastService.LaunchToastNotification(filename, Path.GetExtension(filename));
+                    ToastService.LaunchToastNotification(filename);
                 };
 
                 await speechRecognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);

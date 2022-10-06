@@ -146,6 +146,8 @@ public class MainWindowViewModel {
 
                         await StorageService.DownloadFileFromBlobAsync(PathToSave, FileName);
 
+                        ToastService.LaunchToastNotification(PathToSave);
+
                         await StorageService.DeteleFromBlobAsync(FileName);
                     }
                 }
