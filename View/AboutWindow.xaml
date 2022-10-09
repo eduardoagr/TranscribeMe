@@ -6,6 +6,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:res="clr-namespace:TranscribeMe.Resources" 
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         x:Name="About"
         Title="About Transcribed" Height="500" Width="700">
     

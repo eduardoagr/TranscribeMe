@@ -26,7 +26,7 @@
         public const string AUDIO = "Audio";
         public const string VIDEO = "Video";
         public const string DOCUMENTS = "Documents";
-        public const string TRANSCRIBEME = "TreanscribeMe";
+        public const string TRANDCRIBED = "Transcribed";
         public const string TRANSLATIONS = "Documents translations";
         public const string TRANSCRIPTIONS = "Transcriptions";
 

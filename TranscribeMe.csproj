@@ -13,12 +13,13 @@
 
 	<ItemGroup>
 	  <None Remove="Fonts\Material.ttf" />
+	  <None Remove="Images\Document.png" />
 	  <None Remove="Images\Word.png" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Content Include="Images\clipboard_paste.ico" />
-		<Content Include="Images\Word.png">
+		<Content Include="Images\Document.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>

@@ -34,5 +34,4 @@ global using TranscribeMe.Enum;
 global using TranscribeMe.Resources;
 global using TranscribeMe.Services;
 
-global using Windows.Data.Xml.Dom;
-global using Windows.UI.Notifications;
+global using TranscribeMe.View;

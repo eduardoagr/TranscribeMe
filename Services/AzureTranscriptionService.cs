@@ -1,10 +1,13 @@
 ﻿namespace TranscribeMe.Services {
     public class AzureTranscriptionService {
 
-        public static async Task ConvertToTextAsync(string FilePath, string FileName, int Id, ObservableCollection<Tile> tiles, List<char> Characers) {
+        public static async Task ConvertToTextAsync(string FilePath, string FileName, int Id, 
+            ObservableCollection<Tile> tiles, List<char> Characers) {
+
             //Configure speech service
 
-            var config = SpeechConfig.FromSubscription(ConstantsHelpers.AZURE_KEY, ConstantsHelpers.AZURE_REGION);
+            var config = SpeechConfig.FromSubscription
+                (ConstantsHelpers.AZURE_KEY, ConstantsHelpers.AZURE_REGION);
 
             config.EnableDictation();
 
@@ -33,9 +36,11 @@
 
                     const string ext = ".docx";
 
-                    var pathToSave = CreateFolderService.CreateFolder(ConstantsHelpers.TRANSCRIPTIONS);
+                    var pathToSave = CreateFolderService.CreateFolder(
+                        ConstantsHelpers.TRANSCRIPTIONS);
 
-                    var filename = Path.Combine(pathToSave, $"{Path.GetFileNameWithoutExtension(FilePath)}{ext}");
+                    var filename = Path.Combine
+                    (pathToSave, $"{Path.GetFileNameWithoutExtension(FilePath)}{ext}");
 
                     var sb = new StringBuilder();
 
@@ -53,7 +58,7 @@
 
                     //For example . Text or .Text
 
-                    TextSelection[] textSelections = document.FindAll(new Regex(@"[.]\s+[A-Z]|[.][A-Z]"));
+                    var textSelections = document.FindAll(new Regex(@"[.]\s+[A-Z]|[.][A-Z]"));
 
                     for (int i = 0; i < textSelections.Length; i++) {
 
@@ -61,10 +66,12 @@
 
                         //Replace the period (.) with enter(\n).
 
-                        string replacementText = textToFind.Text.Replace(".", ".\n\n");
+                        string replacementText = textToFind.Text
+
+                        .Replace(".", ".\n\n")
+                        .Replace("?", "? ");
 
                         textToFind.Text = replacementText;
-
                     }
 
                     document.Save(filename);
@@ -74,11 +81,13 @@
                     ToastService.LaunchToastNotification(filename);
                 };
 
-                await speechRecognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);
+                await speechRecognizer.StartContinuousRecognitionAsync()
+                    .ConfigureAwait(false);
 
                 Task.WaitAny(new[] { taskCompleteionSource.Task });
 
-                await speechRecognizer.StopContinuousRecognitionAsync().ConfigureAwait(false);
+                await speechRecognizer.StopContinuousRecognitionAsync()
+                    .ConfigureAwait(false);
             }
         }
     }

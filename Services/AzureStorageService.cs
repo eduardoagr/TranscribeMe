@@ -40,9 +40,9 @@ namespace TranscribeMe.Services {
             return Task.FromResult(new Uri($"{ConstantsHelpers.AZURE_DOWNLOAD_DOCUMENTS}?{sasToken}"));
         }
 
-        public async Task DeteleFromBlobAsync(string filePath) {
+        public async Task DeteleFromBlobAsync(string filePath, string containerName) {
 
-            ContainerClient = new BlobContainerClient(ConectionString, ConstantsHelpers.AZURE_CONTAINER_ORIGINAL_DOCUMENT);
+            ContainerClient = new BlobContainerClient(ConectionString, containerName);
 
             var blob = ContainerClient.GetBlobClient(Path.GetFileName(filePath));
             await blob.DeleteIfExistsAsync();

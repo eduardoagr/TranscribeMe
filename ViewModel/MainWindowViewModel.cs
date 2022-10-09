@@ -1,4 +1,4 @@
-﻿using TranscribeMe.View;
+﻿
 
 namespace TranscribeMe.ViewModel;
 
@@ -148,7 +148,11 @@ public class MainWindowViewModel {
 
                         ToastService.LaunchToastNotification(PathToSave);
 
-                        await StorageService.DeteleFromBlobAsync(FileName);
+                        await StorageService.DeteleFromBlobAsync(FileName,
+                            ConstantsHelpers.AZURE_CONTAINER_ORIGINAL_DOCUMENT);
+
+                        await StorageService.DeteleFromBlobAsync(FileName,
+                            ConstantsHelpers.AZURE_CONTAINER_TRANSLATED_DOCUMENT);
                     }
                 }
 

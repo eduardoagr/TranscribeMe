@@ -10,10 +10,13 @@ namespace TranscribeMe.Services {
                 ToastArguments args = ToastArguments.Parse(toastArgs.Argument);
 
                 Application.Current.Dispatcher.Invoke(delegate {
-                    Process wordProcess = new Process();
-                    wordProcess.StartInfo.FileName = FilePath;
-                    wordProcess.StartInfo.UseShellExecute = true;
-                    wordProcess.Start();
+                    if (args.Count > 0) {
+                        Process p = new();
+                        p.StartInfo.FileName = FilePath;
+                        p.StartInfo.UseShellExecute = true;
+                        p.Start();
+                    }
+
                     return Task.CompletedTask;
                 });
             };
@@ -21,7 +24,7 @@ namespace TranscribeMe.Services {
             new ToastContentBuilder()
             .AddText(Lang.ToastMsg1)
             .AddText(Lang.ToastMsg2)
-            .AddAppLogoOverride(new Uri("file:///" + Path.GetFullPath(@"Images\Word.png"), UriKind.Absolute), ToastGenericAppLogoCrop.Circle)
+            .AddAppLogoOverride(new Uri("file:///" + Path.GetFullPath(@"Images\Document.png"), UriKind.Absolute), ToastGenericAppLogoCrop.Circle)
             .AddButton(new ToastButton()
                 .SetContent("Open document")
                 .AddArgument("action", "openDec"))
