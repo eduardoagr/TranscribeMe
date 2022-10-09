@@ -14,7 +14,7 @@
     WindowStyle="None"
     mc:Ignorable="d">
 
-    <Border Background="#32166F" CornerRadius="20">
+    <Border Background="#4D3A75" CornerRadius="20">
 
         <Grid>
             <Grid.ColumnDefinitions>

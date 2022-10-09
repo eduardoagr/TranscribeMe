@@ -10,13 +10,14 @@
         <!--#region Customizing Listbox-->
         <Style TargetType="{x:Type ListBox}">
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="Background" Value="#3C2275"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="SelectionMode" Value="Single"/>
             <Setter Property="Focusable" Value="False"/>
 
         </Style>
+        
         <Style TargetType="{x:Type ListBoxItem}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -27,8 +28,7 @@
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                         <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
                             <!--we will add or ui elements in this grid-->
-
-
+                            
                             <!--Now, since we want 3 things in our item to be shown..
                             1) An indicator
                             2) An icon (With changeable hover color)
