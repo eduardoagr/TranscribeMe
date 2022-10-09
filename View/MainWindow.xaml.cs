@@ -16,4 +16,8 @@ public partial class MainWindow : Window {
             DragMove();
         };
     }
+
+    private void MenuList_SelectionChanged(object sender, EventArgs e) {
+
+    }
 }
