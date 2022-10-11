@@ -6,7 +6,7 @@ namespace TranscribeMe.ViewModel {
 
         ResourceDictionary dict =
             Application.LoadComponent(new Uri(
-            "/TranscribeMe;component/IconsDictionary.xaml",
+            "/IconsDictionary.xaml",
             UriKind.RelativeOrAbsolute)) as ResourceDictionary;
 
         public List<MenuItemData> ItemsData { get; set; } = new List<MenuItemData>();

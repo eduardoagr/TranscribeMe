@@ -10,4 +10,36 @@
            VerticalAlignment="Center"
            Foreground="Black" />
 
+    <Label x:Key="VideoToText" 
+           Content="{x:Static font:IconFont.VolumeHigh}"
+           FontFamily="{StaticResource Material}"
+           FontSize="120"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"
+           Foreground="White" />
+
+    <Label x:Key="ImageToText" 
+           Content="{x:Static font:IconFont.VolumeHigh}"
+           FontFamily="{StaticResource Material}"
+           FontSize="120"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"
+           Foreground="White" />
+
+    <Label x:Key="DocumentTranslations" 
+           Content="{x:Static font:IconFont.VolumeHigh}"
+           FontFamily="{StaticResource Material}"
+           FontSize="120"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"
+           Foreground="White" />
+
+    <Label x:Key="About" 
+           Content="{x:Static font:IconFont.VolumeHigh}"
+           FontFamily="{StaticResource Material}"
+           FontSize="120"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"
+           Foreground="White" />
+
 </ResourceDictionary>
