@@ -2,28 +2,34 @@
     x:Class="TranscribeMe.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:custom="clr-namespace:TranscribeMe.CustomControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:local="clr-namespace:TranscribeMe.CustomControls"
+    xmlns:fonts="clr-namespace:Fonts"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="800"
-    Height="600"
-    AllowsTransparency="True"
-    Background="Transparent"
+    Title="Transcribed"
+    Height="450"
     Loaded="Window_Loaded"
     ResizeMode="NoResize"
-    WindowStyle="None"
+    SnapsToDevicePixels="True"
+    WindowStyle="ThreeDBorderWindow"
     mc:Ignorable="d">
 
-    <Border Background="#4D3A75" CornerRadius="20">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <local:SideMenuControl x:Name="MenuList" FontSize="20" SelectedIndex="0" SelectionChanged="MenuList_SelectionChanged"/>
-            <Frame x:Name="frame" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
-        </Grid>
+        <ListBox BorderThickness="0" Margin="10">
 
-    </Border>
+            <custom:NavButton
+                Padding="6"
+                FontFamily="{StaticResource Material}"
+                Icon="{x:Static fonts:IconFont.VolumeHigh}"/>
+
+        </ListBox>
+
+        <Frame Background="#2C104C" Grid.Column="1"/>
+    </Grid>
 </Window>

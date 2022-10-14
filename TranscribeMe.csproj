@@ -8,7 +8,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<StartupObject>TranscribeMe.App</StartupObject>
 		<PublishSingleFile>true</PublishSingleFile>
-		<ApplicationIcon>Images\clipboard_paste.ico</ApplicationIcon>
+		<ApplicationIcon>Images\ApplicationIdon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -25,7 +25,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Include="Images\clipboard_paste.ico" />
+		<Content Include="Images\ApplicationIdon.ico">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="Images\Document.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -48,6 +50,7 @@
 		<PackageReference Include="NAudio.Lame" Version="2.0.1" />
 		<PackageReference Include="PropertyChanged.Fody" PrivateAssets="All" Version="4.0.3" />
 		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+		<PackageReference Include="SharpVectors.Wpf" Version="1.8.0" />
 		<PackageReference Include="Syncfusion.DocIO.Wpf" Version="20.3.0.47" />
 		<PackageReference Include="Syncfusion.Licensing" Version="20.3.0.47" />
 	</ItemGroup>
