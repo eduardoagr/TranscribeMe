@@ -9,8 +9,6 @@ namespace TranscribeMe.CustomControls {
                 new FrameworkPropertyMetadata(typeof(NavButton)));
         }
 
-
-
         public Uri NavLink {
             get { return (Uri)GetValue(NavLinkProperty); }
             set { SetValue(NavLinkProperty, value); }
@@ -33,7 +31,7 @@ namespace TranscribeMe.CustomControls {
         // Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IconProperty =
             DependencyProperty.Register("Icon",
-                typeof(string   ),
+                typeof(string),
                 typeof(NavButton),
                 new PropertyMetadata(null));
 

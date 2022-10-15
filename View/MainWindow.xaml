@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fonts="clr-namespace:Fonts"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="800"
     Title="Transcribed"
+    Width="800"
     Height="450"
     Loaded="Window_Loaded"
     ResizeMode="NoResize"
@@ -21,15 +21,17 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <ListBox BorderThickness="0" Margin="10">
+        <Label Content="{x:Static fonts:IconFont.Volcano}" 
+               FontFamily="{StaticResource Material}" />
+
+        <ListBox Margin="10" BorderThickness="0">
 
             <custom:NavButton
                 Padding="6"
-                FontFamily="{StaticResource Material}"
-                Icon="{x:Static fonts:IconFont.VolumeHigh}"/>
+                Icon="fdwldpew"/>
 
         </ListBox>
 
-        <Frame Background="#2C104C" Grid.Column="1"/>
+        <Frame Grid.Column="1" Background="#2C104C" />
     </Grid>
 </Window>
