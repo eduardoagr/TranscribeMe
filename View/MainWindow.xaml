@@ -21,17 +21,14 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Label Content="{x:Static fonts:IconFont.Volcano}" 
-               FontFamily="{StaticResource Material}" />
+        <Label Content="{x:Static fonts:IconFont.HeadphonesSettings}" FontFamily="{StaticResource mat}" FontSize="33"/>
 
-        <ListBox Margin="10" BorderThickness="0">
+        <ListBox Margin="5" BorderThickness="0">
 
-            <custom:NavButton
-                Padding="6"
-                Icon="fdwldpew"/>
+            <custom:NavButton FontFamily="{StaticResource mat}" Icon="{x:Static fonts:IconFont.Abacus}" />
 
         </ListBox>
 
-        <Frame Grid.Column="1" Background="#2C104C" />
+        <Frame Grid.Column="1" Background="#410093" />
     </Grid>
 </Window>

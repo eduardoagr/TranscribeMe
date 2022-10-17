@@ -23,15 +23,15 @@ namespace TranscribeMe.CustomControls {
 
 
         // This property will hold specifics on the icon
-        public string Icon {
-            get { return (string)GetValue(IconProperty); }
+        public object Icon {
+            get { return GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IconProperty =
             DependencyProperty.Register("Icon",
-                typeof(string),
+                typeof(object),
                 typeof(NavButton),
                 new PropertyMetadata(null));
 
