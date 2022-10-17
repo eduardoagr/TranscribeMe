@@ -6,9 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fonts="clr-namespace:Fonts"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:res="clr-namespace:TranscribeMe.Resources"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
     Title="Transcribed"
     Width="800"
     Height="450"
+    ui:WindowHelper.UseModernWindowStyle="True"
     Loaded="Window_Loaded"
     ResizeMode="NoResize"
     SnapsToDevicePixels="True"
@@ -21,14 +24,52 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Label Content="{x:Static fonts:IconFont.HeadphonesSettings}" FontFamily="{StaticResource mat}" FontSize="33"/>
+        <ListBox
+            x:Name="NavList"
+            BorderThickness="0"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            SelectionChanged="NavList_SelectionChanged"
+            SelectionMode="Single">
 
-        <ListBox Margin="5" BorderThickness="0">
+            <custom:NavButton
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.Home}"
+                ToolTip="Home" />
 
-            <custom:NavButton FontFamily="{StaticResource mat}" Icon="{x:Static fonts:IconFont.Abacus}" />
+            <custom:NavButton
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.Music}"
+                NavLink="/Pages/AudioPage.xaml"
+                ToolTip="{x:Static res:Lang.AudioService}" />
 
+            <custom:NavButton
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.Video}"
+                NavLink="/Pages/VideoPage.xaml"
+                ToolTip="{x:Static res:Lang.VideoService}" />
+
+            <custom:NavButton
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.Eye}"
+                NavLink="/Pages/ImagePage.xaml"
+                ToolTip="{x:Static res:Lang.ImageService}" />
+
+            <custom:NavButton
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.FileDocument}"
+                NavLink="/Pages/TranslatePage.xaml"
+                ToolTip="{x:Static res:Lang.TranlationService}" />
         </ListBox>
 
-        <Frame Grid.Column="1" Background="#410093" />
+        <Frame
+            x:Name="NavFrame"
+            Grid.Column="1"
+            ContentRendered="NavFrame_ContentRendered" />
     </Grid>
 </Window>

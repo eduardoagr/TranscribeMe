@@ -1,9 +1,11 @@
-﻿using TranscribeMe.ViewModel;
+﻿using System.Windows.Controls;
+using System.Windows.Navigation;
+
+using TranscribeMe.CustomControls;
+using TranscribeMe.ViewModel;
 
 namespace TranscribeMe;
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
+
 public partial class MainWindow : Window {
     public MainWindow() {
         InitializeComponent();
@@ -15,5 +17,20 @@ public partial class MainWindow : Window {
         MouseDown += delegate {
             DragMove();
         };
+    }
+
+    private void NavList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+
+        var SelectedItem = NavList.SelectedItem as NavButton;
+
+        if (SelectedItem != null) {
+
+            NavFrame.Navigate(SelectedItem.NavLink);
+        }
+    }
+
+    private void NavFrame_ContentRendered(object sender, EventArgs e) {
+
+        NavFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
     }
 }

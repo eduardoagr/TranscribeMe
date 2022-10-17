@@ -158,9 +158,9 @@ public class MainWindowViewModel {
 
                 break;
 
-            case (int)TilesIdentifiers.About:
-                var about = new AboutWindow();
-                about.ShowDialog();
+                //case (int)TilesIdentifiers.About:
+                //    var about = new AboutWindow();
+                //    about.ShowDialog();
 
                 break;
         }

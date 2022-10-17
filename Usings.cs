@@ -33,5 +33,3 @@ global using System.Windows.Media;
 global using TranscribeMe.Enum;
 global using TranscribeMe.Resources;
 global using TranscribeMe.Services;
-
-global using TranscribeMe.View;
