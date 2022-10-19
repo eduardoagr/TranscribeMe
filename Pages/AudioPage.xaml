@@ -17,30 +17,41 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="80" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Button
-            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
             Content="Pick a file"
             FontWeight="Bold" />
 
         <TextBox
             Grid.Column="1"
             Margin="10,0,10,0"
-            VerticalAlignment="Center"
+            VerticalAlignment="Top"
             IsEnabled="False" />
 
         <ComboBox
             Grid.Row="1"
             Grid.ColumnSpan="2"
             HorizontalAlignment="Stretch"
-            Focusable="False"
-            IsEditable="True"
-            IsReadOnly="True"
-            Text="language" />
+            ItemsSource="{Binding Languages}"
+            SelectedIndex="0" />
 
-
+        <ui:ProgressRing
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            VerticalAlignment="Center"
+            Height="80"
+            IsActive="True"
+            Width="80"/>
+        <Button
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            Content="Start" />
     </Grid>
 </Page>
