@@ -16,16 +16,18 @@
         public const string AZURE_STORAGE_CONNECTIONSTRING = "DefaultEndpointsProtocol=https;AccountName=transcribemedocs;AccountKey=ejnleMkkJISfu0AwUxiJxmgyGmj3v91IH+fgbW/ODnkq1M+lotP/yoPh9ULCHLHdf17d9NdcXtxP+AStLv6/PA==;EndpointSuffix=core.windows.net";
 
         //File Dialog
-        public const string AUDIOFILES = "Audio Files|*.mp3;";
-        public const string VIDEOFILES = "Video Files|*.mp4;";
-        public const string DOCUMENTSFIILES = "Document Files|*.pdf;*.doc;*.docx";
-        public const string IMAGEFILES = "Image Files|*.jpeg;*.png;";
+        public const string AUDIOFILES = "Audio Files (mp3)|*.mp3;";
+        public const string VIDEOFILES = "Video Files (mp4)|*.mp4;";
+        public const string DOCUMENTSFIILES = "Document Files (pdf, doc, docx)|*.pdf;*.doc;*.docx";
+        public const string IMAGEFILES = "Image Files (jpeg, png)|*.jpeg;*.png;";
 
-        //Name for the type of files  and folders
+        //Name for the type of files folders
         public const string IMAGES = "Images";
         public const string AUDIO = "Audio";
         public const string VIDEO = "Video";
         public const string DOCUMENTS = "Documents";
+
+        //Name of folders
         public const string TRANDCRIBED = "Transcribed";
         public const string TRANSLATIONS = "Documents translations";
         public const string TRANSCRIPTIONS = "Transcriptions";
