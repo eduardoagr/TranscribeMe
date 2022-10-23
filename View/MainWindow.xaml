@@ -10,13 +10,17 @@
     xmlns:ui="http://schemas.modernwpf.com/2019"
     Title="Transcribed"
     Width="800"
-    Height="450"
+    Height="700"
+    WindowStartupLocation="CenterScreen"
+    ui:TitleBar.IsIconVisible="True"
     ui:WindowHelper.UseModernWindowStyle="True"
+    Icon="/Images/ApplicationIcon.png"
     Loaded="Window_Loaded"
     ResizeMode="NoResize"
     SnapsToDevicePixels="True"
-    WindowStyle="ThreeDBorderWindow"
+    WindowStyle="ToolWindow"
     mc:Ignorable="d">
+
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -36,7 +40,7 @@
                 Padding="5"
                 FontFamily="{StaticResource mat}"
                 Icon="{x:Static fonts:IconFont.Home}"
-                ToolTip="Home" />
+                ToolTip="{x:Static res:Lang.Home}" />
 
             <custom:NavButton
                 Padding="5"

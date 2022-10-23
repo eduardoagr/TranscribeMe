@@ -132,8 +132,14 @@
   <data name="Detail" xml:space="preserve">
     <value>You are presented with several tiles, each tile correspond to a different service</value>
   </data>
+  <data name="FileLang" xml:space="preserve">
+    <value>language of the file</value>
+  </data>
   <data name="FinalInstruction" xml:space="preserve">
     <value>When the task is finished, a word document is created, which will be located in the transcribed folder</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
   </data>
   <data name="ImageService" xml:space="preserve">
     <value>Extract text from images (jpeg, png)</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="Instructions" xml:space="preserve">
     <value>Instructions:</value>
+  </data>
+  <data name="ProcessMsg" xml:space="preserve">
+    <value>This will not take long</value>
   </data>
   <data name="SubDetail" xml:space="preserve">
     <value>Once you press on the tile, it will start, the service, and it will become disabled</value>
@@ -157,7 +166,7 @@
     <value>Click on open</value>
   </data>
   <data name="TranlationService" xml:space="preserve">
-    <value>Translate documents into multiple languages (pdf, docx, doc)</value>
+    <value>Translate documents (pdf, docx, doc)</value>
   </data>
   <data name="Transcribed" xml:space="preserve">
     <value>A complete suite of services, that can help you make your job easier</value>

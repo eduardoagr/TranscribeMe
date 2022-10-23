@@ -106,11 +106,29 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to language of the file.
+        /// </summary>
+        public static string FileLang {
+            get {
+                return ResourceManager.GetString("FileLang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When the task is finished, a word document is created, which will be located in the transcribed folder.
         /// </summary>
         public static string FinalInstruction {
             get {
                 return ResourceManager.GetString("FinalInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string Home {
+            get {
+                return ResourceManager.GetString("Home", resourceCulture);
             }
         }
         
@@ -138,6 +156,15 @@ namespace TranscribeMe.Resources {
         public static string Instructions {
             get {
                 return ResourceManager.GetString("Instructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will not take long.
+        /// </summary>
+        public static string ProcessMsg {
+            get {
+                return ResourceManager.GetString("ProcessMsg", resourceCulture);
             }
         }
         
@@ -178,7 +205,7 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Translate documents into multiple languages (pdf, docx, doc).
+        ///   Looks up a localized string similar to Translate documents (pdf, docx, doc).
         /// </summary>
         public static string TranlationService {
             get {

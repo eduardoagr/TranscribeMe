@@ -132,8 +132,14 @@
   <data name="Detail" xml:space="preserve">
     <value>Se le presentan varios botones, cada botón ejecuta servicio diferente</value>
   </data>
+  <data name="FileLang" xml:space="preserve">
+    <value>Lenguaje del archivo</value>
+  </data>
   <data name="FinalInstruction" xml:space="preserve">
     <value>Cuando finaliza la tarea, se crea un documento de Word, que estara ubicado en la carpeta llamda Transcribed</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Pantalla principal</value>
   </data>
   <data name="ImageService" xml:space="preserve">
     <value>Extraer texto de imágenes (jpeg, png)</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="Instructions" xml:space="preserve">
     <value>Instrucciones:</value>
+  </data>
+  <data name="ProcessMsg" xml:space="preserve">
+    <value>Esto no tomara mucho tiempo</value>
   </data>
   <data name="SubDetail" xml:space="preserve">
     <value>Una vez que presione en el boton, se iniciará, el servicio y el boton se deshabilitará</value>
@@ -157,7 +166,7 @@
     <value>Haga click en abrir</value>
   </data>
   <data name="TranlationService" xml:space="preserve">
-    <value>Traducir documentos a varios idiomas (pdf, docx, doc)</value>
+    <value>Traducir documentos (pdf, docx, doc)</value>
   </data>
   <data name="Transcribed" xml:space="preserve">
     <value>Un conjunto completo de servicios, que pueden ayudarle a hacer su trabajo más fácil</value>

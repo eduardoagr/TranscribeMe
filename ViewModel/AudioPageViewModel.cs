@@ -1,4 +1,4 @@
-﻿using TranscribeMe.Helpers;
+﻿
 
 namespace TranscribeMe.ViewModel {
 
@@ -7,59 +7,118 @@ namespace TranscribeMe.ViewModel {
 
         public string? FilePath { get; set; }
 
-        public bool IsWorking { get; set; }
+        public Dictionary<int, Languages>? LanguagesDictionary { get; set; }
 
-        public List<string>? Languages { get; set; }
+        public string? DocumentPath { get; set; }
 
-        public Visibility CanShow { get; set; }
+        public Visibility CanShow { get; set; } = Visibility.Collapsed;
 
-        public DialogHelper Dialog { get; }
+        public DialogHelper DialogHelper { get; }
+
+        public FolderHelper FolderHelper { get; }
+
+        public AudioHelper AudioHelper { get; }
+
+        public bool CanBePressed { get; set; }
+
+        public AzureTranscriptionService AzureTranscription { get; }
 
         public Command PickFileCommad { get; set; }
 
-        public Command StartCommand { get; set; }
+        public Command CopyDocumentPathCommand { get; set; }
 
-        private string? _SelectedItem;
+        public AsyncCommand StartCommand { get; set; }
 
-        public string SelectedItem {
-            get => _SelectedItem!;
+        private string? _SelectedLanguage;
+
+        public string SelectedLanguage {
+            get => _SelectedLanguage!;
             set {
-                if (_SelectedItem != value) {
-                    _SelectedItem = value;
+                if (_SelectedLanguage != value) {
+                    _SelectedLanguage = value;
                     StartCommand.RaiseCanExecuteChanged();
                 }
             }
         }
 
+
+        private bool _IsBusy;
+        public bool IsBusy {
+            get { return _IsBusy; }
+            set {
+                if (_IsBusy != value) {
+                    _IsBusy = value;
+                    StartCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+
         public AudioPageViewModel() {
             InitListLanguages();
-            Dialog = new DialogHelper();
+            CanBePressed = true;
+            AzureTranscription = new AzureTranscriptionService();
+            DialogHelper = new DialogHelper();
+            FolderHelper = new FolderHelper();
+            AudioHelper = new AudioHelper();
             CanShow = Visibility.Hidden;
             PickFileCommad = new Command(PickFileAction);
-            StartCommand = new Command(StartAction, CanStartAction);
+            StartCommand = new AsyncCommand(StartAction, CanStartAction);
+            CopyDocumentPathCommand = new Command(CopyDocumentPathAction);
+        }
+
+        private void CopyDocumentPathAction() {
+            throw new NotImplementedException();
+        }
+
+        private async Task StartAction() {
+            IsBusy = true;
+            CanShow = Visibility.Visible;
+            CanBePressed = false;
+
+            var FileWithoutExtension = Path.GetFileNameWithoutExtension
+                (FilePath);
+
+            var AudioPath = FolderHelper.CreateFolder(ConstantsHelpers.AUDIO);
+
+            var DocumentPath = FolderHelper.CreateFolder();
+
+            var AudioFileNamePath = Path.Combine(AudioPath, $"{FileWithoutExtension}{ConstantsHelpers.WAV}");
+
+            var ConvertedAudioPath = AudioHelper.Converter(FilePath!, AudioFileNamePath);
+
+            var DocumentName = Path.Combine(DocumentPath, $"{FileWithoutExtension}{ConstantsHelpers.DOCX}");
+
+            //await AzureTranscription.ConvertToTextAsync(ConvertedAudioPath,
+            //FileWithoutExtension!, SelectedItem);
+
+            await Task.Delay(10000);
+
+            IsBusy = false;
+            CanShow = Visibility.Hidden;
+            CanBePressed = true;
         }
 
         private bool CanStartAction(object arg) {
-            if (string.IsNullOrEmpty(SelectedItem) ||
-                string.IsNullOrEmpty(FilePath)) {
-                return false;
-            }
-            return true;
+            return !string.IsNullOrEmpty(SelectedLanguage) &&
+                   !string.IsNullOrEmpty(FilePath) &&
+                   !IsBusy;
         }
 
-        private void StartAction(object obj) {
-        }
 
         private void PickFileAction() {
-            var filePath = Dialog.GetFilePath(ConstantsHelpers.AUDIO);
-            FilePath = filePath;
+            var FullPath = DialogHelper.GetFilePath(ConstantsHelpers.AUDIO);
+            FilePath = FullPath;
+
+            StartCommand?.RaiseCanExecuteChanged();
         }
 
         private void InitListLanguages() {
 
-            Languages = new List<string>() {
-                "English",
-                "Spanish"
+            LanguagesDictionary = new Dictionary<int, Languages>() {
+
+                {1, new Languages { Name = "Spanish", Code = "es"} },
+                {2, new Languages { Name = "English", Code = "en"} }
             };
         }
     }

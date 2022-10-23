@@ -8,7 +8,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<StartupObject>TranscribeMe.App</StartupObject>
 		<PublishSingleFile>true</PublishSingleFile>
-		<ApplicationIcon>Images\ApplicationIdon.ico</ApplicationIcon>
+		<ApplicationIcon>Images\ApplicationIcon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -20,12 +20,16 @@
 
 	<ItemGroup>
 	  <None Remove="Fonts\Material.ttf" />
+	  <None Remove="Images\ApplicationIcon.png" />
 	  <None Remove="Images\Document.png" />
 	  <None Remove="Images\Word.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Include="Images\ApplicationIdon.ico">
+		<Content Include="Images\ApplicationIcon.ico">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Images\ApplicationIcon.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Images\Document.png">
@@ -36,7 +40,7 @@
 	<ItemGroup>
 		<PackageReference Include="Azure.AI.Translation.Document" Version="1.0.0" />
 		<PackageReference Include="Azure.Core" Version="1.25.0" />
-		<PackageReference Include="Azure.Storage.Blobs" Version="12.14.0" />
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.14.1" />
 		<PackageReference Include="FirebaseAuthentication.net" Version="3.7.2" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.1.0" />
 		<PackageReference Include="MediaToolkit" Version="1.1.0.1" />

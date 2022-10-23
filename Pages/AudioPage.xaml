@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:res="clr-namespace:TranscribeMe.Resources"
     xmlns:ui="http://schemas.modernwpf.com/2019"
-    Title="AudioPage"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -14,6 +14,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -21,60 +22,99 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Button
+        <Label
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Command="{Binding PickFileCommad}"
-            Content="Pick a file"
+            Content="{x:Static res:Lang.AudioService}"
+            FontSize="18"
             FontWeight="Bold" />
 
-        <Label
+        <Button
             Grid.Row="1"
-            Margin="0,5,0,0"
-            VerticalContentAlignment="Top"
-            Content="language of the file" />
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Command="{Binding PickFileCommad}"
+            Content="Pick a file"
+            FontWeight="Bold"
+            IsEnabled="{Binding CanBePressed}" />
 
         <TextBox
+            Grid.Row="1"
             Grid.Column="1"
-            Margin="10,0,10,0"
-            VerticalAlignment="Top"
+            VerticalAlignment="Center"
             IsReadOnly="True"
             Text="{Binding FilePath}" />
 
+        <Label
+            Grid.Row="2"
+            VerticalContentAlignment="Center"
+            Content="{x:Static res:Lang.FileLang}" />
+
+
         <ComboBox
-            x:Name="combo"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="1"
-            Margin="10,0,10,0"
             HorizontalAlignment="Stretch"
-            ItemsSource="{Binding Languages}"
-            SelectedItem="{Binding SelectedItem}" />
+            VerticalAlignment="Center"
+            ui:ControlHelper.PlaceholderText="Select Lenguague"
+            DisplayMemberPath="Value.Name"
+            IsEnabled="{Binding CanBePressed}"
+            ItemsSource="{Binding LanguagesDictionary}"
+            SelectedValue="{Binding SelectedLanguage}"
+            SelectedValuePath="Value.Code" />
+
 
         <Label
             Grid.Row="3"
+            Grid.RowSpan="2"
             Grid.ColumnSpan="2"
             Margin="10,0,10,0"
             HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            Content="This will not take long"
+            VerticalContentAlignment="Top"
+            Content="{x:Static res:Lang.ProcessMsg}"
             Visibility="{Binding CanShow}" />
 
         <ui:ProgressRing
-            Grid.Row="2"
+            Grid.Row="3"
+            Grid.RowSpan="2"
+            VerticalAlignment="Center"
             Grid.ColumnSpan="2"
             Width="60"
             Height="60"
-            Margin="10,0,10,0"
-            IsActive="{Binding IsWorking}" />
+            IsActive="{Binding IsBusy}" />
 
         <Button
-            Grid.Row="4"
+            Grid.Row="5"
             Grid.ColumnSpan="2"
             Margin="10,0,10,10"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Bottom"
             Command="{Binding StartCommand}"
-            Content="Start" />
+            Content="Start"
+            Focusable="False" />
+
+        <Label
+            Grid.Row="6"
+            VerticalAlignment="Center"
+            Content="Document ready:" />
+
+        <TextBox
+            Grid.Row="6"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            IsReadOnly="True"
+            Text="{Binding DocumentPath}"/>
+
+        <Button
+            Margin="10"
+            Grid.Row="6"
+            Command="{Binding CopyDocumentPathCommand}"
+            Grid.Column="2"
+            Content="Copy"/>
     </Grid>
 </Page>

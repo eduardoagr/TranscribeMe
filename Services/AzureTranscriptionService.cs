@@ -1,15 +1,14 @@
 ﻿namespace TranscribeMe.Services {
     public class AzureTranscriptionService {
 
-        public static async Task ConvertToTextAsync(string FilePath, string FileName, int Id, 
-            ObservableCollection<Tile> tiles, List<char> Characers) {
+        public async Task ConvertToTextAsync(string FilePath, string FileName, string Lang) {
 
-            //Configure speech service
+            List<char> Characers = new();
+
+            StringBuilder builder = new();
 
             var config = SpeechConfig.FromSubscription
                 (ConstantsHelpers.AZURE_KEY, ConstantsHelpers.AZURE_REGION);
-
-            config.EnableDictation();
 
             //Configure speech recognition
 
@@ -18,6 +17,10 @@
             using var audioConfig = AudioConfig.FromWavFileInput(FilePath);
             if (!string.IsNullOrEmpty(FileName)) {
                 using var speechRecognizer = new SpeechRecognizer(config, audioConfig);
+
+                config.EnableDictation();
+                config.SpeechRecognitionLanguage = Lang;
+
 
                 speechRecognizer.Recognized += (sender, e) => {
                     if (e.Result.Reason == ResultReason.RecognizedSpeech) {
@@ -29,57 +32,20 @@
 
                 speechRecognizer.SessionStarted += (sender, e) => {
 
-                    tiles![Id].IsTileActive = false;
+                    Debug.WriteLine("-----------> started");
                 };
 
                 speechRecognizer.SessionStopped += (sender, e) => {
 
-                    const string ext = ".docx";
-
-                    var pathToSave = CreateFolderService.CreateFolder(
-                        ConstantsHelpers.TRANSCRIPTIONS);
-
-                    var filename = Path.Combine
-                    (pathToSave, $"{Path.GetFileNameWithoutExtension(FilePath)}{ext}");
-
-                    var sb = new StringBuilder();
+                    Debug.WriteLine("-----------> stooped");
 
                     foreach (var item in Characers) {
-                        sb.Append(item);
+                        builder.Append(item);
                     }
 
-                    using var document = new WordDocument();
-
-                    document.EnsureMinimal();
-
-                    document.LastParagraph.AppendText(sb.ToString());
-
-                    // Find all the text which start with capital letters next to period (.) in the Word document.
-
-                    //For example . Text or .Text
-
-                    var textSelections = document.FindAll(new Regex(@"[.]\s+[A-Z]|[.][A-Z]"));
-
-                    for (int i = 0; i < textSelections.Length; i++) {
-
-                        WTextRange textToFind = textSelections[i].GetAsOneRange();
-
-                        //Replace the period (.) with enter(\n).
-
-                        string replacementText = textToFind.Text
-
-                        .Replace(".", ".\n\n")
-                        .Replace("?", "? ");
-
-                        textToFind.Text = replacementText;
-                    }
-
-                    document.Save(filename);
-
-                    tiles![Id].IsTileActive = true;
-
-                    ToastService.LaunchToastNotification(filename);
+                    Debug.WriteLine(builder.ToString());
                 };
+
 
                 await speechRecognizer.StartContinuousRecognitionAsync()
                     .ConfigureAwait(false);

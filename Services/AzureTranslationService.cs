@@ -4,9 +4,7 @@ using Azure.AI.Translation.Document;
 namespace TranscribeMe.Services {
     public class AzureTranslationService {
 
-        public static async Task<bool> TranslatorAsync(Uri sourceUrl, Uri TargetUrl, int id, ObservableCollection<Tile> tiles, string language = "es") {
-
-            tiles[id].IsTileActive = false;
+        public static async Task<bool> TranslatorAsync(Uri sourceUrl, Uri TargetUrl, int id, string language = "es") {
 
             DocumentTranslationClient client = new(new Uri(ConstantsHelpers.ENDPOINT), new AzureKeyCredential(ConstantsHelpers.KEY));
 
@@ -17,7 +15,6 @@ namespace TranscribeMe.Services {
             await operation.WaitForCompletionAsync();
 
             if (operation.Status == DocumentTranslationStatus.Succeeded) {
-                tiles[id].IsTileActive = true;
                 return true;
             }
             return false;

@@ -39,5 +39,12 @@
         //Azure blob container Names
         public static string AZURE_CONTAINER_ORIGINAL_DOCUMENT = "original";
         public static string AZURE_CONTAINER_TRANSLATED_DOCUMENT = "translated";
+
+        //File extensions
+        public static string WAV = ".wav";
+        public static string MP3 = ".mp3";
+        public static string MP4 = ".mp4";
+        public static string DOCX = ".docx";
+
     }
 }
