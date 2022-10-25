@@ -153,6 +153,9 @@
   <data name="Instructions" xml:space="preserve">
     <value>Instrucciones:</value>
   </data>
+  <data name="OpenDoc" xml:space="preserve">
+    <value>Abrir documento</value>
+  </data>
   <data name="Path" xml:space="preserve">
     <value>Ruta del dumento</value>
   </data>
@@ -160,7 +163,7 @@
     <value>Esto no tomara mucho tiempo</value>
   </data>
   <data name="SelectLenguague" xml:space="preserve">
-    <value>Elija el lenguaje</value>
+    <value>Escoja el idioma</value>
   </data>
   <data name="SubDetail" xml:space="preserve">
     <value>Una vez que presione en el boton, se iniciará, el servicio y el boton se deshabilitará</value>

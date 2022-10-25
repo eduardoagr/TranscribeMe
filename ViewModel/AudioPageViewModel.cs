@@ -1,8 +1,4 @@
-﻿
-
-using System.Windows;
-
-namespace TranscribeMe.ViewModel {
+﻿namespace TranscribeMe.ViewModel {
 
     [AddINotifyPropertyChangedInterface]
     public class AudioPageViewModel {
@@ -11,9 +7,11 @@ namespace TranscribeMe.ViewModel {
 
         public Dictionary<int, Languages>? LanguagesDictionary { get; set; }
 
-        public string? MicrosoftDocumentPath { get; set; }
+        public string? MicrosofWordtDocumentPath { get; set; }
 
-        public Visibility CanShow { get; set; } = Visibility.Collapsed;
+        public Visibility ProcessMsgVisibility { get; set; }
+
+        public Visibility MicrosofWordPathVisibility { get; set; }
 
         public DialogHelper DialogHelper { get; }
 
@@ -62,19 +60,22 @@ namespace TranscribeMe.ViewModel {
             DialogHelper = new DialogHelper();
             FolderHelper = new FolderHelper();
             AudioHelper = new AudioHelper();
-            CanShow = Visibility.Hidden;
+            ProcessMsgVisibility = Visibility.Hidden;
+            MicrosofWordPathVisibility = Visibility.Hidden;
             PickFileCommad = new Command(PickFileAction);
             StartCommand = new AsyncCommand(StartAction, CanStartAction);
             CopyDocumentPathCommand = new Command(CopyDocumentPathAction);
         }
 
         private void CopyDocumentPathAction() {
-            Clipboard.SetText(MicrosoftDocumentPath);
+            Clipboard.SetText(MicrosofWordtDocumentPath);
         }
 
         private async Task StartAction() {
+
             IsBusy = true;
-            CanShow = Visibility.Visible;
+            ProcessMsgVisibility = Visibility.Visible;
+            MicrosofWordPathVisibility = Visibility.Hidden;
             CanBePressed = false;
 
             var FileWithoutExtension = Path.GetFileNameWithoutExtension
@@ -96,9 +97,10 @@ namespace TranscribeMe.ViewModel {
             await Task.Delay(10000);
 
             IsBusy = false;
-            CanShow = Visibility.Hidden;
+            ProcessMsgVisibility = Visibility.Hidden;
             CanBePressed = true;
-            MicrosoftDocumentPath = DocumentName;
+            MicrosofWordPathVisibility = Visibility.Visible;
+            MicrosofWordtDocumentPath = DocumentName;
         }
 
         private bool CanStartAction(object arg) {

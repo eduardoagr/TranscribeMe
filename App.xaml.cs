@@ -8,8 +8,8 @@ namespace TranscribeMe;
 /// </summary>
 public partial class App : Application {
     public App() {
-        //Thread.CurrentThread.CurrentUICulture = new CultureInfo("es");
-        Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+        Thread.CurrentThread.CurrentUICulture = new CultureInfo("es");
+        //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
         SyncfusionLicenseProvider.RegisterLicense(ConstantsHelpers.SYNCFUSION_KEY);
     }
 

@@ -153,6 +153,9 @@
   <data name="Instructions" xml:space="preserve">
     <value>Instructions:</value>
   </data>
+  <data name="OpenDoc" xml:space="preserve">
+    <value>Open documnt</value>
+  </data>
   <data name="Path" xml:space="preserve">
     <value>Document path</value>
   </data>

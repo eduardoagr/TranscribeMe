@@ -169,6 +169,15 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open documnt.
+        /// </summary>
+        public static string OpenDoc {
+            get {
+                return ResourceManager.GetString("OpenDoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Document path.
         /// </summary>
         public static string Path {

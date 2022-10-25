@@ -12,13 +12,14 @@
     mc:Ignorable="d">
 
     <Page.DataContext>
-        <vm:AudioPageViewModel/>
+        <vm:AudioPageViewModel />
     </Page.DataContext>
 
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -28,7 +29,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="80" />
         </Grid.RowDefinitions>
 
         <Label
@@ -43,15 +44,16 @@
             Grid.Row="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Command="{Binding SelectFileCommand}"
+            Command="{Binding PickFileCommad}"
             Content="{x:Static res:Lang.File}"
+            Focusable="False"
             FontWeight="Bold"
             IsEnabled="{Binding CanBePressed}" />
 
         <TextBox
             Grid.Row="1"
             Grid.Column="1"
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="3"
             Margin="10"
             VerticalAlignment="Center"
             IsReadOnly="True"
@@ -66,7 +68,7 @@
         <ComboBox
             Grid.Row="2"
             Grid.Column="1"
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="3"
             Margin="10"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
@@ -81,26 +83,25 @@
         <Label
             Grid.Row="3"
             Grid.RowSpan="2"
-            Grid.ColumnSpan="3"
+            Grid.ColumnSpan="4"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Top"
             Content="{x:Static res:Lang.ProcessMsg}"
-            Visibility="{Binding CanShow}" />
+            Visibility="{Binding ProcessMsgVisibility}" />
 
         <ui:ProgressRing
             Grid.Row="3"
             Grid.RowSpan="2"
-            Grid.ColumnSpan="3"
+            Grid.ColumnSpan="4"
             Width="60"
             Height="60"
             VerticalAlignment="Center"
-            IsActive="{Binding StartCommand}" />
+            IsActive="{Binding IsBusy}" />
 
         <Button
             Grid.Row="5"
-            Grid.ColumnSpan="3"
+            Grid.ColumnSpan="4"
             HorizontalAlignment="Stretch"
-            VerticalAlignment="Bottom"
             Command="{Binding StartCommand}"
             Content="{x:Static res:Lang.Work}"
             Focusable="False" />
@@ -108,20 +109,36 @@
         <Label
             Grid.Row="6"
             VerticalAlignment="Center"
-            Content="{x:Static res:Lang.Path}" />
+            Content="{x:Static res:Lang.Path}"
+            Visibility="{Binding MicrosofWordPathVisibility}" />
 
         <TextBox
             Grid.Row="6"
             Grid.Column="1"
+            Margin="10"
             VerticalAlignment="Center"
             IsReadOnly="True"
-            Text="{Binding DocumentPath}" />
+            Text="{Binding MicrosofWordtDocumentPath}"
+            Visibility="{Binding MicrosofWordPathVisibility}" />
 
         <Button
             Grid.Row="6"
             Grid.Column="2"
             Margin="10"
+            Visibility="{Binding MicrosofWordPathVisibility}"
+            Focusable="False"
+            VerticalAlignment="Center"
             Command="{Binding CopyDocumentPathCommand}"
             Content="{x:Static res:Lang.Copy}" />
+        
+        <Button
+            Grid.Row="6"
+            Grid.Column="3"
+            Focusable="False"
+            Visibility="{Binding MicrosofWordPathVisibility}"
+            Margin="10,0,40,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Content="Open" />
     </Grid>
 </Page>
