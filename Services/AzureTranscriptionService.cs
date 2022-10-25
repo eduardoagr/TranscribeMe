@@ -1,7 +1,7 @@
 ﻿namespace TranscribeMe.Services {
     public class AzureTranscriptionService {
 
-        public async Task ConvertToTextAsync(string FilePath, string FileName, string Lang) {
+        public async Task<string> ConvertToTextAsync(string FilePath, string FileName, string Lang) {
 
             List<char> Characers = new();
 
@@ -54,6 +54,8 @@
 
                 await speechRecognizer.StopContinuousRecognitionAsync()
                     .ConfigureAwait(false);
+
+                return builder.ToString();
             }
         }
     }
