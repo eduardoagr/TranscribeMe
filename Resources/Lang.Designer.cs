@@ -79,20 +79,20 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extract text from an audio file (mp3, wav).
+        ///   Looks up a localized string similar to Generate a Word document from an audio file.
         /// </summary>
-        public static string AudioService {
+        public static string AudioServiceTitle {
             get {
-                return ResourceManager.GetString("AudioService", resourceCulture);
+                return ResourceManager.GetString("AudioServiceTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Audio to text.
+        ///   Looks up a localized string similar to Copy path.
         /// </summary>
-        public static string AudioToText {
+        public static string Copy {
             get {
-                return ResourceManager.GetString("AudioToText", resourceCulture);
+                return ResourceManager.GetString("Copy", resourceCulture);
             }
         }
         
@@ -106,7 +106,34 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to language of the file.
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string EN {
+            get {
+                return ResourceManager.GetString("EN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spanish.
+        /// </summary>
+        public static string ES {
+            get {
+                return ResourceManager.GetString("ES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select file.
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language of the file.
         /// </summary>
         public static string FileLang {
             get {
@@ -133,24 +160,6 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extract text from images (jpeg, png).
-        /// </summary>
-        public static string ImageService {
-            get {
-                return ResourceManager.GetString("ImageService", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Image to text.
-        /// </summary>
-        public static string ImageToText {
-            get {
-                return ResourceManager.GetString("ImageToText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Instructions:.
         /// </summary>
         public static string Instructions {
@@ -160,11 +169,29 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Document path.
+        /// </summary>
+        public static string Path {
+            get {
+                return ResourceManager.GetString("Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This will not take long.
         /// </summary>
         public static string ProcessMsg {
             get {
                 return ResourceManager.GetString("ProcessMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Lenguague.
+        /// </summary>
+        public static string SelectLenguague {
+            get {
+                return ResourceManager.GetString("SelectLenguague", resourceCulture);
             }
         }
         
@@ -232,20 +259,11 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extract text form a video (mp4).
+        ///   Looks up a localized string similar to Start.
         /// </summary>
-        public static string VideoService {
+        public static string Work {
             get {
-                return ResourceManager.GetString("VideoService", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Video to text.
-        /// </summary>
-        public static string VideoToText {
-            get {
-                return ResourceManager.GetString("VideoToText", resourceCulture);
+                return ResourceManager.GetString("Work", resourceCulture);
             }
         }
     }

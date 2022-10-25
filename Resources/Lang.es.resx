@@ -123,14 +123,23 @@
   <data name="Account" xml:space="preserve">
     <value>Cuenta</value>
   </data>
-  <data name="AudioService" xml:space="preserve">
-    <value>Extraer texto de un archivo de audio (mp3, wav)</value>
+  <data name="AudioServiceTitle" xml:space="preserve">
+    <value>Generar un documento Word desde un archivo de audio</value>
   </data>
-  <data name="AudioToText" xml:space="preserve">
-    <value>Audio a texto</value>
+  <data name="Copy" xml:space="preserve">
+    <value>Copiar ruta</value>
   </data>
   <data name="Detail" xml:space="preserve">
     <value>Se le presentan varios botones, cada botón ejecuta servicio diferente</value>
+  </data>
+  <data name="EN" xml:space="preserve">
+    <value>Ingles</value>
+  </data>
+  <data name="ES" xml:space="preserve">
+    <value>Español</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Escoja el archivo</value>
   </data>
   <data name="FileLang" xml:space="preserve">
     <value>Lenguaje del archivo</value>
@@ -141,17 +150,17 @@
   <data name="Home" xml:space="preserve">
     <value>Pantalla principal</value>
   </data>
-  <data name="ImageService" xml:space="preserve">
-    <value>Extraer texto de imágenes (jpeg, png)</value>
-  </data>
-  <data name="ImageToText" xml:space="preserve">
-    <value>Imagen a texto</value>
-  </data>
   <data name="Instructions" xml:space="preserve">
     <value>Instrucciones:</value>
   </data>
+  <data name="Path" xml:space="preserve">
+    <value>Ruta del dumento</value>
+  </data>
   <data name="ProcessMsg" xml:space="preserve">
     <value>Esto no tomara mucho tiempo</value>
+  </data>
+  <data name="SelectLenguague" xml:space="preserve">
+    <value>Elija el lenguaje</value>
   </data>
   <data name="SubDetail" xml:space="preserve">
     <value>Una vez que presione en el boton, se iniciará, el servicio y el boton se deshabilitará</value>
@@ -174,10 +183,7 @@
   <data name="TranslateDocument" xml:space="preserve">
     <value>Traducción de document</value>
   </data>
-  <data name="VideoService" xml:space="preserve">
-    <value>Extraer texto de un vídeo (mp4)</value>
-  </data>
-  <data name="VideoToText" xml:space="preserve">
-    <value>Video a texto</value>
+  <data name="Work" xml:space="preserve">
+    <value>Comenzar</value>
   </data>
 </root>

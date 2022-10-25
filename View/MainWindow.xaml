@@ -47,9 +47,9 @@
                 FontFamily="{StaticResource mat}"
                 Icon="{x:Static fonts:IconFont.Music}"
                 NavLink="/Pages/AudioPage.xaml"
-                ToolTip="{x:Static res:Lang.AudioService}" />
+                ToolTip="{x:Static res:Lang.AudioServiceTitle}" />
 
-            <custom:NavButton
+            <!--<custom:NavButton
                 Padding="5"
                 FontFamily="{StaticResource mat}"
                 Icon="{x:Static fonts:IconFont.Video}"
@@ -68,7 +68,7 @@
                 FontFamily="{StaticResource mat}"
                 Icon="{x:Static fonts:IconFont.FileDocument}"
                 NavLink="/Pages/TranslatePage.xaml"
-                ToolTip="{x:Static res:Lang.TranlationService}" />
+                ToolTip="{x:Static res:Lang.TranlationService}" />-->
         </ListBox>
 
         <Frame

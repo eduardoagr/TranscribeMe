@@ -1,5 +1,7 @@
 ﻿
 
+using System.Windows;
+
 namespace TranscribeMe.ViewModel {
 
     [AddINotifyPropertyChangedInterface]
@@ -9,7 +11,7 @@ namespace TranscribeMe.ViewModel {
 
         public Dictionary<int, Languages>? LanguagesDictionary { get; set; }
 
-        public string? DocumentPath { get; set; }
+        public string? MicrosoftDocumentPath { get; set; }
 
         public Visibility CanShow { get; set; } = Visibility.Collapsed;
 
@@ -30,7 +32,6 @@ namespace TranscribeMe.ViewModel {
         public AsyncCommand StartCommand { get; set; }
 
         private string? _SelectedLanguage;
-
         public string SelectedLanguage {
             get => _SelectedLanguage!;
             set {
@@ -68,7 +69,7 @@ namespace TranscribeMe.ViewModel {
         }
 
         private void CopyDocumentPathAction() {
-            throw new NotImplementedException();
+            Clipboard.SetText(MicrosoftDocumentPath);
         }
 
         private async Task StartAction() {
@@ -97,6 +98,7 @@ namespace TranscribeMe.ViewModel {
             IsBusy = false;
             CanShow = Visibility.Hidden;
             CanBePressed = true;
+            MicrosoftDocumentPath = DocumentName;
         }
 
         private bool CanStartAction(object arg) {

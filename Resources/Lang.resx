@@ -123,17 +123,26 @@
   <data name="Account" xml:space="preserve">
     <value>Account</value>
   </data>
-  <data name="AudioService" xml:space="preserve">
-    <value>Extract text from an audio file (mp3, wav)</value>
+  <data name="AudioServiceTitle" xml:space="preserve">
+    <value>Generate a Word document from an audio file</value>
   </data>
-  <data name="AudioToText" xml:space="preserve">
-    <value>Audio to text</value>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy path</value>
   </data>
   <data name="Detail" xml:space="preserve">
     <value>You are presented with several tiles, each tile correspond to a different service</value>
   </data>
+  <data name="EN" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="ES" xml:space="preserve">
+    <value>Spanish</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Select file</value>
+  </data>
   <data name="FileLang" xml:space="preserve">
-    <value>language of the file</value>
+    <value>Language of the file</value>
   </data>
   <data name="FinalInstruction" xml:space="preserve">
     <value>When the task is finished, a word document is created, which will be located in the transcribed folder</value>
@@ -141,17 +150,17 @@
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
-  <data name="ImageService" xml:space="preserve">
-    <value>Extract text from images (jpeg, png)</value>
-  </data>
-  <data name="ImageToText" xml:space="preserve">
-    <value>Image to text</value>
-  </data>
   <data name="Instructions" xml:space="preserve">
     <value>Instructions:</value>
   </data>
+  <data name="Path" xml:space="preserve">
+    <value>Document path</value>
+  </data>
   <data name="ProcessMsg" xml:space="preserve">
     <value>This will not take long</value>
+  </data>
+  <data name="SelectLenguague" xml:space="preserve">
+    <value>Select Lenguague</value>
   </data>
   <data name="SubDetail" xml:space="preserve">
     <value>Once you press on the tile, it will start, the service, and it will become disabled</value>
@@ -174,10 +183,7 @@
   <data name="TranslateDocument" xml:space="preserve">
     <value>Translate document</value>
   </data>
-  <data name="VideoService" xml:space="preserve">
-    <value>Extract text form a video (mp4)</value>
-  </data>
-  <data name="VideoToText" xml:space="preserve">
-    <value>Video to text</value>
+  <data name="Work" xml:space="preserve">
+    <value>Start</value>
   </data>
 </root>
