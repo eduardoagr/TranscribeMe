@@ -57,6 +57,8 @@
 
                 return builder.ToString();
             }
+
+            return null;
         }
     }
 }
