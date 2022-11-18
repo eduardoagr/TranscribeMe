@@ -119,7 +119,7 @@
 
             LanguagesDictionary = new Dictionary<int, Languages>() {
 
-                {1, new Languages { Name = "Spanish", Code = "es"} },
+                {1, new Languages { Name = "Spanish", Code = "es-MX"} },
                 {2, new Languages { Name = "English", Code = "en"} }
             };
         }

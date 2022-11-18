@@ -12,15 +12,14 @@
 
             //Configure speech recognition
 
-            var taskCompleteionSource = new TaskCompletionSource<int>();
+            var speechRecognizerWaiter = new TaskCompletionSource<String>();
 
             using var audioConfig = AudioConfig.FromWavFileInput(FilePath);
             if (!string.IsNullOrEmpty(FileName)) {
-                using var speechRecognizer = new SpeechRecognizer(config, audioConfig);
-
                 config.EnableDictation();
                 config.SpeechRecognitionLanguage = Lang;
 
+                using var speechRecognizer = new SpeechRecognizer(config, audioConfig);
 
                 speechRecognizer.Recognized += (sender, e) => {
                     if (e.Result.Reason == ResultReason.RecognizedSpeech) {
@@ -44,17 +43,17 @@
                     }
 
                     Debug.WriteLine(builder.ToString());
+
+                    speechRecognizerWaiter.SetResult(builder.ToString());
                 };
 
-                await speechRecognizer.StartContinuousRecognitionAsync()
-                    .ConfigureAwait(false);
+                await speechRecognizer.StartContinuousRecognitionAsync();
 
-                Task.WaitAll(new[] { taskCompleteionSource.Task });
+                var str = await speechRecognizerWaiter.Task;
 
-                await speechRecognizer.StopContinuousRecognitionAsync()
-                    .ConfigureAwait(false);
+                await speechRecognizer.StopContinuousRecognitionAsync();
 
-                return builder.ToString();
+                return str;
             }
 
             return null;
