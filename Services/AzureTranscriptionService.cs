@@ -49,7 +49,7 @@
                 await speechRecognizer.StartContinuousRecognitionAsync()
                     .ConfigureAwait(false);
 
-                Task.WaitAny(new[] { taskCompleteionSource.Task });
+                Task.WaitAll(new[] { taskCompleteionSource.Task });
 
                 await speechRecognizer.StopContinuousRecognitionAsync()
                     .ConfigureAwait(false);
