@@ -87,7 +87,7 @@
             var DocumentName = Path.Combine(DocumentPath, $"{FileWithoutExtension}{ConstantsHelpers.DOCX}");
 
             var str = await AzureTranscription.ConvertToTextAsync(ConvertedAudioPath,
-            FileWithoutExtension!, SelectedLanguage);
+           FileWithoutExtension!, SelectedLanguage);
 
             IsBusy = false;
             ProcessMsgVisibility = Visibility.Hidden;

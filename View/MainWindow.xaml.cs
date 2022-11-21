@@ -6,9 +6,11 @@ using TranscribeMe.ViewModel;
 namespace TranscribeMe;
 
 public partial class MainWindow : Window {
+
+    public static MainWindowViewModel Instance { get; } = new();
     public MainWindow() {
         InitializeComponent();
-        DataContext = new MainWindowViewModel();
+        DataContext = Instance;
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e) {
@@ -22,7 +24,6 @@ public partial class MainWindow : Window {
         var SelectedItem = NavList.SelectedItem as NavButton;
 
         if (SelectedItem != null) {
-
             NavFrame.Navigate(SelectedItem.NavLink);
         }
     }
