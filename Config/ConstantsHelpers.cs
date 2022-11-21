@@ -5,7 +5,7 @@
         public const string SYNCFUSION_KEY = "NzMxMzU0QDMyMzAyZTMzMmUzME5ScGlpRzZBZVl5SUpiVllvQjBNbXU1WTIwK0pPMFl4NVF6OGdIV09YQ2s9";
 
         //Azure
-        public const string AZURE_KEY = "c5ba659727324477b4b34e14bec0cee6";
+        public const string AZURE_KEY = "3ea6fbe9f32f4c2093423008f28075c3";
         public const string AZURE_REGION = "westeurope";
 
         //Azure blob storae

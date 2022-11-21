@@ -1,8 +1,9 @@
-﻿namespace TranscribeMe.Services {
-    public class AzureTranscriptionService {
-
-        public async Task<string?> ConvertToTextAsync(string FilePath, string FileName, string Lang) {
-
+﻿namespace TranscribeMe.Services
+{
+    public class AzureTranscriptionService
+    {
+        public async Task<string?> ConvertToTextAsync(string FilePath, string FileName, string Lang)
+        {
             List<char> Characers = new();
 
             StringBuilder builder = new();
@@ -12,33 +13,41 @@
 
             //Configure speech recognition
 
-            var speechRecognizerWaiter = new TaskCompletionSource<String>();
+            var speechRecognizerWaiter = new TaskCompletionSource<string>();
 
             using var audioConfig = AudioConfig.FromWavFileInput(FilePath);
-            if (!string.IsNullOrEmpty(FileName)) {
+            if (!string.IsNullOrEmpty(FileName))
+            {
                 config.EnableDictation();
                 config.SpeechRecognitionLanguage = Lang;
+                config.OutputFormat = OutputFormat.Detailed;
 
                 using var speechRecognizer = new SpeechRecognizer(config, audioConfig);
 
-                speechRecognizer.Recognized += (sender, e) => {
-                    if (e.Result.Reason == ResultReason.RecognizedSpeech) {
-                        foreach (var item in e.Result.Text) {
+                speechRecognizer.Recognized += (sender, e) =>
+                {
+                    if (e.Result.Reason == ResultReason.RecognizedSpeech)
+                    {
+                        foreach (var item in e.Result.Text)
+                        {
                             Characers.Add(item);
                         }
                     }
                 };
 
-                speechRecognizer.SessionStarted += (sender, e) => {
+                speechRecognizer.SessionStarted += (sender, e) =>
+                {
 
                     Debug.WriteLine("-----------> started");
                 };
 
-                speechRecognizer.SessionStopped += (sender, e) => {
+                speechRecognizer.SessionStopped += (sender, e) =>
+                {
 
                     Debug.WriteLine("-----------> stooped");
 
-                    foreach (var item in Characers) {
+                    foreach (var item in Characers)
+                    {
                         builder.Append(item);
                     }
 

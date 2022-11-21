@@ -11,13 +11,13 @@
     Title="Transcribed"
     Width="800"
     Height="700"
-    WindowStartupLocation="CenterScreen"
     ui:TitleBar.IsIconVisible="True"
     ui:WindowHelper.UseModernWindowStyle="True"
     Icon="/Images/ApplicationIcon.png"
     Loaded="Window_Loaded"
     ResizeMode="NoResize"
     SnapsToDevicePixels="True"
+    WindowStartupLocation="CenterScreen"
     WindowStyle="ToolWindow"
     mc:Ignorable="d">
 
@@ -74,6 +74,7 @@
         <Frame
             x:Name="NavFrame"
             Grid.Column="1"
+            NavigationUIVisibility="Hidden"
             ContentRendered="NavFrame_ContentRendered" />
     </Grid>
 </Window>

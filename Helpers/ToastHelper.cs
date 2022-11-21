@@ -1,16 +1,20 @@
-﻿
-using Microsoft.Toolkit.Uwp.Notifications;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
 
-namespace TranscribeMe.Services {
-    public class ToastService {
+namespace TranscribeMe.Helpers
+{
+    public class ToastHelper
+    {
+        public static void LaunchToastNotification(string FilePath)
+        {
 
-        public static void LaunchToastNotification(string FilePath) {
-
-            ToastNotificationManagerCompat.OnActivated += toastArgs => {
+            ToastNotificationManagerCompat.OnActivated += toastArgs =>
+            {
                 ToastArguments args = ToastArguments.Parse(toastArgs.Argument);
 
-                Application.Current.Dispatcher.Invoke(delegate {
-                    if (args.Count > 0) {
+                Application.Current.Dispatcher.Invoke(delegate
+                {
+                    if (args.Count > 0)
+                    {
                         Process p = new();
                         p.StartInfo.FileName = FilePath;
                         p.StartInfo.UseShellExecute = true;

@@ -6,14 +6,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:res="clr-namespace:TranscribeMe.Resources"
     xmlns:ui="http://schemas.modernwpf.com/2019"
-    xmlns:vm="clr-namespace:TranscribeMe.ViewModel"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-
-    <Page.DataContext>
-        <vm:AudioPageViewModel />
-    </Page.DataContext>
 
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
@@ -48,7 +43,7 @@
             Content="{x:Static res:Lang.File}"
             Focusable="False"
             FontWeight="Bold"
-            IsEnabled="{Binding CanBePressed}" />
+            IsEnabled="{Binding CanStartWorkButtonBePressed}" />
 
         <TextBox
             Grid.Row="1"
@@ -74,7 +69,7 @@
             VerticalAlignment="Center"
             ui:ControlHelper.PlaceholderText="{x:Static res:Lang.SelectLenguague}"
             DisplayMemberPath="Value.Name"
-            IsEnabled="{Binding CanBePressed}"
+            IsEnabled="{Binding CanStartWorkButtonBePressed}"
             ItemsSource="{Binding LanguagesDictionary}"
             SelectedValue="{Binding SelectedLanguage}"
             SelectedValuePath="Value.Code" />

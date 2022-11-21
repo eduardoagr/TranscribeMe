@@ -1,8 +1,6 @@
 ﻿namespace TranscribeMe.ViewModel {
-
     [AddINotifyPropertyChangedInterface]
     public class AudioPageViewModel {
-
         public string? FilePath { get; set; }
 
         public Dictionary<int, Languages>? LanguagesDictionary { get; set; }
@@ -19,7 +17,7 @@
 
         public AudioHelper AudioHelper { get; }
 
-        public bool CanBePressed { get; set; }
+        public bool CanStartWorkButtonBePressed { get; set; }
 
         public AzureTranscriptionService AzureTranscription { get; }
 
@@ -40,7 +38,6 @@
             }
         }
 
-
         private bool _IsBusy;
         public bool IsBusy {
             get { return _IsBusy; }
@@ -52,10 +49,9 @@
             }
         }
 
-
         public AudioPageViewModel() {
             InitListLanguages();
-            CanBePressed = true;
+            CanStartWorkButtonBePressed = true;
             AzureTranscription = new AzureTranscriptionService();
             DialogHelper = new DialogHelper();
             FolderHelper = new FolderHelper();
@@ -72,20 +68,19 @@
         }
 
         private async Task StartAction() {
-
             IsBusy = true;
             ProcessMsgVisibility = Visibility.Visible;
             MicrosofWordPathVisibility = Visibility.Hidden;
-            CanBePressed = false;
+            CanStartWorkButtonBePressed = false;
 
             var FileWithoutExtension = Path.GetFileNameWithoutExtension
                 (FilePath);
 
-            var AudioPath = FolderHelper.CreateFolder(ConstantsHelpers.AUDIO);
+            var AudioFolderPath = FolderHelper.CreateFolder(ConstantsHelpers.AUDIO);
 
             var DocumentPath = FolderHelper.CreateFolder();
 
-            var AudioFileNamePath = Path.Combine(AudioPath, $"{FileWithoutExtension}{ConstantsHelpers.WAV}");
+            var AudioFileNamePath = Path.Combine(AudioFolderPath, $"{FileWithoutExtension}{ConstantsHelpers.WAV}");
 
             var ConvertedAudioPath = AudioHelper.Converter(FilePath!, AudioFileNamePath);
 
@@ -96,7 +91,7 @@
 
             IsBusy = false;
             ProcessMsgVisibility = Visibility.Hidden;
-            CanBePressed = true;
+            CanStartWorkButtonBePressed = true;
             MicrosofWordPathVisibility = Visibility.Visible;
             MicrosofWordtDocumentPath = DocumentName;
         }
@@ -107,7 +102,6 @@
                    !IsBusy;
         }
 
-
         private void PickFileAction() {
             var FullPath = DialogHelper.GetFilePath(ConstantsHelpers.AUDIO);
             FilePath = FullPath;
@@ -116,10 +110,9 @@
         }
 
         private void InitListLanguages() {
-
             LanguagesDictionary = new Dictionary<int, Languages>() {
 
-                {1, new Languages { Name = "Spanish", Code = "es-MX"} },
+                {1, new Languages { Name = "Spanish", Code = "es"} },
                 {2, new Languages { Name = "English", Code = "en"} }
             };
         }
