@@ -13,7 +13,7 @@
             var speechRecognizerWaiter = new TaskCompletionSource<string>();
 
             using var audioConfig = AudioConfig.FromWavFileInput(FilePath);
-            if (!string.IsNullOrEmpty(FileName)) {
+            if (!string.IsNullOrEmpty(Path.GetFileName(FilePath))) {
                 config.EnableDictation();
                 config.SpeechRecognitionLanguage = Lang;
                 config.OutputFormat = OutputFormat.Detailed;

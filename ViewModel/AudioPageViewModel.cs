@@ -78,22 +78,19 @@
 
             var AudioFolderPath = FolderHelper.CreateFolder(ConstantsHelpers.AUDIO);
 
-            var DocumentPath = FolderHelper.CreateFolder();
-
             var AudioFileNamePath = Path.Combine(AudioFolderPath, $"{FileWithoutExtension}{ConstantsHelpers.WAV}");
 
             var ConvertedAudioPath = AudioHelper.Converter(FilePath!, AudioFileNamePath);
 
-            var DocumentName = Path.Combine(DocumentPath, $"{FileWithoutExtension}{ConstantsHelpers.DOCX}");
-
             var str = await AzureTranscription.ConvertToTextAsync(ConvertedAudioPath,
            FileWithoutExtension!, SelectedLanguage);
+
 
             IsBusy = false;
             ProcessMsgVisibility = Visibility.Hidden;
             CanStartWorkButtonBePressed = true;
             MicrosofWordPathVisibility = Visibility.Visible;
-            MicrosofWordtDocumentPath = DocumentName;
+            //MicrosofWordtDocumentPath = DocumentName;
         }
 
         private bool CanStartAction(object arg) {
