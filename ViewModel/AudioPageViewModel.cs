@@ -50,7 +50,7 @@
         }
 
         public AudioPageViewModel() {
-            InitListLanguages();
+            LanguagesDictionary = LanguagesHelper.GetLanguages();   
             CanStartWorkButtonBePressed = true;
             AzureTranscription = new AzureTranscriptionService();
             DialogHelper = new DialogHelper();
@@ -104,14 +104,6 @@
             FilePath = FullPath;
 
             StartCommand?.RaiseCanExecuteChanged();
-        }
-
-        private void InitListLanguages() {
-            LanguagesDictionary = new Dictionary<int, Languages>() {
-
-                {1, new Languages { Name = "Spanish", Code = "es"} },
-                {2, new Languages { Name = "English", Code = "en"} }
-            };
         }
     }
 }
