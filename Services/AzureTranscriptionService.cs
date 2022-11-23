@@ -1,7 +1,6 @@
 ﻿namespace TranscribeMe.Services {
     public class AzureTranscriptionService {
         public async Task<string?> ConvertToTextAsync(string FilePath, string FileName, string Lang) {
-            List<char> Characers = new();
 
             StringBuilder builder = new();
 
@@ -10,47 +9,33 @@
 
             //Configure speech recognition
 
-            var speechRecognizerWaiter = new TaskCompletionSource<string>();
+            var taskCompletionSource = new TaskCompletionSource<int>(
+                TaskCreationOptions.RunContinuationsAsynchronously);
 
             using var audioConfig = AudioConfig.FromWavFileInput(FilePath);
-            if (!string.IsNullOrEmpty(FileName)){
+            if (!string.IsNullOrEmpty(FileName)) {
                 config.SpeechRecognitionLanguage = Lang;
 
                 using var speechRecognizer = new SpeechRecognizer(config, audioConfig);
 
-                speechRecognizer.Recognized += (sender, e) => {
+                speechRecognizer.SessionStopped += (s, e) => {
+                    taskCompletionSource.TrySetResult(0);
+                };
+
+                speechRecognizer.Recognized += (s, e) => {
                     if (e.Result.Reason == ResultReason.RecognizedSpeech) {
                         foreach (var item in e.Result.Text) {
-                            Characers.Add(item);
+                            builder.Append(item);
                         }
+                        // append a space if you want to separate phrases from each other
                     }
                 };
 
-                speechRecognizer.SessionStarted += (sender, e) => {
+                await speechRecognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);
+                Task.WaitAny(new[] { taskCompletionSource.Task });
+                await speechRecognizer.StopContinuousRecognitionAsync().ConfigureAwait(false);
 
-                    Debug.WriteLine("-----------> started");
-                };
-
-                speechRecognizer.SessionStopped += (sender, e) => {
-
-                    Debug.WriteLine("-----------> stooped");
-
-                    foreach (var item in Characers) {
-                        builder.Append(item);
-                    }
-
-                    Debug.WriteLine(builder.ToString());
-
-                    speechRecognizerWaiter.TrySetResult(builder.ToString());
-                };
-
-                await speechRecognizer.StartContinuousRecognitionAsync();
-
-                var str = await speechRecognizerWaiter.Task;
-
-                await speechRecognizer.StopContinuousRecognitionAsync();
-
-                return str;
+                return builder.ToString();
             }
 
             return null;
