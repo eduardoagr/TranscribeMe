@@ -3,6 +3,7 @@
         public async Task<string?> ConvertToTextAsync(string FilePath, string FileName, string Lang) {
 
             StringBuilder builder = new();
+            List<char> Characers = new();
 
             var config = SpeechConfig.FromSubscription
                 (ConstantsHelpers.AZURE_KEY, ConstantsHelpers.AZURE_REGION);
@@ -12,23 +13,27 @@
             var taskCompletionSource = new TaskCompletionSource<int>(
                 TaskCreationOptions.RunContinuationsAsynchronously);
 
-            using var audioConfig = AudioConfig.FromWavFileInput(FilePath);
             if (!string.IsNullOrEmpty(FileName)) {
-                config.SpeechRecognitionLanguage = Lang;
 
+                using var audioConfig = AudioConfig.FromWavFileInput(FilePath);
                 using var speechRecognizer = new SpeechRecognizer(config, audioConfig);
-
-                speechRecognizer.SessionStopped += (s, e) => {
-                    taskCompletionSource.TrySetResult(0);
-                };
+                config.SpeechRecognitionLanguage = Lang;
 
                 speechRecognizer.Recognized += (s, e) => {
                     if (e.Result.Reason == ResultReason.RecognizedSpeech) {
                         foreach (var item in e.Result.Text) {
                             builder.Append(item);
                         }
-                        // append a space if you want to separate phrases from each other
                     }
+                    speechRecognizer.SessionStarted += (sender, e) => {
+                    };
+                    speechRecognizer.SessionStopped += (sender, e) => {
+                        foreach (var item in Characers) {
+                            builder.Append(item);
+                        }
+
+                        taskCompletionSource.TrySetResult(0);
+                    };
                 };
 
                 await speechRecognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);

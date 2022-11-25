@@ -17,6 +17,8 @@
 
         public AudioHelper AudioHelper { get; }
 
+        public WordDocumentHelper DocumentHelper { get; set; }
+
         public bool CanStartWorkButtonBePressed { get; set; }
 
         public AzureTranscriptionService AzureTranscription { get; }
@@ -50,7 +52,8 @@
         }
 
         public AudioPageViewModel() {
-            LanguagesDictionary = LanguagesHelper.GetLanguages();   
+            LanguagesDictionary = LanguagesHelper.GetLanguages();
+            DocumentHelper = new WordDocumentHelper();
             CanStartWorkButtonBePressed = true;
             AzureTranscription = new AzureTranscriptionService();
             DialogHelper = new DialogHelper();
@@ -82,10 +85,10 @@
 
             var ConvertedAudioPath = AudioHelper.Converter(FilePath!, AudioFileNamePath);
 
-            var str = await AzureTranscription.ConvertToTextAsync(ConvertedAudioPath,
-           FileWithoutExtension!, SelectedLanguage);
+            // var str = await AzureTranscription.ConvertToTextAsync(ConvertedAudioPath,
+            //FileWithoutExtension!, SelectedLanguage);
 
-
+            var str = DocumentHelper.CreateWordDocument(" You understand?Yeah. I mean, of course you'd say that.Such a typical thing for a therapist to say.You know what? Let's just cut the crap, all right? I'm not stupid. I know that you could care less about me or my problems, and all you really care about is getting that money at the end of the session.So you know what? Let's make a deal. You know, I'm fine with just sitting here an hour a week on my phone. You can do whatever it is that you do. Then my mom will be happy because I'm here.And you'll be happy because he gets your money.Now do we have a deal?Or would you rather just keep playing this fake sympathetic therapist that pretends to care about her clients?And.And I'll just go along being the gullible patient who thinks that I finally.Have someone who wants to help me?Either way.Get your money.And I understand that's all you really want.End scene.", SelectedLanguage);
             IsBusy = false;
             ProcessMsgVisibility = Visibility.Hidden;
             CanStartWorkButtonBePressed = true;

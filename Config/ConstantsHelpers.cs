@@ -4,11 +4,15 @@
         //syncfusion
         public const string SYNCFUSION_KEY = "NzMxMzU0QDMyMzAyZTMzMmUzME5ScGlpRzZBZVl5SUpiVllvQjBNbXU1WTIwK0pPMFl4NVF6OGdIV09YQ2s9";
 
-        //Azure
+        //Azure speech recognition
         public const string AZURE_KEY = "3ea6fbe9f32f4c2093423008f28075c3";
         public const string AZURE_REGION = "westeurope";
 
-        //Azure blob storae
+        //Bing spell checker
+        public const string BING_SPELL_KEY = "f9bd3363f523405bbddd8bab4830180b";
+        public const string BING_SPELL_URL = "https://api.bing.microsoft.com/v7.0/spellcheck/";
+
+        //Azure blob storage
         public const string AZUTE_STORAGE_ACCOUNT_NAME = "transcribemedocs";
         public const string AZUTE_STORAGE_ACCOUNT_KEY = "ejnleMkkJISfu0AwUxiJxmgyGmj3v91IH+fgbW/ODnkq1M+lotP/yoPh9ULCHLHdf17d9NdcXtxP+AStLv6/PA==";
         public const string AZURE_UPLOAD_DOUMMENRTS = "https://transcribemedocs.blob.core.windows.net/original";

@@ -54,8 +54,8 @@
 		<PackageReference Include="NAudio.Lame" Version="2.0.1" />
 		<PackageReference Include="PropertyChanged.Fody" PrivateAssets="All" Version="4.1.0" />
 		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
-		<PackageReference Include="Syncfusion.DocIO.Wpf" Version="20.3.0.57" />
-		<PackageReference Include="Syncfusion.Licensing" Version="20.3.0.57" />
+		<PackageReference Include="Syncfusion.DocIO.Wpf" Version="20.3.0.58" />
+		<PackageReference Include="Syncfusion.Licensing" Version="20.3.0.58" />
 	</ItemGroup>
 
 	<ItemGroup>
