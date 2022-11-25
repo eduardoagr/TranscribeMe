@@ -10,7 +10,8 @@ namespace TranscribeMe.Services {
 
             ContainerClient = new BlobContainerClient(ConectionString, ConstantsHelpers.AZURE_CONTAINER_ORIGINAL_DOCUMENT);
 
-            Azure.Storage.Sas.BlobSasBuilder blobSasBuilder = new() {
+            Azure.Storage.Sas.BlobSasBuilder blobSasBuilder = new()
+            {
                 BlobContainerName = ConstantsHelpers.AZURE_CONTAINER_ORIGINAL_DOCUMENT,
                 ExpiresOn = DateTime.MaxValue,//Let SAS token expire never.
             };
@@ -29,7 +30,8 @@ namespace TranscribeMe.Services {
 
             ContainerClient = new BlobContainerClient(ConectionString, ConstantsHelpers.AZURE_CONTAINER_TRANSLATED_DOCUMENT);
 
-            Azure.Storage.Sas.BlobSasBuilder blobSasBuilder = new() {
+            Azure.Storage.Sas.BlobSasBuilder blobSasBuilder = new()
+            {
                 BlobContainerName = ConstantsHelpers.AZURE_CONTAINER_TRANSLATED_DOCUMENT,
                 ExpiresOn = DateTime.MaxValue,//Let SAS token expire never.
             };

@@ -268,6 +268,15 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open document.
+        /// </summary>
+        public static string WordOpen {
+            get {
+                return ResourceManager.GetString("WordOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
         public static string Work {

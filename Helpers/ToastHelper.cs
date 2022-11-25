@@ -1,20 +1,13 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
 
-namespace TranscribeMe.Helpers
-{
-    public class ToastHelper
-    {
-        public static void LaunchToastNotification(string FilePath)
-        {
-
-            ToastNotificationManagerCompat.OnActivated += toastArgs =>
-            {
+namespace TranscribeMe.Helpers {
+    public class ToastHelper {
+        public void LaunchToastNotification(string FilePath) {
+            ToastNotificationManagerCompat.OnActivated += toastArgs => {
                 ToastArguments args = ToastArguments.Parse(toastArgs.Argument);
 
-                Application.Current.Dispatcher.Invoke(delegate
-                {
-                    if (args.Count > 0)
-                    {
+                Application.Current.Dispatcher.Invoke(delegate {
+                    if (args.Count > 0) {
                         Process p = new();
                         p.StartInfo.FileName = FilePath;
                         p.StartInfo.UseShellExecute = true;

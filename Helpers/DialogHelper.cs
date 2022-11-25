@@ -21,7 +21,8 @@
                     break;
             }
 
-            var dialog = new OpenFileDialog() {
+            var dialog = new OpenFileDialog()
+            {
 
                 Filter = filter,
             };

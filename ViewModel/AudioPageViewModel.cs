@@ -3,6 +3,10 @@
     public class AudioPageViewModel {
         public string? FilePath { get; set; }
 
+        public string? DocPath { get; set; }
+
+        public bool CanStartWorkButtonBePressed { get; set; }
+
         public Dictionary<int, Languages>? LanguagesDictionary { get; set; }
 
         public string? MicrosofWordtDocumentPath { get; set; }
@@ -15,15 +19,20 @@
 
         public FolderHelper FolderHelper { get; }
 
+        public ToastHelper ToastHelper { get; set; }
+
         public AudioHelper AudioHelper { get; }
 
         public WordDocumentHelper DocumentHelper { get; set; }
 
-        public bool CanStartWorkButtonBePressed { get; set; }
+        public BingSpellCheckService SpellCheckService { get; set; }
+
 
         public AzureTranscriptionService AzureTranscription { get; }
 
         public Command PickFileCommad { get; set; }
+
+        public Command OpenDocxCommnd { get; set; }
 
         public Command CopyDocumentPathCommand { get; set; }
 
@@ -54,7 +63,8 @@
         public AudioPageViewModel() {
             LanguagesDictionary = LanguagesHelper.GetLanguages();
             DocumentHelper = new WordDocumentHelper();
-            CanStartWorkButtonBePressed = true;
+            ToastHelper = new ToastHelper();
+            SpellCheckService = new BingSpellCheckService();
             AzureTranscription = new AzureTranscriptionService();
             DialogHelper = new DialogHelper();
             FolderHelper = new FolderHelper();
@@ -64,7 +74,18 @@
             PickFileCommad = new Command(PickFileAction);
             StartCommand = new AsyncCommand(StartAction, CanStartAction);
             CopyDocumentPathCommand = new Command(CopyDocumentPathAction);
+            OpenDocxCommnd = new Command(OpenDocxAction);
+
+            CanStartWorkButtonBePressed = true;
         }
+
+        private void OpenDocxAction(object obj) {
+            Process p = new();
+            p.StartInfo.FileName = DocPath;
+            p.StartInfo.UseShellExecute = true;
+            p.Start();
+        }
+
 
         private void CopyDocumentPathAction() {
             Clipboard.SetText(MicrosofWordtDocumentPath);
@@ -85,15 +106,20 @@
 
             var ConvertedAudioPath = AudioHelper.Converter(FilePath!, AudioFileNamePath);
 
-            // var str = await AzureTranscription.ConvertToTextAsync(ConvertedAudioPath,
-            //FileWithoutExtension!, SelectedLanguage);
+            var str = await AzureTranscription.ConvertToTextAsync(ConvertedAudioPath,
+           FileWithoutExtension!, SelectedLanguage);
 
-            var str = DocumentHelper.CreateWordDocument(" You understand?Yeah. I mean, of course you'd say that.Such a typical thing for a therapist to say.You know what? Let's just cut the crap, all right? I'm not stupid. I know that you could care less about me or my problems, and all you really care about is getting that money at the end of the session.So you know what? Let's make a deal. You know, I'm fine with just sitting here an hour a week on my phone. You can do whatever it is that you do. Then my mom will be happy because I'm here.And you'll be happy because he gets your money.Now do we have a deal?Or would you rather just keep playing this fake sympathetic therapist that pretends to care about her clients?And.And I'll just go along being the gullible patient who thinks that I finally.Have someone who wants to help me?Either way.Get your money.And I understand that's all you really want.End scene.", SelectedLanguage);
+            var strCorrectd = await SpellCheckService.SpellingCorrector(str!, SelectedLanguage);
+
+            DocPath = DocumentHelper.CreateWordDocument(strCorrectd,
+                FileWithoutExtension!, FolderHelper);
+
             IsBusy = false;
+            ToastHelper.LaunchToastNotification(DocPath);
             ProcessMsgVisibility = Visibility.Hidden;
             CanStartWorkButtonBePressed = true;
             MicrosofWordPathVisibility = Visibility.Visible;
-            //MicrosofWordtDocumentPath = DocumentName;
+            MicrosofWordtDocumentPath = DocPath;
         }
 
         private bool CanStartAction(object arg) {

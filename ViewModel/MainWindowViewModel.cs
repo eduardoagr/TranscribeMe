@@ -47,7 +47,8 @@ public class MainWindowViewModel {
 
                 //var inputFile = new MediaFile { Filename = dlg.FileName };
                 //var outputFile = new MediaFile { Filename = VideoFilename };
-                var options = new ConversionOptions {
+                var options = new ConversionOptions
+                {
                     AudioSampleRate = AudioSampleRate.Hz22050
                 };
 
@@ -121,7 +122,8 @@ public class MainWindowViewModel {
                 break;
         }
 
-        dlg = new OpenFileDialog {
+        dlg = new OpenFileDialog
+        {
             Filter = filter,
         };
 

@@ -1,37 +1,25 @@
-﻿using System.Net.Http;
-using System.Net.Http.Json;
+﻿using Syncfusion.DocIO.DLS;
 
 namespace TranscribeMe.Helpers {
+
     public class WordDocumentHelper {
-        public async Task CreateWordDocument(string text, string lang, /*string fileName*/ string extention = "docx") {
 
-            var mode = "proof";
-            string? cc;
-            if (lang.Equals("en")) {
-                cc = "US";
-            } else {
-                cc = "ES";
-            }
+        public string CreateWordDocument(string text, string fileName, FolderHelper folderHelper) {
 
-            var txt = text.Trim();
-            var url = $"{ConstantsHelpers.BING_SPELL_URL}?mode={mode}&text={txt}&cc={cc}";
+            var doxcName = $"{fileName}.docx";
+            var DocumentFolderPath = folderHelper.CreateFolder();
 
-            using var client = new HttpClient();
-            using var request = new HttpRequestMessage();
+            var docPath = Path.Combine(DocumentFolderPath, doxcName);
 
-            request.Method = HttpMethod.Get;
-            request.RequestUri = new Uri(url);
-            request.Headers.Add("Ocp-Apim-Subscription-Key", ConstantsHelpers.BING_SPELL_KEY);
+            using var wordDocument = new WordDocument();
 
-            var response = await client.SendAsync(request);
-            if (response.IsSuccessStatusCode) {
+            wordDocument.EnsureMinimal();
 
-                var data = await response.Content.ReadFromJsonAsync<SpellCheckModel>();
+            wordDocument.LastParagraph.AppendText(text);
 
-                foreach (var item in data!.flaggedTokens) {
-                    txt = txt.Replace(item.token, item.suggestions[0].suggestion);
-                }
-            }
+            wordDocument.Save(docPath);
+
+            return docPath;
         }
     }
 }

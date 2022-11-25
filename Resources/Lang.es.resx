@@ -186,6 +186,9 @@
   <data name="TranslateDocument" xml:space="preserve">
     <value>Traducción de document</value>
   </data>
+  <data name="WordOpen" xml:space="preserve">
+    <value>Abrir Documento</value>
+  </data>
   <data name="Work" xml:space="preserve">
     <value>Comenzar</value>
   </data>

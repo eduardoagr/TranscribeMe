@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
 
         <Label
-            Grid.ColumnSpan="3"
+            Grid.ColumnSpan="4"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Content="{x:Static res:Lang.AudioServiceTitle}"
@@ -130,10 +130,11 @@
             Grid.Row="6"
             Grid.Column="3"
             Focusable="False"
+            Command="{Binding OpenDocxCommnd}"
             Visibility="{Binding MicrosofWordPathVisibility}"
             Margin="10,0,40,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Content="Open" />
+            Content="{x:Static res:Lang.WordOpen}" />
     </Grid>
 </Page>

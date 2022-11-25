@@ -10,6 +10,8 @@
 
             //Configure speech recognition
 
+            config.SpeechRecognitionLanguage = Lang;
+
             var taskCompletionSource = new TaskCompletionSource<int>(
                 TaskCreationOptions.RunContinuationsAsynchronously);
 
@@ -17,7 +19,7 @@
 
                 using var audioConfig = AudioConfig.FromWavFileInput(FilePath);
                 using var speechRecognizer = new SpeechRecognizer(config, audioConfig);
-                config.SpeechRecognitionLanguage = Lang;
+           
 
                 speechRecognizer.Recognized += (s, e) => {
                     if (e.Result.Reason == ResultReason.RecognizedSpeech) {

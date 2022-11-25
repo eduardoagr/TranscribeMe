@@ -5,8 +5,8 @@
 
             return new Dictionary<int, Languages>() {
 
-                {1, new Languages { Name = "Spanish", Code = "es"} },
-                {2, new Languages { Name = "English", Code = "en"} }
+                {1, new Languages { Name = "Spanish", Code = "es-ES"} },
+                {2, new Languages { Name = "English", Code = "en-US"} }
             };
         }
     }
