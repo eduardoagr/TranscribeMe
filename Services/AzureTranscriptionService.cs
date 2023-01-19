@@ -1,13 +1,15 @@
-﻿namespace TranscribeMe.Services {
+﻿using System.Runtime.InteropServices;
+
+namespace TranscribeMe.Services {
     public class AzureTranscriptionService {
-        public async Task<string?> ConvertToTextAsync(string FilePath, string FileName, string Lang) {
+        public static async Task<string?> ConvertToTextAsync(string FilePath, string FileName, [Optional]string Lang) {
             if (!string.IsNullOrEmpty(FileName)) {
 
                 StringBuilder builder = new();
                 List<char> Characers = new();
 
                 var config = SpeechConfig.FromSubscription
-                (ConstantsHelpers.AZURE_KEY, ConstantsHelpers.AZURE_REGION);
+                (ConstantsHelpers.AZURE_SPEECH_KEY, ConstantsHelpers.AZURE_SPEECH_REGION);
 
                 //Configure speech recognition
 

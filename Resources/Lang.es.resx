@@ -139,7 +139,7 @@
     <value>Español</value>
   </data>
   <data name="File" xml:space="preserve">
-    <value>Escoja el archivo</value>
+    <value>Escoja un archivo</value>
   </data>
   <data name="FileLang" xml:space="preserve">
     <value>Lenguaje del archivo</value>
@@ -149,6 +149,9 @@
   </data>
   <data name="Home" xml:space="preserve">
     <value>Pantalla principal</value>
+  </data>
+  <data name="ImageServiceTitle" xml:space="preserve">
+    <value>Generar un documento Word desde una image</value>
   </data>
   <data name="Instructions" xml:space="preserve">
     <value>Instrucciones:</value>
@@ -171,6 +174,9 @@
   <data name="SubIntro" xml:space="preserve">
     <value>Estos servicios son:</value>
   </data>
+  <data name="TetExtraction" xml:space="preserve">
+    <value>Extraer texto de una imagen (PNG, JPEG)</value>
+  </data>
   <data name="ToastMsg1" xml:space="preserve">
     <value>Su documento esta listo</value>
   </data>
@@ -185,6 +191,15 @@
   </data>
   <data name="TranslateDocument" xml:space="preserve">
     <value>Traducción de document</value>
+  </data>
+  <data name="TranslateInstructions" xml:space="preserve">
+    <value>Escoja un idioma</value>
+  </data>
+  <data name="TraslateServiceTitle" xml:space="preserve">
+    <value>Traducir un documento Word o PDF</value>
+  </data>
+  <data name="VideoServiceTitle" xml:space="preserve">
+    <value>Generar un documento Word desde un archivo de video</value>
   </data>
   <data name="WordOpen" xml:space="preserve">
     <value>Abrir Documento</value>

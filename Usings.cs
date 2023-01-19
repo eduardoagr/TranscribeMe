@@ -1,8 +1,5 @@
 ﻿global using Config;
 
-global using MediaToolkit;
-global using MediaToolkit.Options;
-
 global using Microsoft.CognitiveServices.Speech;
 global using Microsoft.CognitiveServices.Speech.Audio;
 global using Microsoft.Win32;

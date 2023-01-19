@@ -160,6 +160,15 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate a Word document from an image file.
+        /// </summary>
+        public static string ImageServiceTitle {
+            get {
+                return ResourceManager.GetString("ImageServiceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Instructions:.
         /// </summary>
         public static string Instructions {
@@ -223,6 +232,15 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extract text from an image (PNG, JPEG).
+        /// </summary>
+        public static string TetExtraction {
+            get {
+                return ResourceManager.GetString("TetExtraction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your document is ready.
         /// </summary>
         public static string ToastMsg1 {
@@ -259,11 +277,29 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Translate document.
+        ///   Looks up a localized string similar to pick a language.
         /// </summary>
-        public static string TranslateDocument {
+        public static string TranslateInstructions {
             get {
-                return ResourceManager.GetString("TranslateDocument", resourceCulture);
+                return ResourceManager.GetString("TranslateInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Translate a Word or PDF document.
+        /// </summary>
+        public static string TraslateServiceTitle {
+            get {
+                return ResourceManager.GetString("TraslateServiceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate a Word document from an video file.
+        /// </summary>
+        public static string VideoServiceTitle {
+            get {
+                return ResourceManager.GetString("VideoServiceTitle", resourceCulture);
             }
         }
         

@@ -50,26 +50,27 @@
                 NavLink="/Pages/AudioPage.xaml"
                 ToolTip="{x:Static res:Lang.AudioServiceTitle}" />
 
-            <!--<custom:NavButton
+            <custom:NavButton
                 Padding="5"
                 FontFamily="{StaticResource mat}"
                 Icon="{x:Static fonts:IconFont.Video}"
                 NavLink="/Pages/VideoPage.xaml"
-                ToolTip="{x:Static res:Lang.VideoService}" />
+                ToolTip="{x:Static res:Lang.VideoServiceTitle}" />
 
             <custom:NavButton
                 Padding="5"
                 FontFamily="{StaticResource mat}"
-                Icon="{x:Static fonts:IconFont.Eye}"
+                Icon="{x:Static fonts:IconFont.Ocr}"
                 NavLink="/Pages/ImagePage.xaml"
-                ToolTip="{x:Static res:Lang.ImageService}" />
+                ToolTip="{x:Static res:Lang.TetExtraction}" />
 
             <custom:NavButton
                 Padding="5"
                 FontFamily="{StaticResource mat}"
-                Icon="{x:Static fonts:IconFont.FileDocument}"
+                Icon="{x:Static fonts:IconFont.Translate}"
                 NavLink="/Pages/TranslatePage.xaml"
-                ToolTip="{x:Static res:Lang.TranlationService}" />-->
+                ToolTip="{x:Static res:Lang.TranlationService}" />
+
         </ListBox>
 
         <Frame

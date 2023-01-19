@@ -1,22 +1,51 @@
 ﻿using Syncfusion.DocIO.DLS;
 
+using System.Text.RegularExpressions;
+
 namespace TranscribeMe.Helpers {
 
     public class WordDocumentHelper {
 
-        public string CreateWordDocument(string text, string fileName, FolderHelper folderHelper) {
+        public static string CreateWordDocument(string text, string fileName, bool transcription) {
 
             var doxcName = $"{fileName}.docx";
-            var DocumentFolderPath = folderHelper.CreateFolder();
+            var DocumentFolderPath = string.Empty;
+            if (transcription) {
+                DocumentFolderPath = FolderHelper.CreateFolder();
+            } else {
+                DocumentFolderPath = FolderHelper.CreateFolder(ConstantsHelpers.IMAGETEXT);
+            }
 
             var docPath = Path.Combine(DocumentFolderPath, doxcName);
 
-            using var wordDocument = new WordDocument();
+            using WordDocument wordDocument = new();
 
             wordDocument.EnsureMinimal();
 
             wordDocument.LastParagraph.AppendText(text);
 
+            // Find all the text which start with capital letters next to period (.) in the Word document.
+
+            //For example . Text or .Text
+
+            if (transcription) {
+
+                var textSelections = wordDocument.FindAll(new Regex(@"[.]\s+[A-Z]|[.][A-Z]"));
+
+                for (int i = 0; i < textSelections.Length; i++) {
+
+                    WTextRange textToFind = textSelections[i].GetAsOneRange();
+
+                    //Replace the period (.) with enter(\n).
+
+                    string replacementText = textToFind.Text
+
+                    .Replace(".", ".\n")
+                    .Replace("?", "? ");
+
+                    textToFind.Text = replacementText;
+                }
+            }
             wordDocument.Save(docPath);
 
             return docPath;

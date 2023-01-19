@@ -8,7 +8,8 @@ namespace TranscribeMe.Services {
 
         public async Task<Uri> UploadToAzureBlobStorage(string FilePath) {
 
-            ContainerClient = new BlobContainerClient(ConectionString, ConstantsHelpers.AZURE_CONTAINER_ORIGINAL_DOCUMENT);
+            ContainerClient = new BlobContainerClient(ConectionString,
+                ConstantsHelpers.AZURE_CONTAINER_ORIGINAL_DOCUMENT);
 
             Azure.Storage.Sas.BlobSasBuilder blobSasBuilder = new()
             {
@@ -16,8 +17,12 @@ namespace TranscribeMe.Services {
                 ExpiresOn = DateTime.MaxValue,//Let SAS token expire never.
             };
 
-            blobSasBuilder.SetPermissions(Azure.Storage.Sas.BlobSasPermissions.Read | Azure.Storage.Sas.BlobSasPermissions.List);
-            var sasToken = blobSasBuilder.ToSasQueryParameters(new StorageSharedKeyCredential(ConstantsHelpers.AZUTE_STORAGE_ACCOUNT_NAME, ConstantsHelpers.AZUTE_STORAGE_ACCOUNT_KEY)).ToString();
+            blobSasBuilder.SetPermissions
+                (Azure.Storage.Sas.BlobSasPermissions.Read | Azure.Storage.Sas.BlobSasPermissions.List);
+            var sasToken = blobSasBuilder.ToSasQueryParameters
+                (new StorageSharedKeyCredential
+                (ConstantsHelpers.AZUTE_STORAGE_ACCOUNT_NAME,
+                ConstantsHelpers.AZUTE_STORAGE_ACCOUNT_KEY)).ToString();
 
             var blob = ContainerClient.GetBlobClient(Path.GetFileName(FilePath));
             await blob.UploadAsync(FilePath, true);
@@ -26,9 +31,10 @@ namespace TranscribeMe.Services {
 
         }
 
-        public Task<Uri> SaveFromdAzureBlobStorage() {
+        public Task<Uri> GetTargetUri() {
 
-            ContainerClient = new BlobContainerClient(ConectionString, ConstantsHelpers.AZURE_CONTAINER_TRANSLATED_DOCUMENT);
+            ContainerClient = new BlobContainerClient(ConectionString,
+                ConstantsHelpers.AZURE_CONTAINER_TRANSLATED_DOCUMENT);
 
             Azure.Storage.Sas.BlobSasBuilder blobSasBuilder = new()
             {
@@ -37,7 +43,9 @@ namespace TranscribeMe.Services {
             };
 
             blobSasBuilder.SetPermissions(Azure.Storage.Sas.BlobSasPermissions.Write | Azure.Storage.Sas.BlobSasPermissions.List);
-            var sasToken = blobSasBuilder.ToSasQueryParameters(new StorageSharedKeyCredential(ConstantsHelpers.AZUTE_STORAGE_ACCOUNT_NAME, ConstantsHelpers.AZUTE_STORAGE_ACCOUNT_KEY)).ToString();
+            var sasToken = blobSasBuilder.ToSasQueryParameters(
+                new StorageSharedKeyCredential(ConstantsHelpers.AZUTE_STORAGE_ACCOUNT_NAME,
+                ConstantsHelpers.AZUTE_STORAGE_ACCOUNT_KEY)).ToString();
 
             return Task.FromResult(new Uri($"{ConstantsHelpers.AZURE_DOWNLOAD_DOCUMENTS}?{sasToken}"));
         }
@@ -51,12 +59,14 @@ namespace TranscribeMe.Services {
 
         }
 
-        public async Task DownloadFileFromBlobAsync(string pathToSave, string FilePath) {
+        public async Task<string> DownloadFileFromBlobAsync(string pathToSave, string FilePath) {
 
-            ContainerClient = new BlobContainerClient(ConectionString, ConstantsHelpers.AZURE_CONTAINER_TRANSLATED_DOCUMENT);
+            ContainerClient = new BlobContainerClient(ConectionString,
+                ConstantsHelpers.AZURE_CONTAINER_TRANSLATED_DOCUMENT);
 
             var blob = ContainerClient.GetBlobClient(Path.GetFileName(FilePath));
             await blob.DownloadToAsync(pathToSave);
+            return pathToSave;
         }
     }
 }

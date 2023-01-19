@@ -4,10 +4,9 @@ using System.Net.Http.Json;
 namespace TranscribeMe.Services {
     public class BingSpellCheckService {
 
-        public async Task<string> SpellingCorrector(string txt, string lang) {
+        public static async Task<string> SpellingCorrector(string txt, string lang) {
 
             var mode = "proof";
-            
 
             var text = txt.Trim();
             var url = $"{ConstantsHelpers.BING_SPELL_URL}?mode={mode}&mkt={lang}&text={txt}";

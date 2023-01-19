@@ -1,23 +1,23 @@
 ﻿namespace TranscribeMe.Helpers {
     public class DialogHelper {
 
-        public string GetFilePath(string type) {
+        public static string GetFilePath(string type) {
 
             var filter = string.Empty;
 
             switch (type) {
 
-                case ConstantsHelpers.AUDIO:
+                case ConstantsHelpers.AUDIOS:
                     filter = ConstantsHelpers.AUDIOFILES;
                     break;
                 case ConstantsHelpers.VIDEO:
                     filter = ConstantsHelpers.VIDEOFILES;
                     break;
                 case ConstantsHelpers.IMAGES:
-                    filter = ConstantsHelpers.IMAGES;
+                    filter = ConstantsHelpers.IMAGEFILES;
                     break;
                 case ConstantsHelpers.DOCUMENTS:
-                    filter = ConstantsHelpers.DOCUMENTS;
+                    filter = ConstantsHelpers.DOCUMENTSFIILES;
                     break;
             }
 

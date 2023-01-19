@@ -2,7 +2,7 @@
 
 namespace TranscribeMe.Helpers {
     public class ToastHelper {
-        public void LaunchToastNotification(string FilePath) {
+        public static void LaunchToastNotification(string FilePath) {
             ToastNotificationManagerCompat.OnActivated += toastArgs => {
                 ToastArguments args = ToastArguments.Parse(toastArgs.Argument);
 

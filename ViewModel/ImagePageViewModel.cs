@@ -1,7 +1,8 @@
-﻿
-namespace TranscribeMe.ViewModel {
+﻿namespace TranscribeMe.ViewModel {
+
     [AddINotifyPropertyChangedInterface]
-    public class AudioPageViewModel {
+    public class ImagePageViewModel {
+
         public string? FilePath { get; set; }
 
         public string? DocPath { get; set; }
@@ -24,17 +25,6 @@ namespace TranscribeMe.ViewModel {
 
         public AsyncCommand StartCommand { get; set; }
 
-        private string? _SelectedLanguage;
-        public string SelectedLanguage {
-            get => _SelectedLanguage!;
-            set {
-                if (_SelectedLanguage != value) {
-                    _SelectedLanguage = value;
-                    StartCommand.RaiseCanExecuteChanged();
-                }
-            }
-        }
-
         private bool _IsBusy;
         public bool IsBusy {
             get { return _IsBusy; }
@@ -46,9 +36,8 @@ namespace TranscribeMe.ViewModel {
             }
         }
 
-        public AudioPageViewModel() {
+        public ImagePageViewModel() {
 
-            LanguagesDictionary = LanguagesHelper.GetLanguages();
             ProcessMsgVisibility = Visibility.Hidden;
             MicrosofWordPathVisibility = Visibility.Hidden;
             PickFileCommad = new Command(PickFileAction);
@@ -77,22 +66,10 @@ namespace TranscribeMe.ViewModel {
             MicrosofWordPathVisibility = Visibility.Hidden;
             CanStartWorkButtonBePressed = false;
 
-            var FileWithoutExtension = Path.GetFileNameWithoutExtension
-                (FilePath);
+            var textFromImage = await AzureOcrService.GiveTextAsync(FilePath!);
 
-            var AudioFolderPath = FolderHelper.CreateFolder(ConstantsHelpers.AUDIOS);
-
-            var AudioFileNamePath = Path.Combine(AudioFolderPath, $"{FileWithoutExtension}{ConstantsHelpers.WAV}");
-
-            var ConvertedAudioPath = AudioHelper.mp3ToWav(FilePath!, AudioFileNamePath);
-
-            var str = await AzureTranscriptionService.ConvertToTextAsync(ConvertedAudioPath,
-           FileWithoutExtension!, SelectedLanguage);
-
-            var strCorrectd = await BingSpellCheckService.SpellingCorrector(str!, SelectedLanguage);
-
-            DocPath = WordDocumentHelper.CreateWordDocument(strCorrectd,
-                FileWithoutExtension!, true);
+            DocPath = WordDocumentHelper.CreateWordDocument(textFromImage,
+                Path.GetFileNameWithoutExtension(FilePath)!, false);
 
             IsBusy = false;
             ToastHelper.LaunchToastNotification(DocPath);
@@ -103,13 +80,12 @@ namespace TranscribeMe.ViewModel {
         }
 
         private bool CanStartAction(object arg) {
-            return !string.IsNullOrEmpty(SelectedLanguage) &&
-                   !string.IsNullOrEmpty(FilePath) &&
+            return !string.IsNullOrEmpty(FilePath) &&
                    !IsBusy;
         }
 
         private void PickFileAction() {
-            var FullPath = DialogHelper.GetFilePath(ConstantsHelpers.AUDIOS);
+            var FullPath = DialogHelper.GetFilePath(ConstantsHelpers.IMAGES);
             FilePath = FullPath;
 
             StartCommand?.RaiseCanExecuteChanged();

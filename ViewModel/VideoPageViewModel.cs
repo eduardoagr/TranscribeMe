@@ -1,7 +1,6 @@
-﻿
-namespace TranscribeMe.ViewModel {
+﻿namespace TranscribeMe.ViewModel {
     [AddINotifyPropertyChangedInterface]
-    public class AudioPageViewModel {
+    public class VideoPageViewModel {
         public string? FilePath { get; set; }
 
         public string? DocPath { get; set; }
@@ -46,7 +45,7 @@ namespace TranscribeMe.ViewModel {
             }
         }
 
-        public AudioPageViewModel() {
+        public VideoPageViewModel() {
 
             LanguagesDictionary = LanguagesHelper.GetLanguages();
             ProcessMsgVisibility = Visibility.Hidden;
@@ -77,22 +76,27 @@ namespace TranscribeMe.ViewModel {
             MicrosofWordPathVisibility = Visibility.Hidden;
             CanStartWorkButtonBePressed = false;
 
-            var FileWithoutExtension = Path.GetFileNameWithoutExtension
-                (FilePath);
+            var file = Path.GetFullPath
+                (FilePath!);
 
-            var AudioFolderPath = FolderHelper.CreateFolder(ConstantsHelpers.AUDIOS);
+            var audioFolder = FolderHelper.CreateFolder(ConstantsHelpers.AUDIOS);
 
-            var AudioFileNamePath = Path.Combine(AudioFolderPath, $"{FileWithoutExtension}{ConstantsHelpers.WAV}");
+            var audioFile = AudioHelper.mp4ToWav(file, file);
 
-            var ConvertedAudioPath = AudioHelper.mp3ToWav(FilePath!, AudioFileNamePath);
+            var AudioFileNamePath = Path.Combine(audioFolder, $"{Path.GetFileName(audioFile)}");
 
-            var str = await AzureTranscriptionService.ConvertToTextAsync(ConvertedAudioPath,
-           FileWithoutExtension!, SelectedLanguage);
+            if (!File.Exists(AudioFileNamePath)) {
+
+                File.Move(audioFile, AudioFileNamePath);
+            }
+
+            var str = await AzureTranscriptionService.ConvertToTextAsync(AudioFileNamePath,
+           Path.GetFileNameWithoutExtension(file)!, SelectedLanguage);
 
             var strCorrectd = await BingSpellCheckService.SpellingCorrector(str!, SelectedLanguage);
 
             DocPath = WordDocumentHelper.CreateWordDocument(strCorrectd,
-                FileWithoutExtension!, true);
+                Path.GetFileNameWithoutExtension(file)!, true);
 
             IsBusy = false;
             ToastHelper.LaunchToastNotification(DocPath);
@@ -100,6 +104,7 @@ namespace TranscribeMe.ViewModel {
             CanStartWorkButtonBePressed = true;
             MicrosofWordPathVisibility = Visibility.Visible;
             MicrosofWordtDocumentPath = DocPath;
+
         }
 
         private bool CanStartAction(object arg) {
@@ -109,7 +114,7 @@ namespace TranscribeMe.ViewModel {
         }
 
         private void PickFileAction() {
-            var FullPath = DialogHelper.GetFilePath(ConstantsHelpers.AUDIOS);
+            var FullPath = DialogHelper.GetFilePath(ConstantsHelpers.VIDEO);
             FilePath = FullPath;
 
             StartCommand?.RaiseCanExecuteChanged();
