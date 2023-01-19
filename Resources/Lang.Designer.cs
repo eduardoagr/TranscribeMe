@@ -79,20 +79,20 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extract text from an audio file (mp3, wav).
+        ///   Looks up a localized string similar to Generate a Word document from an audio file.
         /// </summary>
-        public static string AudioService {
+        public static string AudioServiceTitle {
             get {
-                return ResourceManager.GetString("AudioService", resourceCulture);
+                return ResourceManager.GetString("AudioServiceTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Audio to text.
+        ///   Looks up a localized string similar to Copy path.
         /// </summary>
-        public static string AudioToText {
+        public static string Copy {
             get {
-                return ResourceManager.GetString("AudioToText", resourceCulture);
+                return ResourceManager.GetString("Copy", resourceCulture);
             }
         }
         
@@ -106,6 +106,42 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string EN {
+            get {
+                return ResourceManager.GetString("EN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spanish.
+        /// </summary>
+        public static string ES {
+            get {
+                return ResourceManager.GetString("ES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select file.
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language of the file.
+        /// </summary>
+        public static string FileLang {
+            get {
+                return ResourceManager.GetString("FileLang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When the task is finished, a word document is created, which will be located in the transcribed folder.
         /// </summary>
         public static string FinalInstruction {
@@ -115,20 +151,20 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extract text from images (jpeg, png).
+        ///   Looks up a localized string similar to Home.
         /// </summary>
-        public static string ImageService {
+        public static string Home {
             get {
-                return ResourceManager.GetString("ImageService", resourceCulture);
+                return ResourceManager.GetString("Home", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Image to text.
+        ///   Looks up a localized string similar to Generate a Word document from an image file.
         /// </summary>
-        public static string ImageToText {
+        public static string ImageServiceTitle {
             get {
-                return ResourceManager.GetString("ImageToText", resourceCulture);
+                return ResourceManager.GetString("ImageServiceTitle", resourceCulture);
             }
         }
         
@@ -138,6 +174,42 @@ namespace TranscribeMe.Resources {
         public static string Instructions {
             get {
                 return ResourceManager.GetString("Instructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open documnt.
+        /// </summary>
+        public static string OpenDoc {
+            get {
+                return ResourceManager.GetString("OpenDoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document path.
+        /// </summary>
+        public static string Path {
+            get {
+                return ResourceManager.GetString("Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will not take long.
+        /// </summary>
+        public static string ProcessMsg {
+            get {
+                return ResourceManager.GetString("ProcessMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Lenguague.
+        /// </summary>
+        public static string SelectLenguague {
+            get {
+                return ResourceManager.GetString("SelectLenguague", resourceCulture);
             }
         }
         
@@ -160,6 +232,15 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extract text from an image (PNG, JPEG).
+        /// </summary>
+        public static string TetExtraction {
+            get {
+                return ResourceManager.GetString("TetExtraction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your document is ready.
         /// </summary>
         public static string ToastMsg1 {
@@ -178,7 +259,7 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Translate documents into multiple languages (pdf, docx, doc).
+        ///   Looks up a localized string similar to Translate documents (pdf, docx, doc).
         /// </summary>
         public static string TranlationService {
             get {
@@ -196,29 +277,47 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Translate document.
+        ///   Looks up a localized string similar to pick a language.
         /// </summary>
-        public static string TranslateDocument {
+        public static string TranslateInstructions {
             get {
-                return ResourceManager.GetString("TranslateDocument", resourceCulture);
+                return ResourceManager.GetString("TranslateInstructions", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extract text form a video (mp4).
+        ///   Looks up a localized string similar to Translate a Word or PDF document.
         /// </summary>
-        public static string VideoService {
+        public static string TraslateServiceTitle {
             get {
-                return ResourceManager.GetString("VideoService", resourceCulture);
+                return ResourceManager.GetString("TraslateServiceTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Video to text.
+        ///   Looks up a localized string similar to Generate a Word document from an video file.
         /// </summary>
-        public static string VideoToText {
+        public static string VideoServiceTitle {
             get {
-                return ResourceManager.GetString("VideoToText", resourceCulture);
+                return ResourceManager.GetString("VideoServiceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open document.
+        /// </summary>
+        public static string WordOpen {
+            get {
+                return ResourceManager.GetString("WordOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string Work {
+            get {
+                return ResourceManager.GetString("Work", resourceCulture);
             }
         }
     }

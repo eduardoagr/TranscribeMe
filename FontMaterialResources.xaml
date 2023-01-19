@@ -1,5 +1,3 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-    <FontFamily x:Key="Material">/Fonts/Material.ttf#Material Design Icons</FontFamily>
-
+    <FontFamily x:Key="mat">./Material.ttf#Material Design Icons</FontFamily>
 </ResourceDictionary>

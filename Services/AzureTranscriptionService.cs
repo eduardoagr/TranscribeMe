@@ -1,94 +1,51 @@
-﻿namespace TranscribeMe.Services {
+﻿using System.Runtime.InteropServices;
+
+namespace TranscribeMe.Services {
     public class AzureTranscriptionService {
-
-        public static async Task ConvertToTextAsync(string FilePath, string FileName, int Id, 
-            ObservableCollection<Tile> tiles, List<char> Characers) {
-
-            //Configure speech service
-
-            var config = SpeechConfig.FromSubscription
-                (ConstantsHelpers.AZURE_KEY, ConstantsHelpers.AZURE_REGION);
-
-            config.EnableDictation();
-
-            //Configure speech recognition
-
-            var taskCompleteionSource = new TaskCompletionSource<int>();
-
-            using var audioConfig = AudioConfig.FromWavFileInput(FilePath);
+        public static async Task<string?> ConvertToTextAsync(string FilePath, string FileName, [Optional]string Lang) {
             if (!string.IsNullOrEmpty(FileName)) {
+
+                StringBuilder builder = new();
+                List<char> Characers = new();
+
+                var config = SpeechConfig.FromSubscription
+                (ConstantsHelpers.AZURE_SPEECH_KEY, ConstantsHelpers.AZURE_SPEECH_REGION);
+
+                //Configure speech recognition
+
+                var taskCompletionSource = new TaskCompletionSource<int>(
+                    TaskCreationOptions.RunContinuationsAsynchronously);
+
+                using var audioConfig = AudioConfig.FromWavFileInput(FilePath);
+                config.SpeechRecognitionLanguage = Lang;
                 using var speechRecognizer = new SpeechRecognizer(config, audioConfig);
 
-                speechRecognizer.Recognized += (sender, e) => {
+
+                speechRecognizer.Recognized += (s, e) => {
                     if (e.Result.Reason == ResultReason.RecognizedSpeech) {
                         foreach (var item in e.Result.Text) {
-                            Characers.Add(item);
+                            builder.Append(item);
                         }
                     }
+                    speechRecognizer.SessionStarted += (sender, e) => {
+                    };
+                    speechRecognizer.SessionStopped += (sender, e) => {
+                        foreach (var item in Characers) {
+                            builder.Append(item);
+                        }
+
+                        taskCompletionSource.TrySetResult(0);
+                    };
                 };
 
-                speechRecognizer.SessionStarted += (sender, e) => {
+                await speechRecognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);
+                Task.WaitAny(new[] { taskCompletionSource.Task });
+                await speechRecognizer.StopContinuousRecognitionAsync().ConfigureAwait(false);
 
-                    tiles![Id].IsTileActive = false;
-                };
-
-                speechRecognizer.SessionStopped += (sender, e) => {
-
-                    const string ext = ".docx";
-
-                    var pathToSave = CreateFolderService.CreateFolder(
-                        ConstantsHelpers.TRANSCRIPTIONS);
-
-                    var filename = Path.Combine
-                    (pathToSave, $"{Path.GetFileNameWithoutExtension(FilePath)}{ext}");
-
-                    var sb = new StringBuilder();
-
-                    foreach (var item in Characers) {
-                        sb.Append(item);
-                    }
-
-                    using var document = new WordDocument();
-
-                    document.EnsureMinimal();
-
-                    document.LastParagraph.AppendText(sb.ToString());
-
-                    // Find all the text which start with capital letters next to period (.) in the Word document.
-
-                    //For example . Text or .Text
-
-                    var textSelections = document.FindAll(new Regex(@"[.]\s+[A-Z]|[.][A-Z]"));
-
-                    for (int i = 0; i < textSelections.Length; i++) {
-
-                        WTextRange textToFind = textSelections[i].GetAsOneRange();
-
-                        //Replace the period (.) with enter(\n).
-
-                        string replacementText = textToFind.Text
-
-                        .Replace(".", ".\n\n")
-                        .Replace("?", "? ");
-
-                        textToFind.Text = replacementText;
-                    }
-
-                    document.Save(filename);
-
-                    tiles![Id].IsTileActive = true;
-
-                    ToastService.LaunchToastNotification(filename);
-                };
-
-                await speechRecognizer.StartContinuousRecognitionAsync()
-                    .ConfigureAwait(false);
-
-                Task.WaitAny(new[] { taskCompleteionSource.Task });
-
-                await speechRecognizer.StopContinuousRecognitionAsync()
-                    .ConfigureAwait(false);
+                return builder.ToString();
             }
+
+            return null;
         }
     }
 }

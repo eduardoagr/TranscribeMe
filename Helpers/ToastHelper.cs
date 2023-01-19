@@ -1,11 +1,8 @@
-﻿
-using Microsoft.Toolkit.Uwp.Notifications;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
 
-namespace TranscribeMe.Services {
-    public class ToastService {
-
+namespace TranscribeMe.Helpers {
+    public class ToastHelper {
         public static void LaunchToastNotification(string FilePath) {
-
             ToastNotificationManagerCompat.OnActivated += toastArgs => {
                 ToastArguments args = ToastArguments.Parse(toastArgs.Argument);
 

@@ -2,79 +2,80 @@
     x:Class="TranscribeMe.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:custom="clr-namespace:TranscribeMe.CustomControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:fonts="clr-namespace:Fonts"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:res="clr-namespace:TranscribeMe.Resources"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    Title="Transcribed"
     Width="800"
-    Height="600"
-    AllowsTransparency="True"
-    Background="Transparent"
+    Height="700"
+    WindowStartupLocation="CenterScreen"
+    ui:TitleBar.IsIconVisible="True"
+    ui:WindowHelper.UseModernWindowStyle="True"
+    Icon="/Images/ApplicationIcon.png"
     Loaded="Window_Loaded"
     ResizeMode="NoResize"
-    WindowStyle="None"
+    SnapsToDevicePixels="True"
+    WindowStyle="ToolWindow"
     mc:Ignorable="d">
 
-    <Window.Resources>
-        <Style x:Key="TileStyle" TargetType="{x:Type mah:Tile}">
-            <Setter Property="FontWeight" Value="Bold" />
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="True">
-                    <Setter Property="Background" Value="{Binding TileColor}" />
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="#9A9A9A" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
 
-    <Border Background="#32166F" CornerRadius="20" Focusable="False">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+        <ListBox
+            x:Name="NavList"
+            BorderThickness="0"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            SelectionChanged="NavList_SelectionChanged"
+            SelectionMode="Single">
 
-            <Ellipse
-                Margin="10"
-                Fill="Crimson" 
-                HorizontalAlignment="Right"
-                Width="30" Height="30">
-                <behaviours:Interaction.Triggers>
-                    <behaviours:EventTrigger EventName="MouseLeftButtonDown">
-                        <behaviours:InvokeCommandAction Command="{Binding ExitCommand}" PassEventArgsToCommand="True"/>
-                    </behaviours:EventTrigger>
-                </behaviours:Interaction.Triggers>
-            </Ellipse>
+            <custom:NavButton
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.Home}"
+                ToolTip="{x:Static res:Lang.Home}" />
 
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding Tiles}" Grid.ColumnSpan="2">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Rows="2" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <mah:Tile
-                            Title="{Binding TileTitle}"
-                            Width="150"
-                            Height="150"
-                            Command="{Binding TileCommand}"
-                            CommandParameter="{Binding TileIdentifier}"
-                            IsEnabled="{Binding IsTileActive}"
-                            Style="{StaticResource TileStyle}"
-                            TitleFontSize="11">
+            <custom:NavButton
+                x:Name="ppp"
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.Music}"
+                NavLink="/Pages/AudioPage.xaml"
+                ToolTip="{x:Static res:Lang.AudioServiceTitle}" />
 
-                            <Label
-                                Content="{Binding TileIcon}"
-                                FontFamily="{StaticResource Material}"
-                                FontSize="80"
-                                Foreground="White" />
-                        </mah:Tile>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Grid>
-    </Border>
+            <custom:NavButton
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.Video}"
+                NavLink="/Pages/VideoPage.xaml"
+                ToolTip="{x:Static res:Lang.VideoServiceTitle}" />
+
+            <custom:NavButton
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.Ocr}"
+                NavLink="/Pages/ImagePage.xaml"
+                ToolTip="{x:Static res:Lang.TetExtraction}" />
+
+            <custom:NavButton
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.Translate}"
+                NavLink="/Pages/TranslatePage.xaml"
+                ToolTip="{x:Static res:Lang.TranlationService}" />
+
+        </ListBox>
+
+        <Frame
+            x:Name="NavFrame"
+            Grid.Column="1"
+            NavigationUIVisibility="Hidden" />
+    </Grid>
 </Window>

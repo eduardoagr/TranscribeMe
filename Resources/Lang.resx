@@ -123,32 +123,59 @@
   <data name="Account" xml:space="preserve">
     <value>Account</value>
   </data>
-  <data name="AudioService" xml:space="preserve">
-    <value>Extract text from an audio file (mp3, wav)</value>
+  <data name="AudioServiceTitle" xml:space="preserve">
+    <value>Generate a Word document from an audio file</value>
   </data>
-  <data name="AudioToText" xml:space="preserve">
-    <value>Audio to text</value>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy path</value>
   </data>
   <data name="Detail" xml:space="preserve">
     <value>You are presented with several tiles, each tile correspond to a different service</value>
   </data>
+  <data name="EN" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="ES" xml:space="preserve">
+    <value>Spanish</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Select file</value>
+  </data>
+  <data name="FileLang" xml:space="preserve">
+    <value>Language of the file</value>
+  </data>
   <data name="FinalInstruction" xml:space="preserve">
     <value>When the task is finished, a word document is created, which will be located in the transcribed folder</value>
   </data>
-  <data name="ImageService" xml:space="preserve">
-    <value>Extract text from images (jpeg, png)</value>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
   </data>
-  <data name="ImageToText" xml:space="preserve">
-    <value>Image to text</value>
+  <data name="ImageServiceTitle" xml:space="preserve">
+    <value>Generate a Word document from an image file</value>
   </data>
   <data name="Instructions" xml:space="preserve">
     <value>Instructions:</value>
+  </data>
+  <data name="OpenDoc" xml:space="preserve">
+    <value>Open documnt</value>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>Document path</value>
+  </data>
+  <data name="ProcessMsg" xml:space="preserve">
+    <value>This will not take long</value>
+  </data>
+  <data name="SelectLenguague" xml:space="preserve">
+    <value>Select Lenguague</value>
   </data>
   <data name="SubDetail" xml:space="preserve">
     <value>Once you press on the tile, it will start, the service, and it will become disabled</value>
   </data>
   <data name="SubIntro" xml:space="preserve">
     <value>These services are:</value>
+  </data>
+  <data name="TetExtraction" xml:space="preserve">
+    <value>Extract text from an image (PNG, JPEG)</value>
   </data>
   <data name="ToastMsg1" xml:space="preserve">
     <value>Your document is ready</value>
@@ -157,18 +184,24 @@
     <value>Click on open</value>
   </data>
   <data name="TranlationService" xml:space="preserve">
-    <value>Translate documents into multiple languages (pdf, docx, doc)</value>
+    <value>Translate documents (pdf, docx, doc)</value>
   </data>
   <data name="Transcribed" xml:space="preserve">
     <value>A complete suite of services, that can help you make your job easier</value>
   </data>
-  <data name="TranslateDocument" xml:space="preserve">
-    <value>Translate document</value>
+  <data name="TranslateInstructions" xml:space="preserve">
+    <value>pick a language</value>
   </data>
-  <data name="VideoService" xml:space="preserve">
-    <value>Extract text form a video (mp4)</value>
+  <data name="TraslateServiceTitle" xml:space="preserve">
+    <value>Translate a Word or PDF document</value>
   </data>
-  <data name="VideoToText" xml:space="preserve">
-    <value>Video to text</value>
+  <data name="VideoServiceTitle" xml:space="preserve">
+    <value>Generate a Word document from an video file</value>
+  </data>
+  <data name="WordOpen" xml:space="preserve">
+    <value>Open document</value>
+  </data>
+  <data name="Work" xml:space="preserve">
+    <value>Start</value>
   </data>
 </root>
