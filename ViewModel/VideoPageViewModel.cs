@@ -1,4 +1,5 @@
 ﻿namespace TranscribeMe.ViewModel {
+
     [AddINotifyPropertyChangedInterface]
     public class VideoPageViewModel {
         public string? FilePath { get; set; }

@@ -31,7 +31,7 @@
             Grid.ColumnSpan="4"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Content="{x:Static res:Lang.AudioServiceTitle}"
+            Content="{x:Static res:Lang.TranlationService}"
             FontSize="18"
             FontWeight="Bold" />
 

@@ -32,7 +32,7 @@
 
         //Name for the type of files folders
         public const string IMAGES = "Images";
-        public const string AUDIOS = "Audio";
+        public const string AUDIOS = "Audios";
         public const string VIDEO = "Video";
         public const string DOCUMENTS = "Documents";
 
