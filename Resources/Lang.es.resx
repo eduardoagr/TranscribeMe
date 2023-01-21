@@ -129,9 +129,6 @@
   <data name="Copy" xml:space="preserve">
     <value>Copiar ruta</value>
   </data>
-  <data name="Detail" xml:space="preserve">
-    <value>Se le presentan varios botones, cada botón ejecuta servicio diferente</value>
-  </data>
   <data name="EN" xml:space="preserve">
     <value>Ingles</value>
   </data>
@@ -144,17 +141,14 @@
   <data name="FileLang" xml:space="preserve">
     <value>Lenguaje del archivo</value>
   </data>
-  <data name="FinalInstruction" xml:space="preserve">
-    <value>Cuando finaliza la tarea, se crea un documento de Word, que estara ubicado en la carpeta llamda Transcribed</value>
+  <data name="FileSearch" xml:space="preserve">
+    <value>Buscar un archivo</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Pantalla principal</value>
   </data>
   <data name="ImageServiceTitle" xml:space="preserve">
     <value>Generar un documento Word desde una image</value>
-  </data>
-  <data name="Instructions" xml:space="preserve">
-    <value>Instrucciones:</value>
   </data>
   <data name="OpenDoc" xml:space="preserve">
     <value>Abrir documento</value>
@@ -168,13 +162,7 @@
   <data name="SelectLenguague" xml:space="preserve">
     <value>Escoja el idioma</value>
   </data>
-  <data name="SubDetail" xml:space="preserve">
-    <value>Una vez que presione en el boton, se iniciará, el servicio y el boton se deshabilitará</value>
-  </data>
-  <data name="SubIntro" xml:space="preserve">
-    <value>Estos servicios son:</value>
-  </data>
-  <data name="TetExtraction" xml:space="preserve">
+  <data name="TextExtraction" xml:space="preserve">
     <value>Extraer texto de una imagen (PNG, JPEG)</value>
   </data>
   <data name="ToastMsg1" xml:space="preserve">
@@ -185,9 +173,6 @@
   </data>
   <data name="TranlationService" xml:space="preserve">
     <value>Traducir documentos (pdf, docx, doc)</value>
-  </data>
-  <data name="Transcribed" xml:space="preserve">
-    <value>Un conjunto completo de servicios, que pueden ayudarle a hacer su trabajo más fácil</value>
   </data>
   <data name="TranslateDocument" xml:space="preserve">
     <value>Traducción de document</value>

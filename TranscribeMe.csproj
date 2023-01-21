@@ -12,13 +12,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="ViewModel\NewFolder\**" />
-	  <EmbeddedResource Remove="ViewModel\NewFolder\**" />
-	  <None Remove="ViewModel\NewFolder\**" />
-	  <Page Remove="ViewModel\NewFolder\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Remove="Fonts\Material.ttf" />
 	  <None Remove="Images\ApplicationIcon.png" />
 	  <None Remove="Images\Document.png" />
@@ -43,6 +36,7 @@
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.14.1" />
 		<PackageReference Include="FirebaseAuthentication.net" Version="4.0.1" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.1.0" />
+		<PackageReference Include="MahApps.Metro" Version="2.4.9" />
 		<PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.ComputerVision" Version="7.0.1" />
 		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.24.2" />
 		<PackageReference Include="Microsoft.Office.Interop.Word" Version="15.0.4797.1004" />

@@ -97,15 +97,6 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are presented with several tiles, each tile correspond to a different service.
-        /// </summary>
-        public static string Detail {
-            get {
-                return ResourceManager.GetString("Detail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
         public static string EN {
@@ -142,11 +133,11 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When the task is finished, a word document is created, which will be located in the transcribed folder.
+        ///   Looks up a localized string similar to Search for a file.
         /// </summary>
-        public static string FinalInstruction {
+        public static string FileSearch {
             get {
-                return ResourceManager.GetString("FinalInstruction", resourceCulture);
+                return ResourceManager.GetString("FileSearch", resourceCulture);
             }
         }
         
@@ -165,15 +156,6 @@ namespace TranscribeMe.Resources {
         public static string ImageServiceTitle {
             get {
                 return ResourceManager.GetString("ImageServiceTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Instructions:.
-        /// </summary>
-        public static string Instructions {
-            get {
-                return ResourceManager.GetString("Instructions", resourceCulture);
             }
         }
         
@@ -214,29 +196,11 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Once you press on the tile, it will start, the service, and it will become disabled.
-        /// </summary>
-        public static string SubDetail {
-            get {
-                return ResourceManager.GetString("SubDetail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to These services are:.
-        /// </summary>
-        public static string SubIntro {
-            get {
-                return ResourceManager.GetString("SubIntro", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Extract text from an image (PNG, JPEG).
         /// </summary>
-        public static string TetExtraction {
+        public static string TextExtraction {
             get {
-                return ResourceManager.GetString("TetExtraction", resourceCulture);
+                return ResourceManager.GetString("TextExtraction", resourceCulture);
             }
         }
         
@@ -264,15 +228,6 @@ namespace TranscribeMe.Resources {
         public static string TranlationService {
             get {
                 return ResourceManager.GetString("TranlationService", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A complete suite of services, that can help you make your job easier.
-        /// </summary>
-        public static string Transcribed {
-            get {
-                return ResourceManager.GetString("Transcribed", resourceCulture);
             }
         }
         
