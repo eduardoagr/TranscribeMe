@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-using TranscribeMe.ViewModel;
+﻿
 
 namespace TranscribeMe.Pages {
 
