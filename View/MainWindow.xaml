@@ -1,5 +1,6 @@
 ﻿<Window
     x:Class="TranscribeMe.MainWindow"
+        xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:custom="clr-namespace:TranscribeMe.CustomControls"
@@ -31,10 +32,18 @@
         <ListBox
             x:Name="NavList"
             BorderThickness="0"
+            SelectedItem="{Binding SelectedItem}"
             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
-            SelectionChanged="NavList_SelectionChanged"
             SelectionMode="Single">
+            <Behaviors:Interaction.Triggers>
+                <Behaviors:EventTrigger
+                    EventName="SelectionChanged">
+                    <Behaviors:InvokeCommandAction
+                        Command="{Binding SelectedPageCommand}"
+                        CommandParameter="{Binding ElementName=NavFrame}" />
+                </Behaviors:EventTrigger>
+            </Behaviors:Interaction.Triggers>
 
             <custom:NavButton
                 Padding="5"
@@ -77,9 +86,17 @@
                 NavLink="/Pages/FilesCollectionPage.xaml"
                 ToolTip="{x:Static res:Lang.FileSearch}" />
 
+            <Separator/>
+
+            <custom:NavButton
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.Email}"
+                x:Name="CntactUS"
+                ToolTip="{x:Static res:Lang.FileSearch}" />
         </ListBox>
 
-        <Frame
+        <ui:Frame
             x:Name="NavFrame"
             Grid.Column="1"
             NavigationUIVisibility="Hidden" />

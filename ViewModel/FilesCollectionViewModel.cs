@@ -1,6 +1,4 @@
-﻿using ModernWpf.Controls;
-
-namespace TranscribeMe.ViewModel {
+﻿namespace TranscribeMe.ViewModel {
 
     [AddINotifyPropertyChangedInterface]
 
@@ -25,6 +23,11 @@ namespace TranscribeMe.ViewModel {
 
         public bool IsContextMenuOpen;
 
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr LoadLibrary(string dllToLoad);
+
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
 
         public FilesCollectionViewModel() {
             FilesCollection = new ObservableCollection<FileItem>();
@@ -69,9 +72,6 @@ namespace TranscribeMe.ViewModel {
             if (result == ContentDialogResult.Primary) {
                 RenameFile(inputTextBox.Text, fileExt, filePath);
                 RetrieveFiles();
-            } else {
-                // The user clicked the CloseButton, pressed ESC, Gamepad B, or the system back button.
-                // Do nothing.
             }
         }
 
@@ -90,8 +90,18 @@ namespace TranscribeMe.ViewModel {
 
         private void ShareAction(FileItem file) {
 
-                
+            object mailClient = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Clients\Mail", "", "none");
 
+            if (mailClient != null) {
+                using (Process process = new Process()) {
+                    process.StartInfo.UseShellExecute = true;
+                    // You can start any process, HelloWorld is a do-nothing example.
+                    process.StartInfo.FileName = mailClient.ToString();
+                    process.StartInfo.CreateNoWindow = true;
+                    process.Start();
+                }
+
+            }
         }
 
         private void SearchAction(string SeachTerm) {
@@ -166,5 +176,8 @@ namespace TranscribeMe.ViewModel {
 
             return result;
         }
+
+
+
     }
 }

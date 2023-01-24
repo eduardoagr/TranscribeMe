@@ -1,8 +1,4 @@
-﻿using System.Windows.Controls;
-
-using TranscribeMe.ViewModel;
-
-namespace TranscribeMe.Pages {
+﻿namespace TranscribeMe.Pages {
     /// <summary>
     /// Interaction logic for TranslatePage.xaml
     /// </summary>
