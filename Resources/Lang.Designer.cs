@@ -97,6 +97,24 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email already exist.
+        /// </summary>
+        public static string EMAIL_EXISTS {
+            get {
+                return ResourceManager.GetString("EMAIL_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We could not found that email address.
+        /// </summary>
+        public static string EMAIL_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("EMAIL_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
         public static string EN {
@@ -156,6 +174,24 @@ namespace TranscribeMe.Resources {
         public static string ImageServiceTitle {
             get {
                 return ResourceManager.GetString("ImageServiceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email address is not in the corrent format.
+        /// </summary>
+        public static string INVALID_EMAIL {
+            get {
+                return ResourceManager.GetString("INVALID_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password is incorrect.
+        /// </summary>
+        public static string INVALID_PASSWORD {
+            get {
+                return ResourceManager.GetString("INVALID_PASSWORD", resourceCulture);
             }
         }
         
@@ -255,6 +291,15 @@ namespace TranscribeMe.Resources {
         public static string VideoServiceTitle {
             get {
                 return ResourceManager.GetString("VideoServiceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password must be 6 characters.
+        /// </summary>
+        public static string WEAK_PASSWORD {
+            get {
+                return ResourceManager.GetString("WEAK_PASSWORD", resourceCulture);
             }
         }
         

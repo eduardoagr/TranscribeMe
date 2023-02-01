@@ -84,7 +84,7 @@
 
             var inputDocument = Path.GetFullPath(FilePath!);
 
-            var sourceUri = await azureStorageService.UploadToAzureBlobStorage
+            var sourceUri = await azureStorageService.UploadToAzureBlobStorageWithssaToken
                 (inputDocument!);
 
             var targetUri = await azureStorageService.GetTargetUri();

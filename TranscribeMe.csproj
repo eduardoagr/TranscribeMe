@@ -13,8 +13,9 @@
 
 	<ItemGroup>
 	  <None Remove="Fonts\Material.ttf" />
-	  <None Remove="Images\ApplicationIcon.png" />
 	  <None Remove="Images\Document.png" />
+	  <None Remove="Images\Home.png" />
+	  <None Remove="Images\Users.png" />
 	  <None Remove="Images\Word.png" />
 	</ItemGroup>
 
@@ -22,10 +23,13 @@
 		<Content Include="Images\ApplicationIcon.ico">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Images\ApplicationIcon.png">
+		<Content Include="Images\Document.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Images\Document.png">
+		<Content Include="Images\Home.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Images\Users.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
@@ -36,12 +40,12 @@
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.14.1" />
 		<PackageReference Include="FirebaseAuthentication.net" Version="4.0.1" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.1.0" />
-		<PackageReference Include="FluentEmail.Smtp" Version="3.0.2" />
 		<PackageReference Include="MahApps.Metro" Version="2.4.9" />
-		<PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
 		<PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.ComputerVision" Version="7.0.1" />
-		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.24.2" />
+		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.25.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
+		<PackageReference Include="Microsoft.VisualStudio.Shell.Interop" Version="17.4.33103.184" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
 		<PackageReference Include="ModernWpfUI" Version="0.9.6" />
 		<PackageReference Include="ModernWpfUI.MahApps" Version="0.9.5" />
@@ -51,6 +55,7 @@
 		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
 		<PackageReference Include="Syncfusion.DocIO.Wpf" Version="20.4.0.44" />
 		<PackageReference Include="Syncfusion.Licensing" Version="20.4.0.44" />
+		<PackageReference Include="WindowsAPICodePack" Version="7.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -84,6 +89,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="appsettings.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="C:\Users\egome\.nuget\packages\naudio.lame\2.0.1\build\libmp3lame.32.dll" Link="NAudio\libmp3lame.32.dll" />
 	</ItemGroup>
 

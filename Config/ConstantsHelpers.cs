@@ -17,6 +17,7 @@
         public const string AZUTE_STORAGE_ACCOUNT_KEY = "ejnleMkkJISfu0AwUxiJxmgyGmj3v91IH+fgbW/ODnkq1M+lotP/yoPh9ULCHLHdf17d9NdcXtxP+AStLv6/PA==";
         public const string AZURE_UPLOAD_DOUMMENRTS = "https://transcribemedocs.blob.core.windows.net/original";
         public const string AZURE_DOWNLOAD_DOCUMENTS = "https://transcribemedocs.blob.core.windows.net/translated";
+        public const string AZURE_DOWNLOAD_SHARE_DOCUMENTS = "cloudfilesshare";
         public const string AZURE_STORAGE_CONNECTIONSTRING = "DefaultEndpointsProtocol=https;AccountName=transcribemedocs;AccountKey=ejnleMkkJISfu0AwUxiJxmgyGmj3v91IH+fgbW/ODnkq1M+lotP/yoPh9ULCHLHdf17d9NdcXtxP+AStLv6/PA==;EndpointSuffix=core.windows.net";
 
         //Azure computer vision 

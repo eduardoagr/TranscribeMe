@@ -17,17 +17,76 @@
 
         public FileItem? SelectedFile { get; set; }
 
-        public List<string> Folders { get; set; }
+        public List<string>? Folders { get; set; }
 
         public string[] FilesLength { get; set; } = { "B", "KB", "MB", "GB", "TB" };
 
         public bool IsContextMenuOpen;
 
-        [DllImport("kernel32.dll")]
-        public static extern IntPtr LoadLibrary(string dllToLoad);
+        #region HRESULT 
 
-        [DllImport("kernel32.dll")]
-        public static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
+        public enum HRESULT : int {
+            S_OK = 0,
+            S_FALSE = 1,
+            E_NOINTERFACE = unchecked((int)0x80004002),
+            E_NOTIMPL = unchecked((int)0x80004001),
+            E_FAIL = unchecked((int)0x80004005),
+        }
+
+        #endregion
+
+        #region comImport
+
+        [ComImport]
+        [Guid("00000122-0000-0000-C000-000000000046")]
+        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        public interface IDropTarget {
+            HRESULT DragEnter(
+                [In] System.Runtime.InteropServices.ComTypes.IDataObject pDataObj,
+                [In] int grfKeyState,
+                [In] System.Windows.Point pt,
+                [In, Out] ref int pdwEffect);
+
+            HRESULT DragOver(
+                [In] int grfKeyState,
+                [In] System.Windows.Point pt,
+                [In, Out] ref int pdwEffect);
+
+            HRESULT DragLeave();
+
+            HRESULT Drop(
+                [In] System.Runtime.InteropServices.ComTypes.IDataObject pDataObj,
+                [In] int grfKeyState,
+                [In] System.Windows.Point pt,
+                [In, Out] ref int pdwEffect);
+        }
+        #endregion
+
+        #region DLLs
+
+        public const int DROPEFFECT_NONE = (0);
+
+        [DllImport("Shell32.dll", CharSet = CharSet.Unicode, SetLastError = true, EntryPoint = "#740")]
+        public static extern HRESULT SHCreateFileDataObject(IntPtr pidlFolder, uint cidl, IntPtr[] apidl, System.Runtime.InteropServices.ComTypes.IDataObject pdtInner, out System.Runtime.InteropServices.ComTypes.IDataObject ppdtobj);
+
+        [DllImport("Shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern HRESULT SHILCreateFromPath([MarshalAs(UnmanagedType.LPWStr)] string pszPath, out IntPtr ppIdl, ref uint rgflnOut);
+
+        [DllImport("Shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern IntPtr ILFindLastID(IntPtr pidl);
+
+        [DllImport("Shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern IntPtr ILClone(IntPtr pidl);
+
+        [DllImport("Shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern Boolean ILRemoveLastID(IntPtr pidl);
+
+        [DllImport("Shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern void ILFree(IntPtr pidl);
+
+        Guid CLSID_MapiMail = new Guid("9E56BE60-C50F-11CF-9A2C-00A0C90A90CE");
+
+        #endregion
 
         public FilesCollectionViewModel() {
             FilesCollection = new ObservableCollection<FileItem>();
@@ -36,14 +95,16 @@
             OpenFileCommand = new Command<FileItem>(OpenFileAction);
             ShareCommand = new Command<FileItem>(ShareAction);
             RenameFileCommand = new AsyncCommand<FileItem>(RenameFileActionAsync);
+            GetFolders();
+            RetrieveFiles();
+        }
 
+        private void GetFolders() {
             Folders = new List<string> {
                 ConstantsHelpers.TRANSLATIONS,
                 ConstantsHelpers.TRANSCRIPTIONS,
                 ConstantsHelpers.IMAGETEXT,
-                ConstantsHelpers.AUDIOS
             };
-            RetrieveFiles();
         }
 
         private async Task RenameFileActionAsync(FileItem file) {
@@ -52,12 +113,12 @@
             var fileExt = Path.GetExtension(file.FilePath);
             var filePath = file.FilePath;
 
-            var inputTextBox = new TextBox
-            {
-                AcceptsReturn = false, Text = name, VerticalAlignment = VerticalAlignment.Center
+            var inputTextBox = new TextBox {
+                AcceptsReturn = false,
+                Text = name,
+                VerticalAlignment = VerticalAlignment.Center
             };
-            var dialog = new ContentDialog
-            {
+            var dialog = new ContentDialog {
                 Content = inputTextBox,
                 Title = "Rename File",
                 IsSecondaryButtonEnabled = true,
@@ -87,22 +148,21 @@
                 File.Move(path, newFilePath);
             }
         }
+        private async void ShareAction(FileItem file) {
 
-        private void ShareAction(FileItem file) {
+            AzureStorageService azureStorageService = new();
 
-            object mailClient = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Clients\Mail", "", "none");
+            var link = await azureStorageService.UploadToAzureBlobStorage(file.FilePath);
 
-            if (mailClient != null) {
-                using (Process process = new Process()) {
-                    process.StartInfo.UseShellExecute = true;
-                    // You can start any process, HelloWorld is a do-nothing example.
-                    process.StartInfo.FileName = mailClient.ToString();
-                    process.StartInfo.CreateNoWindow = true;
-                    process.Start();
-                }
+            string subject = "Here is the link for your file";
 
-            }
+            var destinationurl = $"mailto:?subject={subject}&body={link}%0D";
+            var sInfo = new ProcessStartInfo(destinationurl) {
+                UseShellExecute = true,
+            };
+            Process.Start(sInfo);
         }
+
 
         private void SearchAction(string SeachTerm) {
 
@@ -142,7 +202,7 @@
 
                 FilesCollection.Clear();
 
-                foreach (var folder in Folders) {
+                foreach (var folder in Folders!) {
 
                     var rootFolderPath = Path.Combine(TranscribedDocsPath, folder);
 
@@ -176,8 +236,5 @@
 
             return result;
         }
-
-
-
     }
 }

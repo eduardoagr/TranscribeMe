@@ -2,6 +2,7 @@
 
 global using Microsoft.CognitiveServices.Speech;
 global using Microsoft.CognitiveServices.Speech.Audio;
+global using Microsoft.Extensions.Hosting;
 global using Microsoft.Win32;
 
 global using ModernWpf.Controls;
@@ -12,10 +13,12 @@ global using NAudio.Wave;
 
 global using PropertyChanged;
 
-global using System.Collections;
+global using Syncfusion.Licensing;
+
 global using System.Collections.ObjectModel;
 global using System.Diagnostics;
 global using System.Drawing;
+global using System.Globalization;
 global using System.IO;
 global using System.Runtime.InteropServices;
 global using System.Text;

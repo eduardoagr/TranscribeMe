@@ -129,6 +129,12 @@
   <data name="Copy" xml:space="preserve">
     <value>Copiar ruta</value>
   </data>
+  <data name="EMAIL_EXISTS" xml:space="preserve">
+    <value>El correo electrónico ya existe </value>
+  </data>
+  <data name="EMAIL_NOT_FOUND" xml:space="preserve">
+    <value>El correo electrónico no existe</value>
+  </data>
   <data name="EN" xml:space="preserve">
     <value>Ingles</value>
   </data>
@@ -149,6 +155,12 @@
   </data>
   <data name="ImageServiceTitle" xml:space="preserve">
     <value>Generar un documento Word desde una image</value>
+  </data>
+  <data name="INVALID_EMAIL" xml:space="preserve">
+    <value>La dirección de correo electrónico no es válida</value>
+  </data>
+  <data name="INVALID_PASSWORD" xml:space="preserve">
+    <value>La contraseña es incorrecte</value>
   </data>
   <data name="OpenDoc" xml:space="preserve">
     <value>Abrir documento</value>
@@ -185,6 +197,9 @@
   </data>
   <data name="VideoServiceTitle" xml:space="preserve">
     <value>Generar un documento Word desde un archivo de video</value>
+  </data>
+  <data name="WEAK_PASSWORD" xml:space="preserve">
+    <value>La contraseña debe contener 6 characters</value>
   </data>
   <data name="WordOpen" xml:space="preserve">
     <value>Abrir Documento</value>
