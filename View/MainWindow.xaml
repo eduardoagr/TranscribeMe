@@ -1,8 +1,8 @@
 ﻿<Window
     x:Class="TranscribeMe.MainWindow"
-        xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:custom="clr-namespace:TranscribeMe.CustomControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fonts="clr-namespace:Fonts"
@@ -31,13 +31,12 @@
         <ListBox
             x:Name="NavList"
             BorderThickness="0"
-            SelectedItem="{Binding SelectedItem}"
             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            SelectedItem="{Binding SelectedItem}"
             SelectionMode="Single">
             <Behaviors:Interaction.Triggers>
-                <Behaviors:EventTrigger
-                    EventName="SelectionChanged">
+                <Behaviors:EventTrigger EventName="SelectionChanged">
                     <Behaviors:InvokeCommandAction
                         Command="{Binding SelectedPageCommand}"
                         CommandParameter="{Binding ElementName=NavFrame}" />
@@ -79,19 +78,20 @@
                 ToolTip="{x:Static res:Lang.TranlationService}" />
 
             <custom:NavButton
+                x:Name="explorer"
                 Padding="5"
                 FontFamily="{StaticResource mat}"
                 Icon="{x:Static fonts:IconFont.Folder}"
                 NavLink="/Pages/FilesCollectionPage.xaml"
                 ToolTip="{x:Static res:Lang.FileSearch}" />
 
-            <Separator/>
+            <Separator />
 
             <custom:NavButton
+                x:Name="CntactUS"
                 Padding="5"
                 FontFamily="{StaticResource mat}"
                 Icon="{x:Static fonts:IconFont.Email}"
-                x:Name="CntactUS"
                 ToolTip="{x:Static res:Lang.FileSearch}" />
         </ListBox>
 

@@ -1,6 +1,4 @@
-﻿using Firebase.Auth;
-
-namespace TranscribeMe.View {
+﻿namespace TranscribeMe.View {
 
     public partial class SignUpLoginWondow : Window {
 

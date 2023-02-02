@@ -2,11 +2,12 @@
 
     public partial class FilesCollectionPage : Page {
 
-        public FilesCollectionViewModel Intance { get; set; } = new FilesCollectionViewModel();
-
+        public FilesCollectionViewModel Instance { get; set; }
         public FilesCollectionPage() {
             InitializeComponent();
-            DataContext = Intance;
+            Instance = new FilesCollectionViewModel();
+            DataContext = Instance;
         }
     }
 }
+

@@ -1,15 +1,5 @@
-﻿using Firebase.Auth;
-using Firebase.Auth.Providers;
+﻿namespace TranscribeMe;
 
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-using TranscribeMe.View;
-
-namespace TranscribeMe;
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
 public partial class App : Application {
 
     private readonly IHost _host;
@@ -52,9 +42,27 @@ public partial class App : Application {
 
     protected override void OnStartup(StartupEventArgs e) {
 
+        //if (LoginWithSavedData()) {
+        //    MainWindow = _host.Services.GetRequiredService<MainWindow>();
+        //} else {
+        //    MainWindow = _host.Services.GetRequiredService<SignUpLoginWondow>();
+        //}
         MainWindow = _host.Services.GetRequiredService<SignUpLoginWondow>();
+
+        // MainWindow = _host.Services.GetRequiredService<MainWindow>();
+
         MainWindow.Show();
         base.OnStartup(e);
     }
 
+    private static bool LoginWithSavedData() {
+        string userDataFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "userdata.json");
+        if (File.Exists(userDataFile)) {
+            var savedUser = JsonSerializer.Deserialize<FireUser>(File.ReadAllText(userDataFile));
+            if (!string.IsNullOrEmpty(savedUser!.Uid)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

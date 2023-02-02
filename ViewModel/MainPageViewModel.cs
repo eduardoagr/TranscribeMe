@@ -1,9 +1,8 @@
-﻿using TranscribeMe.CustomControls;
-
-namespace TranscribeMe.ViewModel {
+﻿namespace TranscribeMe.ViewModel {
 
     [AddINotifyPropertyChangedInterface]
     public class MainPageViewModel {
+
         public Command SelectedPageCommand { get; set; }
 
         public NavButton? SelectedItem { get; set; }
@@ -27,9 +26,9 @@ namespace TranscribeMe.ViewModel {
             var destinationurl = $"mailto:egomezr@outlook.com?Subject=IMPORTANT&body=";
             var sInfo = new ProcessStartInfo(destinationurl) {
                 UseShellExecute = true,
+                WindowStyle = ProcessWindowStyle.Minimized
             };
             Process.Start(sInfo);
-
         }
     }
 }

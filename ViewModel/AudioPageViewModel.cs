@@ -1,5 +1,4 @@
-﻿
-namespace TranscribeMe.ViewModel {
+﻿namespace TranscribeMe.ViewModel {
     [AddINotifyPropertyChangedInterface]
     public class AudioPageViewModel {
         public string? FilePath { get; set; }

@@ -1,8 +1,6 @@
-﻿using System.Runtime.InteropServices;
-
-namespace TranscribeMe.Services {
+﻿namespace TranscribeMe.Services {
     public class AzureTranscriptionService {
-        public static async Task<string?> ConvertToTextAsync(string FilePath, string FileName, [Optional]string Lang) {
+        public static async Task<string?> ConvertToTextAsync(string FilePath, string FileName, [Optional] string Lang) {
             if (!string.IsNullOrEmpty(FileName)) {
 
                 StringBuilder builder = new();
