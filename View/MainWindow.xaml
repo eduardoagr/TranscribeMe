@@ -12,6 +12,7 @@
     Title="Transcribed"
     Width="800"
     Height="700"
+    ui:ControlHelper.CornerRadius="10"
     ui:TitleBar.IsIconVisible="True"
     ui:WindowHelper.UseModernWindowStyle="True"
     Icon="/Images/Home.png"
@@ -56,12 +57,11 @@
                 NavLink="/Pages/AudioPage.xaml"
                 ToolTip="{x:Static res:Lang.AudioServiceTitle}" />
 
-            <custom:NavButton
-                Padding="5"
-                FontFamily="{StaticResource mat}"
-                Icon="{x:Static fonts:IconFont.Video}"
-                NavLink="/Pages/VideoPage.xaml"
-                ToolTip="{x:Static res:Lang.VideoServiceTitle}" />
+            <custom:NavButton Padding="5"
+                              FontFamily="{StaticResource mat}"
+                              Icon="{x:Static fonts:IconFont.Video}"
+                              NavLink="/Pages/VideoPage.xaml"
+                              ToolTip="{x:Static res:Lang.VideoServiceTitle}" />
 
             <custom:NavButton
                 Padding="5"
@@ -84,6 +84,12 @@
                 Icon="{x:Static fonts:IconFont.Folder}"
                 NavLink="/Pages/FilesCollectionPage.xaml"
                 ToolTip="{x:Static res:Lang.FileSearch}" />
+            
+            <custom:NavButton Padding="5"
+                              FontFamily="{StaticResource mat}"
+                              Icon="{x:Static fonts:IconFont.Cart}"
+                              NavLink="/Pages/VideoPage.xaml"
+                              ToolTip="{x:Static res:Lang.VideoServiceTitle}" />
 
             <Separator />
 

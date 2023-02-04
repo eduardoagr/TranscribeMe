@@ -126,8 +126,23 @@
   <data name="AudioServiceTitle" xml:space="preserve">
     <value>Generar un documento Word desde un archivo de audio</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirmar contraseña</value>
+  </data>
   <data name="Copy" xml:space="preserve">
     <value>Copiar ruta</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Crear cuenta</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="DontHaveAccount" xml:space="preserve">
+    <value>No tiene una cuanta?</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Correo electrónico</value>
   </data>
   <data name="EMAIL_EXISTS" xml:space="preserve">
     <value>El correo electrónico ya existe </value>
@@ -162,17 +177,35 @@
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>La contraseña es incorrecte</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
   <data name="OpenDoc" xml:space="preserve">
     <value>Abrir documento</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Contraseña</value>
   </data>
   <data name="Path" xml:space="preserve">
     <value>Ruta del dumento</value>
   </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Pagos</value>
+  </data>
   <data name="ProcessMsg" xml:space="preserve">
     <value>Esto no tomara mucho tiempo</value>
   </data>
+  <data name="Read" xml:space="preserve">
+    <value>Leer en voz alra</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Renombrar</value>
+  </data>
   <data name="SelectLenguague" xml:space="preserve">
     <value>Escoja el idioma</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Compatir</value>
   </data>
   <data name="TextExtraction" xml:space="preserve">
     <value>Extraer texto de una imagen (PNG, JPEG)</value>
@@ -190,10 +223,13 @@
     <value>Traducción de document</value>
   </data>
   <data name="TranslateInstructions" xml:space="preserve">
-    <value>Escoja un idioma</value>
+    <value>En que idioma desea traducir</value>
   </data>
   <data name="TraslateServiceTitle" xml:space="preserve">
     <value>Traducir un documento Word o PDF</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Nombre de usuario</value>
   </data>
   <data name="VideoServiceTitle" xml:space="preserve">
     <value>Generar un documento Word desde un archivo de video</value>

@@ -14,6 +14,10 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
+    <!--<Page.DataContext>
+        <ViewModel:FilesCollectionViewModel />
+    </Page.DataContext>-->
+
     <StackPanel Margin="20">
         <ui:AutoSuggestBox
             x:Name="SearchBar"
@@ -21,40 +25,68 @@
             QueryIcon="Find">
             <Behaviors:Interaction.Triggers>
                 <Behaviors:EventTrigger EventName="TextChanged">
-                    <Behaviors:InvokeCommandAction Command="{Binding TextToSearchCommand}" CommandParameter="{Binding Text, ElementName=SearchBar}" />
+                    <Behaviors:InvokeCommandAction
+                        Command="{Binding TextToSearchCommand}"
+                        CommandParameter="{Binding Text, ElementName=SearchBar}" />
                 </Behaviors:EventTrigger>
             </Behaviors:Interaction.Triggers>
         </ui:AutoSuggestBox>
 
         <ListView
             x:Name="Explorer"
+            Height="350"
             Margin="20"
             ItemsSource="{Binding FilesCollection}"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             SelectedItem="{Binding SelectedFile}">
             <Behaviors:Interaction.Triggers>
                 <Behaviors:EventTrigger EventName="MouseDoubleClick">
-                    <Behaviors:InvokeCommandAction Command="{Binding OpenFileCommand}" CommandParameter="{Binding SelectedFile}" />
+                    <Behaviors:InvokeCommandAction
+                        Command="{Binding OpenFileCommand}"
+                        CommandParameter="{Binding SelectedFile}" />
                 </Behaviors:EventTrigger>
             </Behaviors:Interaction.Triggers>
             <ListView.ContextMenu>
                 <ContextMenu Visibility="{Binding IsContextMenuOpen}">
+
                     <MenuItem
                         Command="{Binding ShareCommand}"
                         CommandParameter="{Binding SelectedFile}"
+                        FocusVisualStyle="{x:Null}"
                         FontFamily="{StaticResource mat}"
-                        Header="Share"
-                        Icon="{x:Static fonts:IconFont.ShareVariant}" />
+                        Header="{x:Static res:Lang.Share}"
+                        Icon="{x:Static fonts:IconFont.ShareVariantOutline}" />
+
                     <MenuItem
-                        Command="{Binding RenameFileCommand}"
+                        Command="{Binding RenameCommand}"
                         CommandParameter="{Binding SelectedFile}"
+                        FocusVisualStyle="{x:Null}"
                         FontFamily="{StaticResource mat}"
-                        Header="Rename"
+                        Header="{x:Static res:Lang.Rename}"
                         Icon="{x:Static fonts:IconFont.RenameBox}" />
+
+                    <MenuItem
+                        Command="{Binding DeleteCommand}"
+                        CommandParameter="{Binding SelectedFile}"
+                        FocusVisualStyle="{x:Null}"
+                        FontFamily="{StaticResource mat}"
+                        Header="{x:Static res:Lang.Delete}"
+                        Icon="{x:Static fonts:IconFont.TrashCan}" />
+
+                    <MenuItem
+                        Command="{Binding ReadCommmand}"
+                        CommandParameter="{Binding SelectedFile}"
+                        FocusVisualStyle="{x:Null}"
+                        FontFamily="{StaticResource mat}"
+                        Header="{x:Static res:Lang.Read}"
+                        Icon="{x:Static fonts:IconFont.PlayBox}" />
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="Auto" Header="icon">
+                    <GridViewColumn
+                        Width="Auto"
+                        Header="icon">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Image
@@ -64,8 +96,12 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding FileLenght}" Header="Size" />
-                    <GridViewColumn DisplayMemberBinding="{Binding FileName}" Header="Name" />
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding FileLenght}"
+                        Header="Size" />
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding FileName}"
+                        Header="Name" />
                 </GridView>
             </ListView.View>
         </ListView>

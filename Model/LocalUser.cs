@@ -7,27 +7,34 @@ namespace TranscribeMe.Model {
     public class LocalUser : ObservableObject {
 
         private string? password;
-        public string? confirm;
-        public string? displayName;
+        private string? confirm;
         public string? country;
         private string? id;
         private string? email;
         private string? username;
         public string? city;
         public bool hasPaid;
+        public bool isActive;
+        public DateTime? suscriptionStart;
+        public DateTime? suscriptionEnd;
+
 
         public LocalUser() {
         }
 
-        public LocalUser(string? id, string? email, string? username,
-            string? city, string? country, bool hasPaid) {
+        public LocalUser(string? country, string? id,
+            string? email, string? username, string? city, bool hasPaid,
+            DateTime? suscriptionStart, DateTime? suscriptionEnd, bool isActive) {
 
+            this.country = country;
             this.id = id;
             this.email = email;
             this.username = username;
             this.city = city;
             this.hasPaid = hasPaid;
-            this.country = country;
+            this.suscriptionStart = suscriptionStart;
+            this.suscriptionEnd = suscriptionEnd;
+            this.isActive = isActive;
         }
 
         public string Id {

@@ -36,12 +36,7 @@ namespace TranscribeMe.Helpers {
 
                     WTextRange textToFind = textSelections[i].GetAsOneRange();
 
-                    //Replace the period (.) with enter(\n).
-
-                    string replacementText = textToFind.Text
-
-                    .Replace(".", ".\n")
-                    .Replace("?", "? ");
+                    string replacementText = textToFind.Text;
 
                     textToFind.Text = replacementText;
                 }

@@ -47,9 +47,9 @@ public partial class App : Application {
         //} else {
         //    MainWindow = _host.Services.GetRequiredService<SignUpLoginWondow>();
         //}
-        MainWindow = _host.Services.GetRequiredService<SignUpLoginWondow>();
+        //MainWindow = _host.Services.GetRequiredService<SignUpLoginWondow>();
 
-        // MainWindow = _host.Services.GetRequiredService<MainWindow>();
+        MainWindow = _host.Services.GetRequiredService<MainWindow>();
 
         MainWindow.Show();
         base.OnStartup(e);

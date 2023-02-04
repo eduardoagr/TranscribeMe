@@ -1,10 +1,7 @@
-﻿using System.Net.Http;
-using System.Net.Http.Json;
-
-namespace TranscribeMe.Services {
+﻿namespace TranscribeMe.Services {
     public class BingSpellCheckService {
 
-        public static async Task<string> SpellingCorrector(string txt, string lang) {
+        public static async Task<string> SpellingCorrector(string txt, [Optional] string lang) {
 
             var mode = "proof";
 

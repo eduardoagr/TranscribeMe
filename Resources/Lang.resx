@@ -126,8 +126,23 @@
   <data name="AudioServiceTitle" xml:space="preserve">
     <value>Generate a Word document from an audio file</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
   <data name="Copy" xml:space="preserve">
     <value>Copy path</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create account</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DontHaveAccount" xml:space="preserve">
+    <value>Don't have an account</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="EMAIL_EXISTS" xml:space="preserve">
     <value>Email already exist</value>
@@ -162,17 +177,35 @@
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>The password is incorrect</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
   <data name="OpenDoc" xml:space="preserve">
     <value>Open documnt</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
   </data>
   <data name="Path" xml:space="preserve">
     <value>Document path</value>
   </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Payments</value>
+  </data>
   <data name="ProcessMsg" xml:space="preserve">
     <value>This will not take long</value>
   </data>
+  <data name="Read" xml:space="preserve">
+    <value>Leer en voz alta</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
   <data name="SelectLenguague" xml:space="preserve">
     <value>Select Lenguague</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
   </data>
   <data name="TextExtraction" xml:space="preserve">
     <value>Extract text from an image (PNG, JPEG)</value>
@@ -191,6 +224,9 @@
   </data>
   <data name="TraslateServiceTitle" xml:space="preserve">
     <value>Translate a Word or PDF document</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
   <data name="VideoServiceTitle" xml:space="preserve">
     <value>Generate a Word document from an video file</value>

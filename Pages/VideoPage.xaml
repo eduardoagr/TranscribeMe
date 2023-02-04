@@ -40,6 +40,7 @@
             Grid.Row="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
+            ui:ControlHelper.CornerRadius="10"
             Command="{Binding PickFileCommad}"
             Content="{x:Static res:Lang.File}"
             Focusable="False"
@@ -52,6 +53,7 @@
             Grid.ColumnSpan="3"
             Margin="10"
             VerticalAlignment="Center"
+            ui:ControlHelper.CornerRadius="10"
             IsReadOnly="True"
             Text="{Binding FilePath}" />
 
@@ -68,6 +70,7 @@
             Margin="10"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
+            ui:ControlHelper.CornerRadius="10"
             ui:ControlHelper.PlaceholderText="{x:Static res:Lang.SelectLenguague}"
             DisplayMemberPath="Value.Name"
             IsEnabled="{Binding CanStartWorkButtonBePressed}"
@@ -113,6 +116,7 @@
             Grid.Column="1"
             Margin="10"
             VerticalAlignment="Center"
+            ui:ControlHelper.CornerRadius="10"
             IsReadOnly="True"
             Text="{Binding MicrosofWordtDocumentPath}"
             Visibility="{Binding MicrosofWordPathVisibility}" />
@@ -133,6 +137,7 @@
             Margin="10,0,40,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
+            ui:ControlHelper.CornerRadius="10"
             Command="{Binding OpenDocxCommnd}"
             Content="{x:Static res:Lang.WordOpen}"
             Focusable="False"

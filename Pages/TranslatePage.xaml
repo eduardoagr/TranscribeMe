@@ -39,6 +39,7 @@
             Grid.Row="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
+            ui:ControlHelper.CornerRadius="10"
             Command="{Binding PickFileCommad}"
             Content="{x:Static res:Lang.File}"
             Focusable="False"
@@ -51,6 +52,7 @@
             Grid.ColumnSpan="3"
             Margin="10"
             VerticalAlignment="Center"
+            ui:ControlHelper.CornerRadius="10"
             IsReadOnly="True"
             Text="{Binding FilePath}" />
 
@@ -67,6 +69,7 @@
             Margin="10"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
+            ui:ControlHelper.CornerRadius="10"
             ui:ControlHelper.PlaceholderText="{x:Static res:Lang.SelectLenguague}"
             DisplayMemberPath="Value.Name"
             IsEnabled="{Binding CanStartWorkButtonBePressed}"
@@ -97,6 +100,7 @@
             Grid.Row="5"
             Grid.ColumnSpan="4"
             HorizontalAlignment="Stretch"
+            ui:ControlHelper.CornerRadius="10"
             Command="{Binding StartCommand}"
             Content="{x:Static res:Lang.Work}"
             Focusable="False" />
@@ -112,6 +116,7 @@
             Grid.Column="1"
             Margin="10"
             VerticalAlignment="Center"
+            ui:ControlHelper.CornerRadius="10"
             IsReadOnly="True"
             Text="{Binding DocumentPath}"
             Visibility="{Binding PathVisibility}" />
@@ -121,6 +126,7 @@
             Grid.Column="2"
             Margin="10"
             VerticalAlignment="Center"
+            ui:ControlHelper.CornerRadius="10"
             Command="{Binding CopyDocumentPathCommand}"
             Content="{x:Static res:Lang.Copy}"
             Focusable="False"
@@ -132,6 +138,7 @@
             Margin="10,0,40,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
+            ui:ControlHelper.CornerRadius="10"
             Command="{Binding OpenDocCommnd}"
             Content="{x:Static res:Lang.WordOpen}"
             Focusable="False"
