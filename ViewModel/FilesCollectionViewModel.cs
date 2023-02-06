@@ -51,12 +51,15 @@ namespace TranscribeMe.ViewModel {
 
         }
         private void OpenMenuAction(System.Windows.Controls.ListView obj) {
-            if (obj != null) {
-                IsMenuOpen = Visibility.Visible;
-
-            }
 
             var item = obj!.SelectedItem as FileItem;
+
+            if (item == null) {
+
+                return;
+            }
+
+            IsMenuOpen = Visibility.Visible;
 
             if (Path.GetExtension(item!.FilePath) == ".wav") {
                 IsReadVisible = Visibility.Collapsed;
@@ -116,12 +119,30 @@ namespace TranscribeMe.ViewModel {
         }
 
         private void DeleteAction(FileItem file) {
-            if (file == null) { return; }
+            if (file == null || IsFileLocked(file) == true) 
+                { return; }
             // Check if the new file path already exists
             if (File.Exists(file!.FilePath)) {
                 File.Delete(file.FilePath);
             }
             GetFiles();
+        }
+
+        private bool IsFileLocked(FileItem file) {
+            try {
+                using FileStream stream = File.Open(file.FilePath, FileMode.OpenOrCreate,
+                    FileAccess.Read, FileShare.None);
+                stream.Close();
+            } catch (IOException) {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+
+            //file is not locked
+            return false;
         }
 
         private void ReadOutLoudAction(FileItem file) {
