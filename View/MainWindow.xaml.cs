@@ -9,10 +9,4 @@ public partial class MainWindow : Window {
         DataContext = ViewModel;
 
     }
-
-    private void Window_Loaded(object sender, RoutedEventArgs e) {
-        MouseDown += delegate {
-            DragMove();
-        };
-    }
 }

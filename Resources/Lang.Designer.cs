@@ -88,6 +88,24 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Blue.
+        /// </summary>
+        public static string Blue {
+            get {
+                return ResourceManager.GetString("Blue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Underlining color.
+        /// </summary>
+        public static string ColorSelect {
+            get {
+                return ResourceManager.GetString("ColorSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm password.
         /// </summary>
         public static string Confirm {
@@ -205,6 +223,15 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Green.
+        /// </summary>
+        public static string Green {
+            get {
+                return ResourceManager.GetString("Green", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
@@ -295,11 +322,20 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Leer en voz alta.
+        ///   Looks up a localized string similar to Read.
         /// </summary>
         public static string Read {
             get {
                 return ResourceManager.GetString("Read", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Red.
+        /// </summary>
+        public static string Red {
+            get {
+                return ResourceManager.GetString("Red", resourceCulture);
             }
         }
         
@@ -426,6 +462,15 @@ namespace TranscribeMe.Resources {
         public static string Work {
             get {
                 return ResourceManager.GetString("Work", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yellow.
+        /// </summary>
+        public static string Yellow {
+            get {
+                return ResourceManager.GetString("Yellow", resourceCulture);
             }
         }
     }

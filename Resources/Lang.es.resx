@@ -126,6 +126,12 @@
   <data name="AudioServiceTitle" xml:space="preserve">
     <value>Generar un documento Word desde un archivo de audio</value>
   </data>
+  <data name="Blue" xml:space="preserve">
+    <value>Azul</value>
+  </data>
+  <data name="ColorSelect" xml:space="preserve">
+    <value>Color del subrayado</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirmar contraseña</value>
   </data>
@@ -165,6 +171,9 @@
   <data name="FileSearch" xml:space="preserve">
     <value>Buscar un archivo</value>
   </data>
+  <data name="Green" xml:space="preserve">
+    <value>Verde</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Pantalla principal</value>
   </data>
@@ -196,7 +205,10 @@
     <value>Esto no tomara mucho tiempo</value>
   </data>
   <data name="Read" xml:space="preserve">
-    <value>Leer en voz alra</value>
+    <value>Leer</value>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>Rojo</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>Renombrar</value>
@@ -223,7 +235,7 @@
     <value>Traducción de document</value>
   </data>
   <data name="TranslateInstructions" xml:space="preserve">
-    <value>En que idioma desea traducir</value>
+    <value>En que idioma desea</value>
   </data>
   <data name="TraslateServiceTitle" xml:space="preserve">
     <value>Traducir un documento Word o PDF</value>
@@ -242,5 +254,8 @@
   </data>
   <data name="Work" xml:space="preserve">
     <value>Comenzar</value>
+  </data>
+  <data name="Yellow" xml:space="preserve">
+    <value>Amarillo</value>
   </data>
 </root>

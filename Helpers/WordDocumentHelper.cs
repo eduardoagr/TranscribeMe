@@ -24,10 +24,6 @@ namespace TranscribeMe.Helpers {
 
             wordDocument.LastParagraph.AppendText(text);
 
-            // Find all the text which start with capital letters next to period (.) in the Word document.
-
-            //For example . Text or .Text
-
             if (transcription) {
 
                 var textSelections = wordDocument.FindAll(new Regex(@"[.]\s+[A-Z]|[.][A-Z]"));

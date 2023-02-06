@@ -67,7 +67,7 @@
 
 
         private void CopyDocumentPathAction() {
-            Clipboard.SetText(MicrosofWordtDocumentPath);
+            System.Windows.Clipboard.SetText(MicrosofWordtDocumentPath);
         }
 
         private async Task StartAction() {

@@ -1,17 +1,4 @@
-﻿using Syncfusion.DocIO.DLS;
-using Syncfusion.Pdf;
-using Syncfusion.Pdf.Parsing;
-
-using System.Windows.Interop;
-
-using TranscribeMe.Services;
-
-using Windows.ApplicationModel.DataTransfer;
-using Windows.Storage;
-
-using static System.Net.Mime.MediaTypeNames;
-
-using Application = System.Windows.Application;
+﻿using Application = System.Windows.Application;
 using VerticalAlignment = System.Windows.VerticalAlignment;
 
 namespace TranscribeMe.ViewModel {
@@ -19,13 +6,16 @@ namespace TranscribeMe.ViewModel {
     [AddINotifyPropertyChangedInterface]
 
     public class FilesCollectionViewModel {
+
         public Command OpenFileCommand { get; set; }
 
         public Command TextToSearchCommand { get; set; }
 
         public Command DeleteCommand { get; set; }
 
-        public AsyncCommand<FileItem> ReadCommmand { get; set; }
+        public Command<FileItem> ReadCommmand { get; set; }
+
+        public Command<System.Windows.Controls.ListView> ItemChangedCommand { get; set; }
 
         public AsyncCommand<FileItem> RenameCommand { get; set; }
 
@@ -35,26 +25,44 @@ namespace TranscribeMe.ViewModel {
 
         public ObservableCollection<string> FilteredItems { get; set; }
 
+        public Visibility IsMenuOpen { get; set; }
+
+        public Visibility IsReadVisible { get; set; }
+
         public FileItem? SelectedFile { get; set; }
 
         public List<string>? Folders { get; set; }
 
         public string[] FilesLength { get; set; } = { "B", "KB", "MB", "GB", "TB" };
 
-
-        public bool IsContextMenuOpen;
-
         public FilesCollectionViewModel() {
+            IsMenuOpen = Visibility.Collapsed;
             FilesCollection = new ObservableCollection<FileItem>();
             FilteredItems = new ObservableCollection<string>();
             TextToSearchCommand = new Command<string>(SearchAction);
             OpenFileCommand = new Command<FileItem>(OpenAction);
-            ReadCommmand = new AsyncCommand<FileItem>(ReadOutLoudActionAsync);
+            ItemChangedCommand = new Command<System.Windows.Controls.ListView>(OpenMenuAction);
+            ReadCommmand = new Command<FileItem>(ReadOutLoudAction);
             DeleteCommand = new Command<FileItem>(DeleteAction);
             ShareCommand = new AsyncCommand<FileItem>(ShareActionAsync);
             RenameCommand = new AsyncCommand<FileItem>(RenameActionAsync);
             GetFolders();
             GetFiles();
+
+        }
+        private void OpenMenuAction(System.Windows.Controls.ListView obj) {
+            if (obj != null) {
+                IsMenuOpen = Visibility.Visible;
+
+            }
+
+            var item = obj!.SelectedItem as FileItem;
+
+            if (Path.GetExtension(item!.FilePath) == ".wav") {
+                IsReadVisible = Visibility.Collapsed;
+            } else {
+                IsReadVisible = Visibility.Visible;
+            }
         }
 
         private void GetFolders() {
@@ -67,7 +75,7 @@ namespace TranscribeMe.ViewModel {
         }
 
         private async Task RenameActionAsync(FileItem file) {
-
+            if (file == null) { return; }
             var name = Path.GetFileNameWithoutExtension(file.FilePath);
             var fileExt = Path.GetExtension(file.FilePath);
             var filePath = file.FilePath;
@@ -108,67 +116,56 @@ namespace TranscribeMe.ViewModel {
         }
 
         private void DeleteAction(FileItem file) {
-
+            if (file == null) { return; }
             // Check if the new file path already exists
-            if (File.Exists(file.FilePath)) {
+            if (File.Exists(file!.FilePath)) {
                 File.Delete(file.FilePath);
             }
             GetFiles();
         }
 
-        private async Task ReadOutLoudActionAsync(FileItem file) {
-
-            var win = new Window {
-                Width = 800
-            };
-
-            RichTextBox richTextBox = new() {
-                Margin = new Thickness(20)
-            };
-
-            await GetTextAsync(file, richTextBox);
-
-            win.Content = richTextBox;
-            win.Show();
-
-            if (win.IsVisible) {
-                //call readservice
+        private void ReadOutLoudAction(FileItem file) {
+            if (file == null) { return; }
+            var str = GetText(file.FilePath);
+            if (Path.GetExtension(file.FilePath) != ".wav") {
+                var readOutLoudWindow = new ReadOutLoudWindow {
+                    DataContext = new ReadOutLoudWindowViewModel(str)
+                };
+                readOutLoudWindow.Show();
             }
-
         }
 
-        private static async Task GetTextAsync(FileItem file, RichTextBox richTextBox) {
+        private static string GetText(string filepath) {
 
             StringBuilder sb = new();
 
-            switch (Path.GetExtension(file.FilePath)) {
+            switch (Path.GetExtension(filepath)) {
 
                 case ".pdf":
-                    PdfLoadedDocument pdfDoc = new(File.ReadAllBytes(file.FilePath));
+                    PdfLoadedDocument pdfDoc = new(File.ReadAllBytes(filepath));
                     foreach (PdfLoadedPage loadedPage in pdfDoc.Pages) {
                         var text = loadedPage.ExtractText();
                         text = text.Trim();
-                        await BingSpellCheckService.SpellingCorrector(text);
                         sb.Append(text);
                     }
-                    richTextBox.AppendText(sb.ToString());
                     break;
                 case ".docx":
                 case ".doc":
-                    WordDocument wordDocument = new WordDocument(file.FilePath);
+                    WordDocument wordDocument = new(filepath);
                     foreach (IWSection section in wordDocument.Sections) {
                         foreach (IWParagraph paragraph in section.Body.Paragraphs) {
                             string text = paragraph.Text;
-                            await BingSpellCheckService.SpellingCorrector(text);
                             sb.Append(text);
                         }
                     }
-                    richTextBox.AppendText(sb.ToString());
                     break;
             }
+
+            return sb.ToString();
         }
 
         private async Task ShareActionAsync(FileItem item) {
+            if (item == null) { return; }
 
             var win = Application.Current.Windows[0];
             var interop = DataTransferManager.As<IDataTransferManagerInterop>();

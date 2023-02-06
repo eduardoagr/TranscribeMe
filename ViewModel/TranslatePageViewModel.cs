@@ -70,7 +70,7 @@
 
 
         private void CopyDocumentPathAction() {
-            Clipboard.SetText(DocumentPath);
+            System.Windows.Clipboard.SetText(DocumentPath);
         }
 
         private async Task StartAction() {

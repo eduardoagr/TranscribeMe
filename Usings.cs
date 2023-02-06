@@ -20,7 +20,10 @@ global using NAudio.Wave;
 
 global using PropertyChanged;
 
+global using Syncfusion.DocIO.DLS;
 global using Syncfusion.Licensing;
+global using Syncfusion.Pdf;
+global using Syncfusion.Pdf.Parsing;
 
 global using System.Collections.ObjectModel;
 global using System.ComponentModel.DataAnnotations;
@@ -35,6 +38,7 @@ global using System.Text;
 global using System.Text.Json;
 global using System.Windows;
 global using System.Windows.Controls;
+global using System.Windows.Interop;
 global using System.Windows.Media;
 global using System.Windows.Media.Imaging;
 
@@ -46,7 +50,9 @@ global using TranscribeMe.Services;
 global using TranscribeMe.View;
 global using TranscribeMe.ViewModel;
 
+global using Windows.ApplicationModel.DataTransfer;
 global using Windows.Devices.Geolocation;
+global using Windows.Storage;
 
 global using Page = System.Windows.Controls.Page;
 

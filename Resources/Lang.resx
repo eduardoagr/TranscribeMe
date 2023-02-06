@@ -126,6 +126,12 @@
   <data name="AudioServiceTitle" xml:space="preserve">
     <value>Generate a Word document from an audio file</value>
   </data>
+  <data name="Blue" xml:space="preserve">
+    <value>Blue</value>
+  </data>
+  <data name="ColorSelect" xml:space="preserve">
+    <value>Underlining color</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirm password</value>
   </data>
@@ -165,6 +171,9 @@
   <data name="FileSearch" xml:space="preserve">
     <value>Search for a file</value>
   </data>
+  <data name="Green" xml:space="preserve">
+    <value>Green</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -196,7 +205,10 @@
     <value>This will not take long</value>
   </data>
   <data name="Read" xml:space="preserve">
-    <value>Leer en voz alta</value>
+    <value>Read</value>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>Red</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>Rename</value>
@@ -239,5 +251,8 @@
   </data>
   <data name="Work" xml:space="preserve">
     <value>Start</value>
+  </data>
+  <data name="Yellow" xml:space="preserve">
+    <value>Yellow</value>
   </data>
 </root>

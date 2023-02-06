@@ -62,21 +62,19 @@
             Content="{x:Static res:Lang.FileLang}" />
 
 
-        <ComboBox
-            Grid.Row="2"
-            Grid.Column="1"
-            Grid.ColumnSpan="3"
-            Margin="10"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Center"
-            ui:ControlHelper.CornerRadius="10"
-            ui:ControlHelper.PlaceholderText="{x:Static res:Lang.SelectLenguague}"
-            DisplayMemberPath="Value.Name"
-            IsEnabled="{Binding CanStartWorkButtonBePressed}"
-            ItemsSource="{Binding LanguagesDictionary}"
-            SelectedValue="{Binding SelectedLanguage}"
-            SelectedValuePath="Value.Code" />
-
+        <ComboBox Grid.Row="2"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="3"
+                  Margin="10"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Center"
+                  ui:ControlHelper.CornerRadius="10"
+                  ui:ControlHelper.PlaceholderText="{x:Static res:Lang.SelectLenguague}"
+                  DisplayMemberPath="Value.Name"
+                  IsEnabled="{Binding CanStartWorkButtonBePressed}"
+                  ItemsSource="{Binding LanguagesDictionary}"
+                  SelectedValue="{Binding SelectedLanguage}"
+                  SelectedValuePath="Value.Code" />
 
         <Label
             Grid.Row="3"

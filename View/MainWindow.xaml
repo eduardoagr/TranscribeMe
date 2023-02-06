@@ -16,7 +16,6 @@
     ui:TitleBar.IsIconVisible="True"
     ui:WindowHelper.UseModernWindowStyle="True"
     Icon="/Images/Home.png"
-    Loaded="Window_Loaded"
     ResizeMode="NoResize"
     SnapsToDevicePixels="True"
     WindowStartupLocation="CenterScreen"

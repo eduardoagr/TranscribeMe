@@ -10,5 +10,6 @@ namespace TranscribeMe.Pages {
             InitializeComponent();
             DataContext = Instance;
         }
+
     }
 }
