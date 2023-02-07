@@ -9,7 +9,7 @@
     xmlns:ui="http://schemas.modernwpf.com/2019"
     Width="600"
     Height="450"
-    ui:ControlHelper.CornerRadius="10"
+    ui:ControlHelper.CornerRadius="20"
     ui:TitleBar.IsIconVisible="True"
     ui:WindowHelper.UseModernWindowStyle="True"
     Icon="/Images/Users.png"
@@ -44,14 +44,16 @@
                 ui:ControlHelper.CornerRadius="10"
                 Command="{Binding LoginCommand}"
                 Content="{x:Static res:Lang.Login}"
-                FocusVisualStyle="{x:Null}" />
+                FocusVisualStyle="{x:Null}"
+                Visibility="{Binding isWorking}" />
 
             <TextBlock
                 Margin="20"
                 HorizontalAlignment="Center"
                 Foreground="DodgerBlue"
                 Text="{x:Static res:Lang.DontHaveAccount}"
-                TextDecorations="Underline">
+                TextDecorations="Underline"
+                Visibility="{Binding isWorking}">
 
                 <Behaviors:Interaction.Triggers>
                     <Behaviors:EventTrigger EventName="MouseDown">
@@ -59,6 +61,12 @@
                     </Behaviors:EventTrigger>
                 </Behaviors:Interaction.Triggers>
             </TextBlock>
+
+            <ui:ProgressRing
+                Width="40"
+                Height="40"
+                Margin="0,20,0,0"
+                IsActive="{Binding isBusy}" />
         </StackPanel>
 
 
@@ -97,20 +105,29 @@
                 ui:ControlHelper.CornerRadius="10"
                 Command="{Binding RegisterCommand}"
                 Content="{x:Static res:Lang.CreateAccount}"
-                FocusVisualStyle="{x:Null}" />
+                FocusVisualStyle="{x:Null}"
+                Visibility="{Binding isWorking}" />
 
             <TextBlock
                 Margin="20"
                 HorizontalAlignment="Center"
                 Foreground="DodgerBlue"
-                Text="Login"
-                TextDecorations="Underline">
+                Text="{x:Static res:Lang.Login}"
+                TextDecorations="Underline"
+                Visibility="{Binding isWorking}">
+
                 <Behaviors:Interaction.Triggers>
                     <Behaviors:EventTrigger EventName="MouseDown">
                         <Behaviors:InvokeCommandAction Command="{Binding SwitchViewsCommand}" />
                     </Behaviors:EventTrigger>
                 </Behaviors:Interaction.Triggers>
             </TextBlock>
+
+            <ui:ProgressRing
+                Width="40"
+                Height="40"
+                Margin="0,20,0,0"
+                IsActive="{Binding isBusy}" />
         </StackPanel>
     </Grid>
 

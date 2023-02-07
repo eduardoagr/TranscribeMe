@@ -11,6 +11,8 @@
 
         private bool isShowingRegister { get; set; }
 
+        public bool isBusy { get; set; } = false;
+
         public AsyncCommand RegisterCommand { get; set; }
 
         public AsyncCommand LoginCommand { get; set; }
@@ -23,7 +25,10 @@
 
         public Visibility LoginVis { get; set; }
 
+        public Visibility isWorking { get; set; }
+
         public SignUpLoginWondowViewModel(IFirebaseAuthClient firebaseAuthClient) {
+            isWorking = Visibility.Visible;
             _firebaseAuthClient = firebaseAuthClient;
             _geoServices = new GeoServices();
             User = new LocalUser();
@@ -40,7 +45,7 @@
             //File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "userdata.json"));
 
             LoginVis = Visibility.Visible;
-            Application.Current.Windows[0].Title = "Login";
+            Application.Current.Windows[0].Title = Lang.Login;
             RegisterVis = Visibility.Collapsed;
 
         }
@@ -50,6 +55,8 @@
         private async Task RegisterActionAsync() {
 
             try {
+                isWorking = Visibility.Collapsed;
+                isBusy = true;
                 var result = await _firebaseAuthClient.CreateUserWithEmailAndPasswordAsync
                     (User.Email, User.Password, User.Username);
                 if (result.User != null) {
@@ -88,6 +95,8 @@
         private async Task LoginAction() {
 
             try {
+                isWorking = Visibility.Collapsed;
+                isBusy = true;
                 var result = await _firebaseAuthClient.SignInWithEmailAndPasswordAsync(
                     User.Email, User.Password);
                 if (result.User != null && !string.IsNullOrEmpty(result.User.Uid)) {
@@ -98,10 +107,12 @@
             } catch (FirebaseAuthException ex) {
                 await ExceptionAsync(ex);
 
+
+
             }
         }
 
-        private static async Task ExceptionAsync(FirebaseAuthException ex) {
+        private async Task ExceptionAsync(FirebaseAuthException ex) {
             var message = ex.Message;
             var startIndex = message.IndexOf("Response: ") + "Response: ".Length;
             var endIndex = message.IndexOf("\n\nReason");
@@ -110,34 +121,35 @@
             switch (error!.error.message) {
 
                 case "INVALID_PASSWORD":
-                    await ShowContentDialogAsync(Lang.INVALID_PASSWORD, "OK", "error");
+                    await ShowContentDialogAsync(Lang.INVALID_PASSWORD, "OK");
                     break;
                 case "EMAIL_NOT_FOUND":
-                    await ShowContentDialogAsync(Lang.EMAIL_NOT_FOUND, "OK", "error");
+                    await ShowContentDialogAsync(Lang.EMAIL_NOT_FOUND, "OK");
                     break;
 
                 case "EMAIL_EXISTS":
-                    await ShowContentDialogAsync(Lang.EMAIL_EXISTS, "OK", "error");
+                    await ShowContentDialogAsync(Lang.EMAIL_EXISTS, "OK");
                     break;
 
                 case "INVALID_EMAIL":
-                    await ShowContentDialogAsync(Lang.INVALID_EMAIL, "OK", "error");
+                    await ShowContentDialogAsync(Lang.INVALID_EMAIL, "OK");
                     break;
 
             }
         }
 
-        private static async Task ShowContentDialogAsync(string msg, string closeBtn, string title) {
+        private async Task ShowContentDialogAsync(string msg, string closeBtn) {
 
-            ContentDialog dialog = new() {
-                Title = title,
-                Content = msg,
-                CornerRadius = new CornerRadius(10),
-                CloseButtonText = closeBtn,
+            isBusy = false;
+            isWorking = Visibility.Visible;
 
+            var customDialog = new ErrorDialog {
+                DataContext = new ErrorDialogViewMoel(Lang.ErrorDialog, msg, closeBtn),
             };
+            customDialog.PrimaryBtn.Click
+                += (sender, args) => { customDialog.Hide(); };
 
-            await dialog.ShowAsync();
+            await customDialog.ShowAsync();
 
         }
 
@@ -182,11 +194,11 @@
 
             isShowingRegister = !isShowingRegister;
             if (isShowingRegister) {
-                Application.Current.Windows[0].Title = "Register";
+                Application.Current.Windows[0].Title = Lang.CreateAccount;
                 RegisterVis = Visibility.Visible;
                 LoginVis = Visibility.Collapsed;
             } else {
-                Application.Current.Windows[0].Title = "Login";
+                Application.Current.Windows[0].Title = Lang.Login;
                 RegisterVis = Visibility.Collapsed;
                 LoginVis = Visibility.Visible;
             }

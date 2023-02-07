@@ -159,6 +159,9 @@
   <data name="EN" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="ErrorDialog" xml:space="preserve">
+    <value>An error has ocurred</value>
+  </data>
   <data name="ES" xml:space="preserve">
     <value>Spanish</value>
   </data>

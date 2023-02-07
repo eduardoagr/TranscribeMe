@@ -12,7 +12,7 @@
     Title="Transcribed"
     Width="800"
     Height="700"
-    ui:ControlHelper.CornerRadius="10"
+    ui:ControlHelper.CornerRadius="20"
     ui:TitleBar.IsIconVisible="True"
     ui:WindowHelper.UseModernWindowStyle="True"
     Icon="/Images/Home.png"

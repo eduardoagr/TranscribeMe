@@ -159,6 +159,9 @@
   <data name="EN" xml:space="preserve">
     <value>Ingles</value>
   </data>
+  <data name="ErrorDialog" xml:space="preserve">
+    <value>Ha ocurrido un error.</value>
+  </data>
   <data name="ES" xml:space="preserve">
     <value>Español</value>
   </data>
@@ -218,6 +221,9 @@
   </data>
   <data name="Share" xml:space="preserve">
     <value>Compatir</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Iniciar sesión</value>
   </data>
   <data name="TextExtraction" xml:space="preserve">
     <value>Extraer texto de una imagen (PNG, JPEG)</value>

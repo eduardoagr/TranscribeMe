@@ -187,6 +187,15 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error has ocurred.
+        /// </summary>
+        public static string ErrorDialog {
+            get {
+                return ResourceManager.GetString("ErrorDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spanish.
         /// </summary>
         public static string ES {

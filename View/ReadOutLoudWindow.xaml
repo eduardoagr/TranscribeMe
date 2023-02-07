@@ -9,7 +9,7 @@
     xmlns:vm="clr-namespace:TranscribeMe.ViewModel"
     Width="600"
     Height="600"
-    ui:ControlHelper.CornerRadius="10"
+    ui:ControlHelper.CornerRadius="20"
     ui:WindowHelper.UseModernWindowStyle="True"
     mc:Ignorable="d">
 
