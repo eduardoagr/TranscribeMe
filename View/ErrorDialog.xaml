@@ -10,7 +10,7 @@
     Width="500"
     Height="200"
     Name="MyDialog"
-    CornerRadius="20"
+    CornerRadius="10"
     SnapsToDevicePixels="True"
     mc:Ignorable="d">
 
