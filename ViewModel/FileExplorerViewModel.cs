@@ -5,7 +5,7 @@ namespace TranscribeMe.ViewModel {
 
     [AddINotifyPropertyChangedInterface]
 
-    public class FilesCollectionViewModel {
+    public class FileExplorerViewModel {
 
         public Command OpenFileCommand { get; set; }
 
@@ -35,7 +35,7 @@ namespace TranscribeMe.ViewModel {
 
         public string[] FilesLength { get; set; } = { "B", "KB", "MB", "GB", "TB" };
 
-        public FilesCollectionViewModel() {
+        public FileExplorerViewModel() {
             IsMenuOpen = Visibility.Collapsed;
             FilesCollection = new ObservableCollection<FileItem>();
             FilteredItems = new ObservableCollection<string>();

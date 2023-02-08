@@ -15,6 +15,8 @@
 	  <None Remove="Fonts\Material.ttf" />
 	  <None Remove="Images\Document.png" />
 	  <None Remove="Images\Home.png" />
+	  <None Remove="Images\Logo.png" />
+	  <None Remove="Images\Placeholder.png" />
 	  <None Remove="Images\Users.png" />
 	  <None Remove="Images\Word.png" />
 	</ItemGroup>
@@ -27,6 +29,12 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Images\Home.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Images\Logo.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Images\Placeholder.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Images\Users.png">

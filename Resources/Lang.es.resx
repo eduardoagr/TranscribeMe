@@ -126,6 +126,9 @@
   <data name="AudioServiceTitle" xml:space="preserve">
     <value>Generar un documento Word desde un archivo de audio</value>
   </data>
+  <data name="Birth" xml:space="preserve">
+    <value>Fecha de nacimiento</value>
+  </data>
   <data name="Blue" xml:space="preserve">
     <value>Azul</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="DontHaveAccount" xml:space="preserve">
     <value>No tiene una cuanta?</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editar</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Correo electrónico</value>
@@ -174,6 +180,9 @@
   <data name="FileSearch" xml:space="preserve">
     <value>Buscar un archivo</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
   <data name="Green" xml:space="preserve">
     <value>Verde</value>
   </data>
@@ -188,6 +197,9 @@
   </data>
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>La contraseña es incorrecte</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Apellido</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Iniciar sesión</value>
@@ -245,6 +257,9 @@
   </data>
   <data name="TraslateServiceTitle" xml:space="preserve">
     <value>Traducir un documento Word o PDF</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Actualizar</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Nombre de usuario</value>

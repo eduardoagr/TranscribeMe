@@ -1,13 +1,19 @@
-﻿namespace TranscribeMe.ViewModel {
+﻿using TranscribeMe.Pages;
+
+namespace TranscribeMe.ViewModel {
 
     [AddINotifyPropertyChangedInterface]
-    public class MainPageViewModel {
+    public class MainWindowViewModel {
+
+        public string UserId { get; set; }
 
         public Command SelectedPageCommand { get; set; }
 
         public NavButton? SelectedItem { get; set; }
 
-        public MainPageViewModel() {
+        public MainWindowViewModel(string userID) {
+
+            UserId = userID;
 
             SelectedPageCommand = new Command<ModernWpf.Controls.Frame>(PasgeSelectionItem);
         }
@@ -16,8 +22,21 @@
             frame?.Navigate(SelectedItem?.NavLink);
 
             if (SelectedItem!.Name.Equals("CntactUS")) {
-
                 SendEmail();
+            }
+            if (SelectedItem.Name.Equals("acc")) {
+                if (!string.IsNullOrEmpty(UserId)) {
+                    try {
+                        ProfilePage profile = new ProfilePage() {
+
+                            DataContext = new ProfilePageViewModel(UserId)
+                        };
+                        frame?.Navigate(SelectedItem.NavLink);
+                    } catch (Exception ex) {
+                        Debug.WriteLine(ex.Message);
+                    }
+
+                }
             }
         }
 

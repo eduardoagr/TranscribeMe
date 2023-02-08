@@ -3,6 +3,7 @@ using Azure.Storage.Blobs;
 
 namespace TranscribeMe.Services {
     public class AzureStorageService {
+
         readonly string ConectionString = ConstantsHelpers.AZURE_STORAGE_CONNECTIONSTRING;
         BlobContainerClient? ContainerClient;
 
@@ -67,15 +68,12 @@ namespace TranscribeMe.Services {
             return pathToSave;
         }
 
-        public async Task<string> UploadToAzureBlobStorage(string FilePath) {
+        public async Task<string> CreateAndUploadAzureBlobStorageAsync(string contanerName,
+            string FilePath) {
 
-            ContainerClient = new BlobContainerClient(ConectionString,
-                ConstantsHelpers.AZURE_DOWNLOAD_SHARE_DOCUMENTS);
 
-            var blob = ContainerClient.GetBlobClient(Path.GetFileName(FilePath));
-            await blob.UploadAsync(FilePath, true);
-
-            return blob.Uri.AbsoluteUri;
+            //return blob.Uri.AbsoluteUri;
+            return string.Empty;
 
         }
     }

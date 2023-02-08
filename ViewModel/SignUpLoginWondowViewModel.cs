@@ -25,10 +25,13 @@
 
         public Visibility LoginVis { get; set; }
 
-        public Visibility isWorking { get; set; }
+        public Visibility isButtonVisible { get; set; }
+
+        public Visibility IsLoginVis { get; set; }
 
         public SignUpLoginWondowViewModel(IFirebaseAuthClient firebaseAuthClient) {
-            isWorking = Visibility.Visible;
+
+            isButtonVisible = Visibility.Visible;
             _firebaseAuthClient = firebaseAuthClient;
             _geoServices = new GeoServices();
             User = new LocalUser();
@@ -45,17 +48,16 @@
             //File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "userdata.json"));
 
             LoginVis = Visibility.Visible;
+            IsLoginVis = Visibility.Visible;
             Application.Current.Windows[0].Title = Lang.Login;
             RegisterVis = Visibility.Collapsed;
 
         }
 
-
-
         private async Task RegisterActionAsync() {
 
             try {
-                isWorking = Visibility.Collapsed;
+                isButtonVisible = Visibility.Collapsed;
                 isBusy = true;
                 var result = await _firebaseAuthClient.CreateUserWithEmailAndPasswordAsync
                     (User.Email, User.Password, User.Username);
@@ -69,18 +71,28 @@
                     var newUser =
                         await firebase.Child("Users").
                         PostAsync(
-                            new LocalUser(_currentCity?.address?.county,
-                            result.User.Uid,
-                            result.User.Info.Email,
+                            new LocalUser(result.User.Uid,
                             result.User.Info.DisplayName,
-                            _currentCity?.address?.city,
-                            User.hasPaid,
-                            new DateTime(default),
-                            new DateTime(default),
-                            User.isActive));
+                            User.FirstName!,
+                            User.LastName,
+                            User.PhotoUrl,
+                            result.User.Info.Email,
+                            _currentCity?.address!.country,
+                            _currentCity!.address!.city,
+                            User.HasPaid, User.IsActive,
+                            User.DateOfBirth,
+                            new DateTime(),
+                            new DateTime()));
 
                     // Save user data in a local file
-                    string userDataFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "userdata.json");
+                    string userDataFile = Path.Combine(
+                        Environment.GetFolderPath(
+                            Environment.SpecialFolder.LocalApplicationData),
+                            "userdata.json");
+
+
+                    File.WriteAllText(userDataFile, JsonSerializer.Serialize(newUser));
+
 
                     MainWindow mainWindow = new();
                     mainWindow.Show();
@@ -95,12 +107,15 @@
         private async Task LoginAction() {
 
             try {
-                isWorking = Visibility.Collapsed;
+                isButtonVisible = Visibility.Collapsed;
                 isBusy = true;
                 var result = await _firebaseAuthClient.SignInWithEmailAndPasswordAsync(
                     User.Email, User.Password);
                 if (result.User != null && !string.IsNullOrEmpty(result.User.Uid)) {
-                    MainWindow mainWindow = new();
+
+                    MainWindow mainWindow = new() {
+                        DataContext = new MainWindowViewModel(result.User.Uid)
+                    };
                     mainWindow.Show();
                     Application.Current.Windows[0].Close();
                 }
@@ -141,7 +156,7 @@
         private async Task ShowContentDialogAsync(string msg, string closeBtn) {
 
             isBusy = false;
-            isWorking = Visibility.Visible;
+            isButtonVisible = Visibility.Visible;
 
             var customDialog = new ErrorDialog {
                 DataContext = new ErrorDialogViewMoel(Lang.ErrorDialog, msg, closeBtn),
@@ -195,10 +210,12 @@
             isShowingRegister = !isShowingRegister;
             if (isShowingRegister) {
                 Application.Current.Windows[0].Title = Lang.CreateAccount;
+                IsLoginVis = Visibility.Collapsed;
                 RegisterVis = Visibility.Visible;
                 LoginVis = Visibility.Collapsed;
             } else {
                 Application.Current.Windows[0].Title = Lang.Login;
+                IsLoginVis = Visibility.Visible;
                 RegisterVis = Visibility.Collapsed;
                 LoginVis = Visibility.Visible;
             }

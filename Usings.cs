@@ -49,6 +49,7 @@ global using TranscribeMe.Resources;
 global using TranscribeMe.Services;
 global using TranscribeMe.View;
 global using TranscribeMe.ViewModel;
+global using TranscribeMe.ViewModel.Dialogs;
 
 global using Windows.ApplicationModel.DataTransfer;
 global using Windows.Devices.Geolocation;

@@ -13,9 +13,9 @@
     ui:WindowHelper.UseModernWindowStyle="True"
     mc:Ignorable="d">
 
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <vm:ReadOutLoudWindowViewModel />
-    </Window.DataContext>
+    </Window.DataContext>-->
 
     <StackPanel Margin="20">
         <ComboBox ItemsSource="{Binding ColorPairs}"

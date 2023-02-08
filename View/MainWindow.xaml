@@ -56,11 +56,12 @@
                 NavLink="/Pages/AudioPage.xaml"
                 ToolTip="{x:Static res:Lang.AudioServiceTitle}" />
 
-            <custom:NavButton Padding="5"
-                              FontFamily="{StaticResource mat}"
-                              Icon="{x:Static fonts:IconFont.Video}"
-                              NavLink="/Pages/VideoPage.xaml"
-                              ToolTip="{x:Static res:Lang.VideoServiceTitle}" />
+            <custom:NavButton
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.Video}"
+                NavLink="/Pages/VideoPage.xaml"
+                ToolTip="{x:Static res:Lang.VideoServiceTitle}" />
 
             <custom:NavButton
                 Padding="5"
@@ -81,14 +82,15 @@
                 Padding="5"
                 FontFamily="{StaticResource mat}"
                 Icon="{x:Static fonts:IconFont.Folder}"
-                NavLink="/Pages/FilesCollectionPage.xaml"
+                NavLink="/Pages/FileExplorerPage.xaml"
                 ToolTip="{x:Static res:Lang.FileSearch}" />
-            
-            <custom:NavButton Padding="5"
-                              FontFamily="{StaticResource mat}"
-                              Icon="{x:Static fonts:IconFont.Cart}"
-                              NavLink="/Pages/VideoPage.xaml"
-                              ToolTip="{x:Static res:Lang.VideoServiceTitle}" />
+
+            <custom:NavButton
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.Cart}"
+                NavLink="/Pages/VideoPage.xaml"
+                ToolTip="{x:Static res:Lang.VideoServiceTitle}" />
 
             <Separator />
 
@@ -98,6 +100,14 @@
                 FontFamily="{StaticResource mat}"
                 Icon="{x:Static fonts:IconFont.Email}"
                 ToolTip="{x:Static res:Lang.FileSearch}" />
+
+            <custom:NavButton
+                x:Name="acc"
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.AccountBox}"
+                NavLink="/Pages/ProfilePage.xaml"
+                ToolTip="{x:Static res:Lang.Account}" />
         </ListBox>
 
         <ui:Frame

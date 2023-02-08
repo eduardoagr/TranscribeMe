@@ -1,6 +1,10 @@
-﻿namespace TranscribeMe.ViewModel {
+﻿using Clipboard = System.Windows.Clipboard;
+
+namespace TranscribeMe.ViewModel {
+
     [AddINotifyPropertyChangedInterface]
     public class AudioPageViewModel {
+
         public string? FilePath { get; set; }
 
         public string? DocPath { get; set; }
@@ -67,7 +71,7 @@
 
 
         private void CopyDocumentPathAction() {
-            System.Windows.Clipboard.SetText(MicrosofWordtDocumentPath);
+            Clipboard.SetText(MicrosofWordtDocumentPath);
         }
 
         private async Task StartAction() {

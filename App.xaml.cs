@@ -48,20 +48,27 @@ public partial class App : Application {
         //    MainWindow = _host.Services.GetRequiredService<SignUpLoginWondow>();
         //}
 
-        MainWindow = _host.Services.GetRequiredService<MainWindow>();
+        MainWindow = _host.Services.GetRequiredService<SignUpLoginWondow>();
 
         MainWindow.Show();
         base.OnStartup(e);
     }
 
     private static bool LoginWithSavedData() {
-        string userDataFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "userdata.json");
+        string userDataFile = Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                        "userdata.json");
+
         if (File.Exists(userDataFile)) {
-            var savedUser = JsonSerializer.Deserialize<FireUser>(File.ReadAllText(userDataFile));
-            if (!string.IsNullOrEmpty(savedUser!.Uid)) {
+            var json = File.ReadAllText(userDataFile);
+            var savedUser = JsonSerializer.Deserialize<UserData>(json);
+            if (savedUser != null && !string.IsNullOrEmpty(savedUser.Object.Id)) {
                 return true;
             }
         }
+
         return false;
     }
 }
+
+

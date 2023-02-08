@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace TranscribeMe.CustomControls {
+﻿namespace TranscribeMe.CustomControls {
 
     //We do this, this LisboxItem already has the selectionChange mechanism
     public class NavButton : ListBoxItem {
