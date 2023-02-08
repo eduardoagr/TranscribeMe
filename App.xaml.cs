@@ -42,13 +42,12 @@ public partial class App : Application {
 
     protected override void OnStartup(StartupEventArgs e) {
 
-        //if (LoginWithSavedData()) {
-        //    MainWindow = _host.Services.GetRequiredService<MainWindow>();
-        //} else {
-        //    MainWindow = _host.Services.GetRequiredService<SignUpLoginWondow>();
-        //}
+        if (LoginWithSavedData()) {
+            MainWindow = _host.Services.GetRequiredService<MainWindow>();
+        } else {
+            MainWindow = _host.Services.GetRequiredService<SignUpLoginWondow>();
+        }
 
-        MainWindow = _host.Services.GetRequiredService<SignUpLoginWondow>();
 
         MainWindow.Show();
         base.OnStartup(e);
