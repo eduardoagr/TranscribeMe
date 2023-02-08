@@ -45,7 +45,10 @@
             LoginCommand = new AsyncCommand(LoginAction, CanLogin);
             SwitchViewsCommand = new Command(SwitchViews);
 
-            //File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "userdata.json"));
+            /* File.Delete(Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                        "userdata.json");
+            */
 
             LoginVis = Visibility.Visible;
             IsLoginVis = Visibility.Visible;
