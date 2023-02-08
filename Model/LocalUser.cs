@@ -18,15 +18,18 @@ namespace TranscribeMe.Model {
         private string? city;
         private bool hasPaid;
         private bool isActive;
-        private DateTime dateOfBirth = new DateTime(2018, 05, 05);
+        private int age;
+        private DateTime dateOfBirth = new(2018, 05, 05);
         private DateTime suscriptionStart;
         private DateTime suscriptionEnd;
+
+        CultureInfo culture = CultureInfo.CurrentCulture;
 
 
         public LocalUser() {
         }
 
-        public LocalUser(string? id, string? username, string firstName,
+        public LocalUser(string? id, int age, string? username, string firstName,
             string? lastName, string? photoUrl,
             string? email, string? country, string? city, bool hasPaid,
             bool isActive, DateTime dateOfBirth,
@@ -45,6 +48,7 @@ namespace TranscribeMe.Model {
             SuscriptionStartDate = suscriptionStartDate;
             SuscriptionEndDate = suscriptionEndDate;
             IsActive = isActive;
+            Age = age;
         }
 
         public DateTime DateOfBirth {
@@ -54,6 +58,13 @@ namespace TranscribeMe.Model {
                 OnPropertyChanged();
             }
         }
+
+        public string DateOfBirthString {
+            get {
+                return dateOfBirth.ToString(culture.DateTimeFormat.ShortDatePattern);
+            }
+        }
+
 
         public string Id {
             get => id!;
@@ -102,6 +113,7 @@ namespace TranscribeMe.Model {
         public string? FirstName { get => firstName; set => firstName = value; }
         public string? LastName { get => lastName; set => lastName = value; }
         public string? PhotoUrl { get => photoUrl; set => photoUrl = value; }
+        public int Age { get => age; set => age = value; }
     }
 
     public class UserData {

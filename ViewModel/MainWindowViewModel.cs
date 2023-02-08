@@ -26,16 +26,14 @@ namespace TranscribeMe.ViewModel {
             }
             if (SelectedItem.Name.Equals("acc")) {
                 if (!string.IsNullOrEmpty(UserId)) {
-                    try {
-                        ProfilePage profile = new ProfilePage() {
-
-                            DataContext = new ProfilePageViewModel(UserId)
+                    if (frame != null) {
+                        frame.LoadCompleted += (sender, eventArgs) => {
+                            if (eventArgs.Content is ProfilePage page) {
+                                page.DataContext = new ProfilePageViewModel(UserId);
+                            }
                         };
-                        frame?.Navigate(SelectedItem.NavLink);
-                    } catch (Exception ex) {
-                        Debug.WriteLine(ex.Message);
+                        frame.Navigate(SelectedItem.NavLink);
                     }
-
                 }
             }
         }

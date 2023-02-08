@@ -8,71 +8,108 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:res="clr-namespace:TranscribeMe.Resources"
     xmlns:ui="http://schemas.modernwpf.com/2019"
+    xmlns:vm="clr-namespace:TranscribeMe.ViewModel"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-        
+    <Page.DataContext>
+        <vm:ProfilePageViewModel />
+    </Page.DataContext>
 
-    <Grid
-        Margin="20"
-        Background="DarkBlue">
+
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Ellipse
-            Width="100"
-            Height="100"
+        <StackPanel
             HorizontalAlignment="Center"
-            VerticalAlignment="Top">
-            <Ellipse.Fill>
-                <ImageBrush ImageSource="/Images/Placeholder.png" />
-            </Ellipse.Fill>
-        </Ellipse>
+            Orientation="Horizontal">
+            <Ellipse
+                Width="100"
+                Height="100">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="/Images/Placeholder.png" />
+                </Ellipse.Fill>
+            </Ellipse>
 
-        <Separator Grid.Row="1" />
+            <TextBlock
+                Margin="20,0,0,0"
+                VerticalAlignment="Center"
+                Text="{Binding localUser.DateOfBirthString}" />
 
-        <TextBox
-            Grid.Row="2"
-            Margin="20,0,20,0"
-            VerticalAlignment="Center"
-            ui:ControlHelper.CornerRadius="10"
-            ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Username}"
-            Foreground="Red"
-            Text="{Binding UserData[0].Object.Username}" />
-        <TextBox
-            Grid.Row="3"
-            Margin="20,0,20,0"
-            VerticalAlignment="Center"
-            ui:ControlHelper.CornerRadius="10"
-            ui:ControlHelper.PlaceholderText="{x:Static res:Lang.FirstName}"
-            Foreground="Red"
-            IsReadOnly="{Binding IsReadOnly}"
-            Text="{Binding UserData[0].Object.FirstName}" />
-        <TextBox
-            Grid.Row="4"
-            Margin="20,0,20,0"
-            VerticalAlignment="Center"
-            ui:ControlHelper.CornerRadius="10"
-            ui:ControlHelper.PlaceholderText="{x:Static res:Lang.LastName}"
-            Foreground="Red"
-            IsReadOnly="{Binding IsReadOnly}"
-            Text="{Binding UserData[0].Object.LastName}" />
+            <Separator
+                Height="40"
+                Margin="10,0,0,0"
+                Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
 
+            <TextBlock
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                Text="{Binding localUser.FirstName}" />
 
-        <Button
-            Grid.Row="5"
-            Margin="20,0,20,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            ui:ControlHelper.CornerRadius="10"
-            Content="{Binding BtonContent}" />
+            <Separator
+                Height="40"
+                Margin="10,0,0,0"
+                Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+
+            <TextBlock
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                Text="{Binding localUser.Age}" />
+        </StackPanel>
+
+        <Grid
+            Grid.Row="1"
+            Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBox
+                VerticalAlignment="Center"
+                ui:ControlHelper.CornerRadius="10"
+                ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Username}"
+                FontWeight="Bold"
+                IsReadOnly="{Binding IsReadOnly}"
+                Text="{Binding localUser.Username}" />
+
+            <TextBox
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                ui:ControlHelper.CornerRadius="10"
+                ui:ControlHelper.PlaceholderText="{x:Static res:Lang.FirstName}"
+                FontWeight="Bold"
+                IsReadOnly="{Binding IsReadOnly}"
+                Text="{Binding localUser.FirstName}" />
+
+            <TextBox
+                Grid.Row="2"
+                VerticalAlignment="Center"
+                ui:ControlHelper.CornerRadius="10"
+                ui:ControlHelper.PlaceholderText="{x:Static res:Lang.LastName}"
+                FontWeight="Bold"
+                IsReadOnly="{Binding IsReadOnly}"
+                Text="{Binding localUser.LastName}" />
+
+            <Button
+                Grid.Row="3"
+                FocusVisualStyle="{x:Null}"
+                Width="100"
+                Margin="10"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                ui:ControlHelper.CornerRadius="10"
+                Command="{Binding UpdateSaveCommand}"
+                Content="{Binding BtonContent}"
+                FontWeight="Bold" />
+
+        </Grid>
 
     </Grid>
 </Page>

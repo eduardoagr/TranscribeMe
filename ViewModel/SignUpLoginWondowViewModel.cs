@@ -72,6 +72,7 @@
                         await firebase.Child("Users").
                         PostAsync(
                             new LocalUser(result.User.Uid,
+                            GetAge(User.DateOfBirth),
                             result.User.Info.DisplayName,
                             User.FirstName!,
                             User.LastName,
@@ -84,15 +85,16 @@
                             new DateTime(),
                             new DateTime()));
 
+                    // Add the password to the newUser object
+                    newUser.Object.Password = User.Password;
+
                     // Save user data in a local file
                     string userDataFile = Path.Combine(
                         Environment.GetFolderPath(
                             Environment.SpecialFolder.LocalApplicationData),
                             "userdata.json");
 
-
                     File.WriteAllText(userDataFile, JsonSerializer.Serialize(newUser));
-
 
                     MainWindow mainWindow = new();
                     mainWindow.Show();
@@ -203,6 +205,15 @@
                 return true;
             }
             return false;
+        }
+
+        public static int GetAge(DateTime dateOfBirth) {
+            var today = DateTime.Today;
+
+            var a = (today.Year * 100 + today.Month) * 100 + today.Day;
+            var b = (dateOfBirth.Year * 100 + dateOfBirth.Month) * 100 + dateOfBirth.Day;
+
+            return (a - b) / 10000;
         }
 
         private void SwitchViews() {
