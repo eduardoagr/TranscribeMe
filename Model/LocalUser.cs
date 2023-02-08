@@ -22,9 +22,7 @@ namespace TranscribeMe.Model {
         private DateTime dateOfBirth = new(2018, 05, 05);
         private DateTime suscriptionStart;
         private DateTime suscriptionEnd;
-
-        CultureInfo culture = CultureInfo.CurrentCulture;
-
+        readonly CultureInfo culture = CultureInfo.CurrentCulture;
 
         public LocalUser() {
         }
@@ -62,6 +60,18 @@ namespace TranscribeMe.Model {
         public string DateOfBirthString {
             get {
                 return dateOfBirth.ToString(culture.DateTimeFormat.ShortDatePattern);
+            }
+        }
+
+        public string DateOfSuscriptionStartString {
+            get {
+                return suscriptionStart.ToString(culture.DateTimeFormat.ShortDatePattern);
+            }
+        }
+
+        public string DateOfSuscriptionEndString {
+            get {
+                return suscriptionEnd.ToString(culture.DateTimeFormat.ShortDatePattern);
             }
         }
 
