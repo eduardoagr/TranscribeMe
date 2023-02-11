@@ -132,6 +132,9 @@
   <data name="Blue" xml:space="preserve">
     <value>Azul</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
   <data name="ColorSelect" xml:space="preserve">
     <value>Color del subrayado</value>
   </data>
@@ -192,6 +195,9 @@
   <data name="ImageServiceTitle" xml:space="preserve">
     <value>Generar un documento Word desde una image</value>
   </data>
+  <data name="IMPORTANT" xml:space="preserve">
+    <value>IMPORTANTE</value>
+  </data>
   <data name="INVALID_EMAIL" xml:space="preserve">
     <value>La dirección de correo electrónico no es válida</value>
   </data>
@@ -210,11 +216,17 @@
   <data name="Password" xml:space="preserve">
     <value>Contraseña</value>
   </data>
+  <data name="PasswordPlaceholder" xml:space="preserve">
+    <value>Contraseña (debe contener minimo 6 characteres)</value>
+  </data>
   <data name="Path" xml:space="preserve">
     <value>Ruta del dumento</value>
   </data>
   <data name="Payments" xml:space="preserve">
     <value>Pagos</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Vista previa</value>
   </data>
   <data name="ProcessMsg" xml:space="preserve">
     <value>Esto no tomara mucho tiempo</value>

@@ -3,21 +3,8 @@
     [AddINotifyPropertyChangedInterface]
     public class SignUpLoginWondowViewModel {
 
-        private CurrentCity? _currentCity { get; set; }
-
-        private GeoServices _geoServices { get; set; }
-
-        private readonly IFirebaseAuthClient _firebaseAuthClient;
-
-        private bool isShowingRegister { get; set; }
-
+        #region Objects that are bindiable to the UI
         public bool isBusy { get; set; } = false;
-
-        public AsyncCommand RegisterCommand { get; set; }
-
-        public AsyncCommand LoginCommand { get; set; }
-
-        public Command SwitchViewsCommand { get; set; }
 
         public LocalUser User { get; set; }
 
@@ -28,19 +15,47 @@
         public Visibility isButtonVisible { get; set; }
 
         public Visibility IsLoginVis { get; set; }
+        #endregion
 
-        public SignUpLoginWondowViewModel(IFirebaseAuthClient firebaseAuthClient) {
+        #region Command (These are the same as Clicks)
+        public AsyncCommand RegisterCommand { get; set; }
 
+        public AsyncCommand LoginCommand { get; set; }
+
+        public Command SwitchViewsCommand { get; set; }
+        #endregion
+
+        #region Firebase configuration
+        private readonly FirebaseAuthConfig Config;
+
+        private readonly FirebaseAuthService AuthService;
+
+        private readonly FirebaseServices FirebaseServices;
+
+        private readonly string DatabaseURL;
+        #endregion
+
+        private CurrentCity? _currentCity;
+
+        private GeoServices _geoServices { get; set; }
+
+        private bool isShowingRegister { get; set; }
+
+        public SignUpLoginWondowViewModel(FirebaseAuthConfig config, string databaseUrl) {
+
+            Config = config;
+            DatabaseURL = databaseUrl;
             isButtonVisible = Visibility.Visible;
-            _firebaseAuthClient = firebaseAuthClient;
             _geoServices = new GeoServices();
             User = new LocalUser();
+
             User.PropertyChanged += (sender, args) => RegisterCommand?
             .RaiseCanExecuteChanged();
-
             User.PropertyChanged += (sender, args) => LoginCommand?
             .RaiseCanExecuteChanged();
 
+            AuthService = new FirebaseAuthService(config);
+            FirebaseServices = new FirebaseServices(databaseUrl);
             RegisterCommand = new AsyncCommand(RegisterActionAsync, CanRegster);
             LoginCommand = new AsyncCommand(LoginAction, CanLogin);
             SwitchViewsCommand = new Command(SwitchViews);
@@ -62,19 +77,16 @@
             try {
                 isButtonVisible = Visibility.Collapsed;
                 isBusy = true;
-                var result = await _firebaseAuthClient.CreateUserWithEmailAndPasswordAsync
-                    (User.Email, User.Password, User.Username);
+                var result = await AuthService.RegisterAsync(
+                    User.Email, User.Password, User.Username);
+
                 if (result.User != null) {
 
                     await GetGeoData();
 
-                    var firebase = new FirebaseClient(
-                        "https://transcribed-c69c8-default-rtdb.europe-west1.firebasedatabase.app/");
+                    #region crating user
 
-                    var newUser =
-                        await firebase.Child("Users").
-                        PostAsync(
-                            new LocalUser(result.User.Uid,
+                    var user = new LocalUser(result.User.Uid,
                             GetAge(User.DateOfBirth),
                             result.User.Info.DisplayName,
                             User.FirstName!,
@@ -86,20 +98,25 @@
                             User.HasPaid, User.IsActive,
                             User.DateOfBirth,
                             new DateTime(),
-                            new DateTime()));
+                            new DateTime());
 
-                    // Add the password to the newUser object
+                    #endregion
+
+                    var newUser = await FirebaseServices.CreateAsync(
+                        "Users", user);
+
                     newUser.Object.Password = User.Password;
 
-                    // Save user data in a local file
-                    string userDataFile = Path.Combine(
-                        Environment.GetFolderPath(
-                            Environment.SpecialFolder.LocalApplicationData),
-                            "userdata.json");
+                    string userDataFile = Path.Combine(Environment.GetFolderPath(
+                        Environment.SpecialFolder.LocalApplicationData), "userdata.json");
 
-                    File.WriteAllText(userDataFile, JsonSerializer.Serialize(newUser));
+                    File.WriteAllText(userDataFile,
+                        JsonSerializer.Serialize(newUser));
 
-                    MainWindow mainWindow = new();
+                    MainWindow mainWindow = new() {
+                        DataContext = new MainWindowViewModel(
+                    result.User.Uid, DatabaseURL)
+                    };
                     mainWindow.Show();
                     Application.Current.Windows[0].Close();
 
@@ -114,20 +131,21 @@
             try {
                 isButtonVisible = Visibility.Collapsed;
                 isBusy = true;
-                var result = await _firebaseAuthClient.SignInWithEmailAndPasswordAsync(
+                var result = await AuthService.LoginAsync(
                     User.Email, User.Password);
+
                 if (result.User != null && !string.IsNullOrEmpty(result.User.Uid)) {
 
                     MainWindow mainWindow = new() {
-                        DataContext = new MainWindowViewModel(result.User.Uid)
+                        DataContext = new MainWindowViewModel(
+                            result.User.Uid, DatabaseURL)
                     };
                     mainWindow.Show();
+                    Debug.WriteLine("Login successful, displaying main window.");
                     Application.Current.Windows[0].Close();
                 }
             } catch (FirebaseAuthException ex) {
                 await ExceptionAsync(ex);
-
-
 
             }
         }

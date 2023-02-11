@@ -70,11 +70,11 @@
                   VerticalAlignment="Center"
                   ui:ControlHelper.CornerRadius="10"
                   ui:ControlHelper.PlaceholderText="{x:Static res:Lang.SelectLenguague}"
-                  DisplayMemberPath="Value.Name"
+                  DisplayMemberPath="Key"
                   IsEnabled="{Binding CanStartWorkButtonBePressed}"
                   ItemsSource="{Binding LanguagesDictionary}"
                   SelectedValue="{Binding SelectedLanguage}"
-                  SelectedValuePath="Value.Code" />
+                  SelectedValuePath="Value" />
 
         <Label
             Grid.Row="3"

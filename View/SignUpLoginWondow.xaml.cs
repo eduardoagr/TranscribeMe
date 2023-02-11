@@ -4,8 +4,8 @@
 
         public SignUpLoginWondowViewModel Instance { get; set; }
 
-        public SignUpLoginWondow(IFirebaseAuthClient firebaseAuthClient) {
-            Instance = new SignUpLoginWondowViewModel(firebaseAuthClient);
+        public SignUpLoginWondow(FirebaseAuthConfig config, string DatabaeURL) {
+            Instance = new SignUpLoginWondowViewModel(config, DatabaeURL);
             InitializeComponent();
             DataContext = Instance;
         }

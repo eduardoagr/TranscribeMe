@@ -3,6 +3,11 @@
 public partial class App : Application {
 
     private readonly IHost _host;
+
+    private FirebaseAuthConfig? config;
+
+    private string? DatabaeURL;
+
     public App() {
 
         //For debuging purposes
@@ -15,11 +20,12 @@ public partial class App : Application {
 
         _host = Host.CreateDefaultBuilder()
             .ConfigureServices((context, services) => {
-
+                DatabaeURL = context.Configuration.GetValue<string>("DATABASEURL");
                 string? FireDomain = context.Configuration.GetValue<string>("FIREBASE_DOMAIN");
                 string? FireKey = context.Configuration.GetValue<string>("FIREBASE_KEY");
 
-                var config = new FirebaseAuthConfig {
+                config = new FirebaseAuthConfig() {
+
                     ApiKey = FireKey,
                     AuthDomain = FireDomain,
                     Providers = new FirebaseAuthProvider[] {
@@ -27,46 +33,49 @@ public partial class App : Application {
                     }
                 };
 
-                services.AddSingleton<IFirebaseAuthClient>(new FirebaseAuthClient(config));
-                var serviceProvider = services.BuildServiceProvider();
-                var firebaseAuthClient = serviceProvider.GetRequiredService<IFirebaseAuthClient>();
-                if (firebaseAuthClient == null) {
-                    throw new InvalidOperationException("IFirebaseAuthClient is not registered with the container.");
-                }
-                services.AddSingleton((services) => new SignUpLoginWondow(firebaseAuthClient));
+                services.AddSingleton((services) =>
+                new SignUpLoginWondow(config, DatabaeURL!));
+
                 // Register another window
                 services.AddSingleton((services) => new MainWindow());
             })
             .Build();
     }
 
-    protected override void OnStartup(StartupEventArgs e) {
+    protected override async void OnStartup(StartupEventArgs e) {
 
-        if (LoginWithSavedData()) {
+        var uid = await LoginWithSavedDataAsync();
+
+        if (!string.IsNullOrEmpty(uid)) {
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
+            MainWindow.DataContext = new MainWindowViewModel(uid!, DatabaeURL!);
         } else {
             MainWindow = _host.Services.GetRequiredService<SignUpLoginWondow>();
         }
-
 
         MainWindow.Show();
         base.OnStartup(e);
     }
 
-    private static bool LoginWithSavedData() {
+    private async Task<string?> LoginWithSavedDataAsync() {
         string userDataFile = Path.Combine(
-                        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                        "userdata.json");
+                        Environment.GetFolderPath
+                        (Environment.SpecialFolder.LocalApplicationData), "userdata.json");
 
         if (File.Exists(userDataFile)) {
             var json = File.ReadAllText(userDataFile);
             var savedUser = JsonSerializer.Deserialize<UserData>(json);
-            if (savedUser != null && !string.IsNullOrEmpty(savedUser.Object.Id)) {
-                return true;
+            if (savedUser != null) {
+                FirebaseAuthService firebaseAuth = new(config!);
+                var res = await firebaseAuth.LoginAsync(savedUser.Object.Email,
+                    savedUser.Object.Password);
+                if (res.User != null) {
+                    return res.User.Uid;
+                }
             }
         }
 
-        return false;
+        return null;
     }
 }
 

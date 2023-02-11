@@ -1,4 +1,7 @@
-﻿using Application = System.Windows.Application;
+﻿using TranscribeMe.View.Dialogs;
+
+using Application = System.Windows.Application;
+using ListView = System.Windows.Controls.ListView;
 using VerticalAlignment = System.Windows.VerticalAlignment;
 
 namespace TranscribeMe.ViewModel {
@@ -7,19 +10,24 @@ namespace TranscribeMe.ViewModel {
 
     public class FileExplorerViewModel {
 
+
+        #region Commands
+
         public Command OpenFileCommand { get; set; }
 
         public Command TextToSearchCommand { get; set; }
 
         public Command DeleteCommand { get; set; }
 
-        public Command<FileItem> ReadCommmand { get; set; }
+        public Command<FileItem> PreviewCommand { get; set; }
 
-        public Command<System.Windows.Controls.ListView> ItemChangedCommand { get; set; }
+        public Command<ListView> ItemChangedCommand { get; set; }
 
         public AsyncCommand<FileItem> RenameCommand { get; set; }
 
         public AsyncCommand<FileItem> ShareCommand { get; set; }
+
+        #endregion
 
         public ObservableCollection<FileItem> FilesCollection { get; set; }
 
@@ -35,14 +43,18 @@ namespace TranscribeMe.ViewModel {
 
         public string[] FilesLength { get; set; } = { "B", "KB", "MB", "GB", "TB" };
 
+        public string? PreviewFileText { get; set; }
+
         public FileExplorerViewModel() {
+
+            PreviewFileText = Lang.Preview;
             IsMenuOpen = Visibility.Collapsed;
             FilesCollection = new ObservableCollection<FileItem>();
             FilteredItems = new ObservableCollection<string>();
             TextToSearchCommand = new Command<string>(SearchAction);
             OpenFileCommand = new Command<FileItem>(OpenAction);
-            ItemChangedCommand = new Command<System.Windows.Controls.ListView>(OpenMenuAction);
-            ReadCommmand = new Command<FileItem>(ReadOutLoudAction);
+            ItemChangedCommand = new Command<ListView>(ItemChangedAction);
+            PreviewCommand = new Command<FileItem>(PreviewAction);
             DeleteCommand = new Command<FileItem>(DeleteAction);
             ShareCommand = new AsyncCommand<FileItem>(ShareActionAsync);
             RenameCommand = new AsyncCommand<FileItem>(RenameActionAsync);
@@ -50,7 +62,8 @@ namespace TranscribeMe.ViewModel {
             GetFiles();
 
         }
-        private void OpenMenuAction(System.Windows.Controls.ListView obj) {
+
+        private void ItemChangedAction(ListView obj) {
 
             var item = obj!.SelectedItem as FileItem;
 
@@ -119,8 +132,7 @@ namespace TranscribeMe.ViewModel {
         }
 
         private void DeleteAction(FileItem file) {
-            if (file == null || IsFileLocked(file) == true) 
-                { return; }
+            if (file == null || IsFileLocked(file) == true) { return; }
             // Check if the new file path already exists
             if (File.Exists(file!.FilePath)) {
                 File.Delete(file.FilePath);
@@ -128,7 +140,7 @@ namespace TranscribeMe.ViewModel {
             GetFiles();
         }
 
-        private bool IsFileLocked(FileItem file) {
+        private static bool IsFileLocked(FileItem file) {
             try {
                 using FileStream stream = File.Open(file.FilePath, FileMode.OpenOrCreate,
                     FileAccess.Read, FileShare.None);
@@ -145,14 +157,28 @@ namespace TranscribeMe.ViewModel {
             return false;
         }
 
-        private void ReadOutLoudAction(FileItem file) {
+        private async void PreviewAction(FileItem file) {
             if (file == null) { return; }
-            var str = GetText(file.FilePath);
-            if (Path.GetExtension(file.FilePath) != ".wav") {
-                var readOutLoudWindow = new ReadOutLoudWindow {
-                    DataContext = new ReadOutLoudWindowViewModel(str)
+
+            if (Path.GetExtension(file.FilePath) == ".mp4") {
+
+                var prev = new PreviewDialog {
+                    DataContext = new PreviewDialogViewModel(new Uri(file.FilePath)),
+                    PrimaryButtonText = "Close"
                 };
-                readOutLoudWindow.Show();
+
+                prev.MediaPlayer.Play();
+
+                await prev.ShowAsync();
+
+            } else {
+                var str = GetText(file.FilePath);
+                if (Path.GetExtension(file.FilePath) != ".wav") {
+                    var prevWindow = new PreviewWindow {
+                        DataContext = new PreviewWindowViewModel(str)
+                    };
+                    prevWindow.Show();
+                }
             }
         }
 

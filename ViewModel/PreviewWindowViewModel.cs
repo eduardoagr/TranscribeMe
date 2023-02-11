@@ -1,18 +1,18 @@
 ﻿using Brush = System.Windows.Media.Brush;
 
 namespace TranscribeMe.ViewModel {
-    public class ReadOutLoudWindowViewModel {
+    public class PreviewWindowViewModel {
         public string Text { get; set; }
 
         public Dictionary<Brush, string> ColorPairs { get; set; }
 
-        public ReadOutLoudWindowViewModel(string text) {
+        public PreviewWindowViewModel(string text) {
             Text = text;
             ColorPairs = ColorHelper.GetColors();
         }
 
 
-        public ReadOutLoudWindowViewModel() {
+        public PreviewWindowViewModel() {
             ColorPairs = ColorHelper.GetColors();
         }
     }

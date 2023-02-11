@@ -1,0 +1,68 @@
+﻿<ui:ContentDialog
+    x:Class="TranscribeMe.View.Dialogs.PreviewDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:Dialogs="clr-namespace:TranscribeMe.ViewModel.Dialogs"
+    xmlns:ViewModel="clr-namespace:TranscribeMe.ViewModel"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    Title="PreviewDialog"
+    CornerRadius="10"
+    IsShadowEnabled="False"
+    mc:Ignorable="d">
+    <ui:ContentDialog.DataContext>
+        <Dialogs:PreviewDialogViewModel />
+    </ui:ContentDialog.DataContext>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <MediaElement
+            x:Name="MediaPlayer"
+            LoadedBehavior="Manual"
+            Source="{Binding Source}">
+            <Behaviors:Interaction.Triggers>
+                <Behaviors:EventTrigger EventName="MediaOpened">
+                    <Behaviors:InvokeCommandAction
+                        Command="{Binding MediaOpenedCommand}"
+                        CommandParameter="{Binding ElementName=MediaPlayer}" />
+                </Behaviors:EventTrigger>
+            </Behaviors:Interaction.Triggers>
+        </MediaElement>
+
+        <StackPanel
+            Grid.Row="1"
+            Margin="10,10,0,0"
+            Orientation="Horizontal">
+
+            <Button
+                Grid.Row="1"
+                Command="{Binding PlayPauseCommand}"
+                CommandParameter="{Binding ElementName=MediaPlayer}"
+                Content="{Binding Content}"
+                FocusVisualStyle="{x:Null}"
+                FontFamily="{StaticResource mat}" />
+
+            <Slider Name="timelineSlider"
+                    Margin="5"
+                    FocusVisualStyle="{x:Null}"
+                    ClipToBounds="True"
+                    Maximum="{Binding MaxValue}"
+                    Value="{Binding CurrentValue}"
+                    Width="{Binding ActualWidth, ElementName=MediaPlayer, Mode=OneWay}">
+                <Behaviors:Interaction.Triggers>
+                    <Behaviors:EventTrigger EventName="ValueChanged">
+                        <Behaviors:InvokeCommandAction Command="{Binding SeekToMediaPositionCommand}"
+                                                       CommandParameter="{Binding ElementName=MediaPlayer}" />
+                    </Behaviors:EventTrigger>
+                </Behaviors:Interaction.Triggers>
+            </Slider>
+        </StackPanel>
+    </Grid>
+</ui:ContentDialog>

@@ -3,29 +3,41 @@
     [AddINotifyPropertyChangedInterface]
     public class ProfilePageViewModel {
 
-        private const string DatabaseURL = "https://transcribed-c69c8-default-rtdb.europe-west1.firebasedatabase.app/";
+        public ObservableCollection<ImageSource> ImagesCollection { get; set; }
 
-        public ObservableCollection<FirebaseObject<LocalUser>>? UserData { get; set; }
+        public AsyncCommand UpdateSaveCommand { get; set; }
 
         public bool IsReadOnly { get; set; } = true;
 
         public string? BtonContent { get; set; }
 
-        public AsyncCommand UpdateSaveCommand { get; set; }
+        public string UserImage { get; set; }
 
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
-        public LocalUser localUser { get; set; }
+        public FirebaseObject<LocalUser>? FirebaseUserObject { get; private set; }
 
-        public FirebaseClient FireClient { get; set; }
+        #region Firebase configuraion
 
-        public ProfilePageViewModel(string userId) {
+        private readonly FirebaseServices FireService;
 
+        private readonly string? DatabaseUrl;
+
+        #endregion
+
+        public ProfilePageViewModel(string userId, string databaseUrl) {
+
+            ImagesCollection = AvatarHelper.GetAvatars();
+
+            UserImage = "/Images/Placeholder.png";
+
+            DatabaseUrl = databaseUrl;
             UserId = userId;
-            FireClient = new FirebaseClient(DatabaseURL);
+            FireService = new FirebaseServices(DatabaseUrl);
             LoadDataFromFirebase();
             BtonContent = Lang.Edit;
             UpdateSaveCommand = new AsyncCommand(UpdateSaveCommandActionAsync);
+            FireService = new FirebaseServices(DatabaseUrl);
         }
 
         public ProfilePageViewModel() {
@@ -45,54 +57,22 @@
         }
 
         private async void LoadDataFromFirebase() {
-
-            UserData = new ObservableCollection<FirebaseObject<LocalUser>>();
-
-            var users = await ReadFromFirebaseAsync
-                ("Users", FireClient);
-
-            UserData.Clear();
-            foreach (var item in users) {
-                if (item.Object.Id == UserId) {
-                    localUser = item.Object;
-                }
-
+            if (!string.IsNullOrEmpty(UserId)) {
+                FirebaseUserObject = await FireService.GetAsync("Users", UserId!);
             }
-
         }
 
         private async Task UpdateDataFromFirebase() {
 
-            var firebaseObjects = await ReadFromFirebaseAsync
-            ("Users", FireClient);
+            if (FirebaseUserObject != null) {
 
-            var userToUpdate = firebaseObjects.FirstOrDefault(
-                x => x.Object.Id == UserId);
+                var key = FirebaseUserObject.Key;
 
-            userToUpdate!.Object.Username = localUser.Username;
-            userToUpdate!.Object.FirstName = localUser.FirstName;
-            userToUpdate!.Object.LastName = localUser.LastName;
+                FirebaseUserObject.Object.Username = FirebaseUserObject.Object.Username;
+                FirebaseUserObject.Object.PhotoUrl = UserImage;
 
-            await UpdateFirebaseAsync(userToUpdate, "Users", FireClient);
-        }
-
-        private static async Task<IReadOnlyCollection<FirebaseObject<LocalUser>>> ReadFromFirebaseAsync
-            (string Node, FirebaseClient firebaseClient) {
-
-            var FireUsers = await firebaseClient
-               .Child(Node)
-               .OnceAsync<LocalUser>();
-
-            return FireUsers;
-
-        }
-
-        private static async Task UpdateFirebaseAsync(FirebaseObject<LocalUser>? userToUpdate,
-         string Node, FirebaseClient firebaseClient) {
-
-            await firebaseClient.Child(Node)
-                .Child(userToUpdate!.Key)
-                .PutAsync(userToUpdate.Object);
+                await FireService.UpdateAsync("Users", key, FirebaseUserObject);
+            }
         }
     }
 }

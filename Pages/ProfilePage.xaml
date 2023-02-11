@@ -38,7 +38,7 @@
             <TextBlock
                 Margin="20,0,0,0"
                 VerticalAlignment="Center"
-                Text="{Binding localUser.DateOfBirthString}" />
+                Text="{Binding FirebaseUserObject.Object.DateOfBirthString}" />
 
             <Separator
                 Height="40"
@@ -48,7 +48,7 @@
             <TextBlock
                 Margin="10,0,0,0"
                 VerticalAlignment="Center"
-                Text="{Binding localUser.FirstName}" />
+                Text="{Binding FirebaseUserObject.Object.FirstName}" />
 
             <Separator
                 Height="40"
@@ -58,58 +58,26 @@
             <TextBlock
                 Margin="10,0,0,0"
                 VerticalAlignment="Center"
-                Text="{Binding localUser.Age}" />
+                Text="{Binding FirebaseUserObject.Object.Age}" />
         </StackPanel>
-
-        <Grid
-            Grid.Row="1"
-            Margin="20">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+        <StackPanel Grid.Row="2">
 
             <TextBox
-                VerticalAlignment="Center"
+                Margin="20"
                 ui:ControlHelper.CornerRadius="10"
                 ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Username}"
-                FontWeight="Bold"
                 IsReadOnly="{Binding IsReadOnly}"
-                Text="{Binding localUser.Username}" />
+                Text="{Binding FirebaseUserObject.Object.Username}" />
 
-            <TextBox
-                Grid.Row="1"
-                VerticalAlignment="Center"
-                ui:ControlHelper.CornerRadius="10"
-                ui:ControlHelper.PlaceholderText="{x:Static res:Lang.FirstName}"
-                FontWeight="Bold"
-                IsReadOnly="{Binding IsReadOnly}"
-                Text="{Binding localUser.FirstName}" />
-
-            <TextBox
-                Grid.Row="2"
-                VerticalAlignment="Center"
-                ui:ControlHelper.CornerRadius="10"
-                ui:ControlHelper.PlaceholderText="{x:Static res:Lang.LastName}"
-                FontWeight="Bold"
-                IsReadOnly="{Binding IsReadOnly}"
-                Text="{Binding localUser.LastName}" />
-
-            <Button
-                Grid.Row="3"
-                FocusVisualStyle="{x:Null}"
-                Width="100"
-                Margin="10"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                ui:ControlHelper.CornerRadius="10"
-                Command="{Binding UpdateSaveCommand}"
-                Content="{Binding BtonContent}"
-                FontWeight="Bold" />
-
-        </Grid>
-
+            <ui:GridView IsEnabled="{Binding IsReadOnly}"
+                         ItemsSource="{Binding ImagesCollection}">
+                <Image Source="{Binding}" Stretch="UniformToFill" />
+            </ui:GridView>
+        </StackPanel>
+        <Button
+            Command="{Binding UpdateSaveCommand}"
+            Content="{Binding BtonContent}"
+            FocusVisualStyle="{x:Null}" />
     </Grid>
+
 </Page>

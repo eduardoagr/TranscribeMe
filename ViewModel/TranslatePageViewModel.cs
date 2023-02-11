@@ -10,7 +10,7 @@
 
         public bool CanStartWorkButtonBePressed { get; set; }
 
-        public Dictionary<int, Languages>? LanguagesDictionary { get; set; }
+        public Dictionary<string, string>? LanguagesDictionary { get; set; }
 
         public string? DocumentPath { get; set; }
 

@@ -1,60 +1,67 @@
-﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:res="clr-namespace:TranscribeMe.Resources"
-        xmlns:ui="http://schemas.modernwpf.com/2019"
-        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-        x:Class="TranscribeMe.View.SignUpLoginWondow"
-        Width="600"
-        Height="850"
-        ui:ControlHelper.CornerRadius="20"
-        ui:TitleBar.IsIconVisible="True"
-        ui:WindowHelper.UseModernWindowStyle="True"
-        Icon="/Images/Users.png"
-        Loaded="Window_Loaded"
-        ResizeMode="NoResize"
-        SnapsToDevicePixels="True"
-        WindowStartupLocation="CenterScreen"
-        mc:Ignorable="d">
+﻿<Window
+    x:Class="TranscribeMe.View.SignUpLoginWondow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:res="clr-namespace:TranscribeMe.Resources"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    Width="600"
+    Height="850"
+    ui:ControlHelper.CornerRadius="20"
+    ui:TitleBar.IsIconVisible="True"
+    ui:WindowHelper.UseModernWindowStyle="True"
+    Icon="/Images/Users.png"
+    Loaded="Window_Loaded"
+    ResizeMode="NoResize"
+    SnapsToDevicePixels="True"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
 
 
     <Grid>
         <StackPanel>
 
-            <Image Source="/Images/Logo.png"
-                   Visibility="{Binding IsLoginVis}" />
+            <Image
+                Source="/Images/Logo.png"
+                Visibility="{Binding IsLoginVis}" />
 
-            <StackPanel Margin="20"
-                        VerticalAlignment="Bottom"
-                        Visibility="{Binding LoginVis}">
+            <StackPanel
+                Margin="20"
+                VerticalAlignment="Bottom"
+                Visibility="{Binding LoginVis}">
 
-                <TextBox ui:ControlHelper.CornerRadius="10"
-                         ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Email}"
-                         Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    ui:ControlHelper.CornerRadius="10"
+                    ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Email}"
+                    Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBox Margin="0,10,0,0"
-                         ui:ControlHelper.CornerRadius="10"
-                         ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Password}"
-                         Text="{Binding User.Password, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Margin="0,10,0,0"
+                    ui:ControlHelper.CornerRadius="10"
+                    ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Password}"
+                    Text="{Binding User.Password, UpdateSourceTrigger=PropertyChanged}" />
 
-                <Button Width="200"
-                        Height="30"
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Center"
-                        ui:ControlHelper.CornerRadius="10"
-                        Command="{Binding LoginCommand}"
-                        Content="{x:Static res:Lang.Login}"
-                        FocusVisualStyle="{x:Null}"
-                        Visibility="{Binding isButtonVisible}" />
+                <Button
+                    Width="200"
+                    Height="30"
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Center"
+                    ui:ControlHelper.CornerRadius="10"
+                    Command="{Binding LoginCommand}"
+                    Content="{x:Static res:Lang.Login}"
+                    FocusVisualStyle="{x:Null}"
+                    Visibility="{Binding isButtonVisible}" />
 
-                <TextBlock Margin="20"
-                           HorizontalAlignment="Center"
-                           Foreground="DodgerBlue"
-                           Text="{x:Static res:Lang.DontHaveAccount}"
-                           TextDecorations="Underline"
-                           Visibility="{Binding isButtonVisible}">
+                <TextBlock
+                    Margin="20"
+                    HorizontalAlignment="Center"
+                    Foreground="DodgerBlue"
+                    Text="{x:Static res:Lang.DontHaveAccount}"
+                    TextDecorations="Underline"
+                    Visibility="{Binding isButtonVisible}">
 
                     <Behaviors:Interaction.Triggers>
                         <Behaviors:EventTrigger EventName="MouseDown">
@@ -63,70 +70,81 @@
                     </Behaviors:Interaction.Triggers>
                 </TextBlock>
 
-                <ui:ProgressRing Width="40"
-                                 Height="40"
-                                 Margin="0,20,0,0"
-                                 IsActive="{Binding isBusy}" />
+                <ui:ProgressRing
+                    Width="40"
+                    Height="40"
+                    Margin="0,20,0,0"
+                    IsActive="{Binding isBusy}" />
 
             </StackPanel>
         </StackPanel>
 
 
-        <StackPanel Margin="20"
-                    Visibility="{Binding RegisterVis}">
+        <StackPanel
+            Margin="20"
+            Visibility="{Binding RegisterVis}">
 
-            <TextBox ui:ControlHelper.CornerRadius="10"
-                     ui:ControlHelper.PlaceholderText="{x:Static res:Lang.FirstName}"
-                     Text="{Binding User.FirstName, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox
+                ui:ControlHelper.CornerRadius="10"
+                ui:ControlHelper.PlaceholderText="{x:Static res:Lang.FirstName}"
+                Text="{Binding User.FirstName, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBox Margin="0,10,0,0"
-                     ui:ControlHelper.CornerRadius="10"
-                     ui:ControlHelper.PlaceholderText="{x:Static res:Lang.LastName}"
-                     Text="{Binding User.LastName, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox
+                Margin="0,10,0,0"
+                ui:ControlHelper.CornerRadius="10"
+                ui:ControlHelper.PlaceholderText="{x:Static res:Lang.LastName}"
+                Text="{Binding User.LastName, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBox Margin="0,10,0,0"
-                     ui:ControlHelper.CornerRadius="10"
-                     ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Username}"
-                     Text="{Binding User.Username, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox
+                Margin="0,10,0,0"
+                ui:ControlHelper.CornerRadius="10"
+                ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Username}"
+                Text="{Binding User.Username, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBox Margin="0,10,0,0"
-                     ui:ControlHelper.CornerRadius="10"
-                     ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Email}"
-                     Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox
+                Margin="0,10,0,0"
+                ui:ControlHelper.CornerRadius="10"
+                ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Email}"
+                Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBox Margin="0,10,0,0"
-                     ui:ControlHelper.CornerRadius="10"
-                     ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Password}"
-                     Text="{Binding User.Password, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox
+                Margin="0,10,0,0"
+                ui:ControlHelper.CornerRadius="10"
+                ui:ControlHelper.PlaceholderText="{x:Static res:Lang.PasswordPlaceholder}"
+                Text="{Binding User.Password, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBox Margin="0,10,0,0"
-                     ui:ControlHelper.CornerRadius="10"
-                     ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Confirm}"
-                     Text="{Binding User.Confirm, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox
+                Margin="0,10,0,0"
+                ui:ControlHelper.CornerRadius="10"
+                ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Confirm}"
+                Text="{Binding User.Confirm, UpdateSourceTrigger=PropertyChanged}" />
 
-            <DatePicker Margin="0,10,0,0"
-                        ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Birth}"
-                        FocusVisualStyle="{x:Null}"
-                        FlowDirection="RightToLeft"
-                        ui:ControlHelper.CornerRadius="10"
-                        SelectedDate="{Binding User.DateOfBirth, UpdateSourceTrigger=PropertyChanged}" />
+            <DatePicker
+                Margin="0,10,0,0"
+                ui:ControlHelper.CornerRadius="10"
+                ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Birth}"
+                FlowDirection="RightToLeft"
+                FocusVisualStyle="{x:Null}"
+                SelectedDate="{Binding User.DateOfBirth, UpdateSourceTrigger=PropertyChanged}" />
 
-            <Button Width="200"
-                    Height="30"
-                    Margin="0,10,0,0"
-                    HorizontalAlignment="Center"
-                    ui:ControlHelper.CornerRadius="10"
-                    Command="{Binding RegisterCommand}"
-                    Content="{x:Static res:Lang.CreateAccount}"
-                    FocusVisualStyle="{x:Null}"
-                    Visibility="{Binding isButtonVisible}" />
+            <Button
+                Width="200"
+                Height="30"
+                Margin="0,10,0,0"
+                HorizontalAlignment="Center"
+                ui:ControlHelper.CornerRadius="10"
+                Command="{Binding RegisterCommand}"
+                Content="{x:Static res:Lang.CreateAccount}"
+                FocusVisualStyle="{x:Null}"
+                Visibility="{Binding isButtonVisible}" />
 
-            <TextBlock Margin="20"
-                       HorizontalAlignment="Center"
-                       Foreground="DodgerBlue"
-                       Text="{x:Static res:Lang.Login}"
-                       TextDecorations="Underline"
-                       Visibility="{Binding isButtonVisible}">
+            <TextBlock
+                Margin="20"
+                HorizontalAlignment="Center"
+                Foreground="DodgerBlue"
+                Text="{x:Static res:Lang.Login}"
+                TextDecorations="Underline"
+                Visibility="{Binding isButtonVisible}">
 
                 <Behaviors:Interaction.Triggers>
                     <Behaviors:EventTrigger EventName="MouseDown">
@@ -135,10 +153,11 @@
                 </Behaviors:Interaction.Triggers>
             </TextBlock>
 
-            <ui:ProgressRing Width="40"
-                             Height="40"
-                             Margin="0,20,0,0"
-                             IsActive="{Binding isBusy}" />
+            <ui:ProgressRing
+                Width="40"
+                Height="40"
+                Margin="0,20,0,0"
+                IsActive="{Binding isBusy}" />
         </StackPanel>
     </Grid>
 

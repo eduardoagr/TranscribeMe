@@ -1,12 +1,12 @@
 ﻿namespace TranscribeMe.Helpers {
     public class LanguagesHelper {
 
-        public static Dictionary<int, Languages> GetLanguages() {
+        public static Dictionary<string, string> GetLanguages() {
 
-            return new Dictionary<int, Languages>() {
+            return new Dictionary<string, string>() {
 
-                {1, new Languages { Name = "Spanish", Code = "es-ES"} },
-                {2, new Languages { Name = "English", Code = "en-US"} }
+                { Lang.ES, "es-ES"} ,
+                { Lang.EN , "en-US" }
             };
         }
     }
