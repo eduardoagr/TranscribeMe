@@ -165,15 +165,10 @@ namespace TranscribeMe.ViewModel.Pages {
             if (file == null) { return; }
 
             if (Path.GetExtension(file.FilePath) == ".mp4") {
-                PreviewDialog prev = new PreviewDialog() {
-                    DataContext = new PreviewDialogViewModel(new Uri(file.FilePath))
+                PreviewDialog prev = new PreviewDialog((file.FilePath)) {
+                    //DataContext = new PreviewDialogViewModel(new Uri(file.FilePath))
                 };
-
-                prev.MediaPlayer.Play();
-
-                prev.PrimaryButtonText = Lang.Close;
-
-                await prev.ShowAsync();
+                prev.Show();
 
             } else {
                 var str = GetText(file.FilePath);

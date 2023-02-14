@@ -163,6 +163,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Reference Include="AxInterop.WMPLib">
+		  <HintPath>..\..\..\Downloads\WinMediaPlayer_Sample\AxInterop.WMPLib.dll</HintPath>
+		</Reference>
+		<Reference Include="Interop.WMPLib">
+		  <HintPath>..\..\..\Downloads\WinMediaPlayer_Sample\Interop.WMPLib.dll</HintPath>
+		</Reference>
 		<Reference Include="System.Speech">
 			<HintPath>..\..\..\..\..\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\System.Speech.dll</HintPath>
 		</Reference>
