@@ -277,6 +277,15 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About transcribed.
+        /// </summary>
+        public static string Help {
+            get {
+                return ResourceManager.GetString("Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
@@ -430,6 +439,15 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report a problem.
+        /// </summary>
+        public static string Report {
+            get {
+                return ResourceManager.GetString("Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Lenguague.
         /// </summary>
         public static string SelectLenguague {
@@ -484,7 +502,7 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pick a language.
+        ///   Looks up a localized string similar to In what language so yu want it.
         /// </summary>
         public static string TranslateInstructions {
             get {

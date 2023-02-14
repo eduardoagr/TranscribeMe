@@ -1,4 +1,5 @@
-﻿namespace TranscribeMe.Helpers {
+﻿
+namespace TranscribeMe.Helpers {
     public class DialogHelper {
 
         public static string GetFilePath(string type) {
@@ -21,8 +22,7 @@
                     break;
             }
 
-            var dialog = new OpenFileDialog()
-            {
+            var dialog = new OpenFileDialog {
 
                 Filter = filter,
             };

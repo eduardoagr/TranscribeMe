@@ -1,4 +1,4 @@
-﻿namespace TranscribeMe.ViewModel {
+﻿namespace TranscribeMe.ViewModel.Pages {
 
     [AddINotifyPropertyChangedInterface]
     public class VideoPageViewModel {

@@ -46,7 +46,7 @@
 
             await _firebaseClient.Child(Node)
                 .Child(key).PatchAsync(firebaseObject.Object);
-         }
+        }
 
         public async Task DeleteAsync(string path) {
             await _firebaseClient.Child(path).DeleteAsync();

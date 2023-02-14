@@ -1,6 +1,4 @@
-﻿
-
-namespace TranscribeMe.Pages {
+﻿namespace TranscribeMe.Pages {
 
     public partial class AudioPage : Page {
 

@@ -1,6 +1,4 @@
-﻿using Syncfusion.DocIO.DLS;
-
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace TranscribeMe.Helpers {
 

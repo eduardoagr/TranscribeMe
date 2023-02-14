@@ -12,11 +12,9 @@
         public const string BING_SPELL_KEY = "f9bd3363f523405bbddd8bab4830180b";
         public const string BING_SPELL_URL = "https://api.bing.microsoft.com/v7.0/spellcheck/";
 
-        //Azure blob storage
+        //Azure blob storage configuratins
         public const string AZUTE_STORAGE_ACCOUNT_NAME = "transcribemedocs";
         public const string AZUTE_STORAGE_ACCOUNT_KEY = "ejnleMkkJISfu0AwUxiJxmgyGmj3v91IH+fgbW/ODnkq1M+lotP/yoPh9ULCHLHdf17d9NdcXtxP+AStLv6/PA==";
-        public const string AZURE_UPLOAD_DOUMMENRTS = "https://transcribemedocs.blob.core.windows.net/original";
-        public const string AZURE_DOWNLOAD_DOCUMENTS = "https://transcribemedocs.blob.core.windows.net/translated";
         public const string AZURE_STORAGE_CONNECTIONSTRING = "DefaultEndpointsProtocol=https;AccountName=transcribemedocs;AccountKey=ejnleMkkJISfu0AwUxiJxmgyGmj3v91IH+fgbW/ODnkq1M+lotP/yoPh9ULCHLHdf17d9NdcXtxP+AStLv6/PA==;EndpointSuffix=core.windows.net";
 
         //Azure computer vision 
@@ -48,7 +46,10 @@
 
         //Azure blob container Names
         public static string AZURE_CONTAINER_ORIGINAL_DOCUMENT = "original";
+        public static string AZURE_CONTAINER_USERSROOT = "users";
         public static string AZURE_CONTAINER_TRANSLATED_DOCUMENT = "translated";
+        public const string AZURE_UPLOAD_DOUMMENRTS = "https://transcribemedocs.blob.core.windows.net/original";
+        public const string AZURE_DOWNLOAD_DOCUMENTS = "https://transcribemedocs.blob.core.windows.net/translated";
 
         //File extensions
         public static string WAV = ".wav";

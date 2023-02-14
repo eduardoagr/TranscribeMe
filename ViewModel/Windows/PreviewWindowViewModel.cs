@@ -1,7 +1,8 @@
 ﻿using Brush = System.Windows.Media.Brush;
 
-namespace TranscribeMe.ViewModel {
+namespace TranscribeMe.ViewModel.Windows {
     public class PreviewWindowViewModel {
+
         public string Text { get; set; }
 
         public Dictionary<Brush, string> ColorPairs { get; set; }

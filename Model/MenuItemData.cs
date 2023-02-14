@@ -1,4 +1,4 @@
-﻿using System.Windows.Controls;
+﻿using Label = System.Windows.Controls.Label;
 
 namespace TranscribeMe.Model {
     public class MenuItemData {

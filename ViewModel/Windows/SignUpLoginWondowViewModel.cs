@@ -1,4 +1,4 @@
-﻿namespace TranscribeMe.ViewModel {
+﻿namespace TranscribeMe.ViewModel.Windows {
 
     [AddINotifyPropertyChangedInterface]
     public class SignUpLoginWondowViewModel {
@@ -14,7 +14,6 @@
 
         public Visibility isButtonVisible { get; set; }
 
-        public Visibility IsLoginVis { get; set; }
         #endregion
 
         #region Command (These are the same as Clicks)
@@ -66,7 +65,6 @@
             */
 
             LoginVis = Visibility.Visible;
-            IsLoginVis = Visibility.Visible;
             Application.Current.Windows[0].Title = Lang.Login;
             RegisterVis = Visibility.Collapsed;
 
@@ -242,12 +240,10 @@
             isShowingRegister = !isShowingRegister;
             if (isShowingRegister) {
                 Application.Current.Windows[0].Title = Lang.CreateAccount;
-                IsLoginVis = Visibility.Collapsed;
                 RegisterVis = Visibility.Visible;
                 LoginVis = Visibility.Collapsed;
             } else {
                 Application.Current.Windows[0].Title = Lang.Login;
-                IsLoginVis = Visibility.Visible;
                 RegisterVis = Visibility.Collapsed;
                 LoginVis = Visibility.Visible;
             }

@@ -7,8 +7,7 @@ namespace TranscribeMe.Services {
         public static async Task<string> GiveTextAsync(string ImagePath) {
             ComputerVisionClient client = new
                 (new ApiKeyServiceClientCredentials(
-                    ConstantsHelpers.AZURE_COMPUTER_VISION_KEY)) 
-                     { Endpoint = ConstantsHelpers.AZURE_COMPUTER_VISION_URL };
+                    ConstantsHelpers.AZURE_COMPUTER_VISION_KEY)) { Endpoint = ConstantsHelpers.AZURE_COMPUTER_VISION_URL };
 
             using Stream imageStream = File.OpenRead(ImagePath);
             OcrResult ocrResult = await client.RecognizePrintedTextInStreamAsync(

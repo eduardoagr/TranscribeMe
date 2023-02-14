@@ -1,19 +1,25 @@
-﻿namespace TranscribeMe.ViewModel {
+﻿namespace TranscribeMe.ViewModel.Pages {
 
     [AddINotifyPropertyChangedInterface]
     public class ProfilePageViewModel {
 
-        public ObservableCollection<ImageSource> ImagesCollection { get; set; }
+        public ObservableCollection<string> ImagesCollection { get; set; }
 
         public AsyncCommand UpdateSaveCommand { get; set; }
 
         public bool IsReadOnly { get; set; } = true;
+
+        public bool IsGridViewEnable { get; set; }
 
         public string? BtonContent { get; set; }
 
         public string UserImage { get; set; }
 
         public string? UserId { get; set; }
+
+        public string SelectedItem { get; set; }
+
+        public AzureStorageService AzureStorageService { get; set; }
 
         public FirebaseObject<LocalUser>? FirebaseUserObject { get; private set; }
 
@@ -31,6 +37,8 @@
 
             UserImage = "/Images/Placeholder.png";
 
+
+            AzureStorageService = new AzureStorageService();
             DatabaseUrl = databaseUrl;
             UserId = userId;
             FireService = new FirebaseServices(DatabaseUrl);
@@ -47,10 +55,13 @@
 
         private async Task UpdateSaveCommandActionAsync() {
             if (BtonContent!.Equals(Lang.Edit)) {
+                IsGridViewEnable = true;
                 IsReadOnly = false;
                 BtonContent = Lang.Update;
             } else {
                 await UpdateDataFromFirebase();
+
+                IsGridViewEnable = false;
                 IsReadOnly = true;
                 BtonContent = Lang.Edit;
             }
@@ -69,7 +80,11 @@
                 var key = FirebaseUserObject.Key;
 
                 FirebaseUserObject.Object.Username = FirebaseUserObject.Object.Username;
-                FirebaseUserObject.Object.PhotoUrl = UserImage;
+
+                var image = await AzureStorageService.UploadToAzureBlobStorage(
+                    Path.GetFullPath(SelectedItem), FirebaseUserObject.Object.Id.ToLower());
+
+                FirebaseUserObject.Object.PhotoUrl = image;
 
                 await FireService.UpdateAsync("Users", key, FirebaseUserObject);
             }

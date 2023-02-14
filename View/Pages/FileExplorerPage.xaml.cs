@@ -2,10 +2,10 @@
 
     public partial class FileExplorerPage : Page {
 
-        public FileExplorerViewModel Instance { get; set; }
+        public FileExplorerPageViewModel Instance { get; set; }
         public FileExplorerPage() {
             InitializeComponent();
-            Instance = new FileExplorerViewModel();
+            Instance = new FileExplorerPageViewModel();
             DataContext = Instance;
         }
     }

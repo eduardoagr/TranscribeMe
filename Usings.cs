@@ -45,15 +45,23 @@ global using System.Windows.Media.Imaging;
 global using TranscribeMe.CustomControls;
 global using TranscribeMe.Helpers;
 global using TranscribeMe.Model;
+global using TranscribeMe.Pages;
 global using TranscribeMe.Resources;
 global using TranscribeMe.Services;
 global using TranscribeMe.View;
-global using TranscribeMe.ViewModel;
 global using TranscribeMe.ViewModel.Dialogs;
+global using TranscribeMe.ViewModel.Pages;
+global using TranscribeMe.ViewModel.Windows;
 
 global using Windows.ApplicationModel.DataTransfer;
 global using Windows.Devices.Geolocation;
 global using Windows.Storage;
 
+global using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+global using Application = System.Windows.Application;
+global using ListView = System.Windows.Controls.ListView;
 global using Page = System.Windows.Controls.Page;
+global using TextBox = System.Windows.Controls.TextBox;
+global using VerticalAlignment = System.Windows.VerticalAlignment;
+
 

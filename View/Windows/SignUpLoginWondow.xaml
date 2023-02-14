@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:res="clr-namespace:TranscribeMe.Resources"
     xmlns:ui="http://schemas.modernwpf.com/2019"
@@ -26,7 +25,7 @@
 
             <Image
                 Source="/Images/Logo.png"
-                Visibility="{Binding IsLoginVis}" />
+                Visibility="{Binding LoginVis}" />
 
             <StackPanel
                 Margin="20"
@@ -153,11 +152,13 @@
                 </Behaviors:Interaction.Triggers>
             </TextBlock>
 
+
             <ui:ProgressRing
                 Width="40"
                 Height="40"
                 Margin="0,20,0,0"
                 IsActive="{Binding isBusy}" />
+
         </StackPanel>
     </Grid>
 

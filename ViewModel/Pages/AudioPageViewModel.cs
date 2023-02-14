@@ -1,7 +1,9 @@
-﻿namespace TranscribeMe.ViewModel {
+﻿using Clipboard = System.Windows.Clipboard;
+
+namespace TranscribeMe.ViewModel.Pages {
 
     [AddINotifyPropertyChangedInterface]
-    public class ImagePageViewModel {
+    public class AudioPageViewModel {
 
         public string? FilePath { get; set; }
 
@@ -25,6 +27,17 @@
 
         public AsyncCommand StartCommand { get; set; }
 
+        private string? _SelectedLanguage;
+        public string SelectedLanguage {
+            get => _SelectedLanguage!;
+            set {
+                if (_SelectedLanguage != value) {
+                    _SelectedLanguage = value;
+                    StartCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
         private bool _IsBusy;
         public bool IsBusy {
             get { return _IsBusy; }
@@ -36,8 +49,9 @@
             }
         }
 
-        public ImagePageViewModel() {
+        public AudioPageViewModel() {
 
+            LanguagesDictionary = LanguagesHelper.GetLanguages();
             ProcessMsgVisibility = Visibility.Hidden;
             MicrosofWordPathVisibility = Visibility.Hidden;
             PickFileCommad = new Command(PickFileAction);
@@ -57,7 +71,7 @@
 
 
         private void CopyDocumentPathAction() {
-            System.Windows.Clipboard.SetText(MicrosofWordtDocumentPath);
+            Clipboard.SetText(MicrosofWordtDocumentPath);
         }
 
         private async Task StartAction() {
@@ -66,10 +80,22 @@
             MicrosofWordPathVisibility = Visibility.Hidden;
             CanStartWorkButtonBePressed = false;
 
-            var textFromImage = await AzureOcrService.GiveTextAsync(FilePath!);
+            var FileWithoutExtension = Path.GetFileNameWithoutExtension
+                (FilePath);
 
-            DocPath = WordDocumentHelper.CreateWordDocument(textFromImage,
-                Path.GetFileNameWithoutExtension(FilePath)!, false);
+            var AudioFolderPath = FolderHelper.CreateFolder(ConstantsHelpers.AUDIOS);
+
+            var AudioFileNamePath = Path.Combine(AudioFolderPath, $"{FileWithoutExtension}{ConstantsHelpers.WAV}");
+
+            var ConvertedAudioPath = AudioHelper.mp3ToWav(FilePath!, AudioFileNamePath);
+
+            var str = await AzureTranscriptionService.ConvertToTextAsync(ConvertedAudioPath,
+           FileWithoutExtension!, SelectedLanguage);
+
+            var strCorrectd = await BingSpellCheckService.SpellingCorrector(str!, SelectedLanguage);
+
+            DocPath = WordDocumentHelper.CreateWordDocument(strCorrectd,
+                FileWithoutExtension!, true);
 
             IsBusy = false;
             ToastHelper.LaunchToastNotification(DocPath);
@@ -80,12 +106,13 @@
         }
 
         private bool CanStartAction(object arg) {
-            return !string.IsNullOrEmpty(FilePath) &&
+            return !string.IsNullOrEmpty(SelectedLanguage) &&
+                   !string.IsNullOrEmpty(FilePath) &&
                    !IsBusy;
         }
 
         private void PickFileAction() {
-            var FullPath = DialogHelper.GetFilePath(ConstantsHelpers.IMAGES);
+            var FullPath = DialogHelper.GetFilePath(ConstantsHelpers.AUDIOS);
             FilePath = FullPath;
 
             StartCommand?.RaiseCanExecuteChanged();

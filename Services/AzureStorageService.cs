@@ -68,13 +68,18 @@ namespace TranscribeMe.Services {
             return pathToSave;
         }
 
-        public async Task<string> CreateAndUploadAzureBlobStorageAsync(string contanerName,
-            string FilePath) {
 
+        public async Task<string> UploadToAzureBlobStorage(string FilePath, string id) {
 
-            //return blob.Uri.AbsoluteUri;
-            return string.Empty;
+            ContainerClient = new BlobContainerClient(ConectionString,
+                ConstantsHelpers.AZURE_CONTAINER_USERSROOT);
+
+            var blob = ContainerClient.GetBlobClient($"{id}/{Path.GetFileName(FilePath)}");
+            await blob.UploadAsync(FilePath, true);
+
+            return blob.Uri.AbsoluteUri;
 
         }
     }
 }
+

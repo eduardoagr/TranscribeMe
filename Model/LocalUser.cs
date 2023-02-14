@@ -8,7 +8,6 @@ namespace TranscribeMe.Model {
 
         private string? firstName;
         private string? lastName;
-        private string? photoUrl;
         private string? password;
         private string? confirm;
         private string? country;
@@ -122,7 +121,7 @@ namespace TranscribeMe.Model {
         public string? Country { get => country; set => country = value; }
         public string? FirstName { get => firstName; set => firstName = value; }
         public string? LastName { get => lastName; set => lastName = value; }
-        public string? PhotoUrl { get => photoUrl; set => photoUrl = value; }
+        public string? PhotoUrl { get; set; } = "https://transcribemedocs.blob.core.windows.net/default/icons8-customer-100.png";
         public int Age { get => age; set => age = value; }
     }
 

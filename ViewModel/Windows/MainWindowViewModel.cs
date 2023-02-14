@@ -1,4 +1,7 @@
-﻿namespace TranscribeMe.ViewModel {
+﻿
+
+
+namespace TranscribeMe.ViewModel.Windows {
 
     [AddINotifyPropertyChangedInterface]
     public class MainWindowViewModel {
@@ -25,26 +28,16 @@
                 SendEmail();
             }
             if (SelectedItem.Name.Equals("acc") && frame != null) {
-                if (!string.IsNullOrEmpty(UserId)) {
-                    if (!string.IsNullOrEmpty(UserId)) {
-                        if (frame != null) {
-                            SetLoadCompleted(frame);
-                            frame.Navigate(SelectedItem.NavLink, new ProfilePageViewModel(UserId,
-                                DatabaseUrl!));
+                if (SelectedItem.Name.Equals("acc") && frame != null) {
+                    frame.LoadCompleted += (sender, eventArgs) => {
+                        if (eventArgs.Content is ProfilePage page) {
+                            page.DataContext = new ProfilePageViewModel(
+                                UserId!, DatabaseUrl!);
                         }
-                    }
+                    };
+                    frame.Navigate(SelectedItem.NavLink);
                 }
             }
-        }
-
-        private bool _setLoadCompleted = false;
-
-        private void SetLoadCompleted(ModernWpf.Controls.Frame frame) {
-            if (_setLoadCompleted) return;
-            frame.LoadCompleted += (s, e) => {
-                if (e.Content != null && e.ExtraData != null) (e.Content as Page).DataContext = e.ExtraData;
-            };
-            _setLoadCompleted = true;
         }
 
         private static void SendEmail() {

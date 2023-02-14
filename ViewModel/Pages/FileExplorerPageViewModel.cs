@@ -1,14 +1,12 @@
-﻿using TranscribeMe.View.Dialogs;
+﻿
 
-using Application = System.Windows.Application;
-using ListView = System.Windows.Controls.ListView;
-using VerticalAlignment = System.Windows.VerticalAlignment;
+using TranscribeMe.View.Dialogs;
 
-namespace TranscribeMe.ViewModel {
+namespace TranscribeMe.ViewModel.Pages {
 
     [AddINotifyPropertyChangedInterface]
 
-    public class FileExplorerViewModel {
+    public class FileExplorerPageViewModel {
 
 
         #region Commands
@@ -45,7 +43,13 @@ namespace TranscribeMe.ViewModel {
 
         public string? PreviewFileText { get; set; }
 
-        public FileExplorerViewModel() {
+        // HWND Constants
+        static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
+        static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
+        static readonly IntPtr HWND_TOP = new IntPtr(0);
+        static readonly IntPtr HWND_BOTTOM = new IntPtr(1);
+
+        public FileExplorerPageViewModel() {
 
             PreviewFileText = Lang.Preview;
             IsMenuOpen = Visibility.Collapsed;
@@ -161,13 +165,13 @@ namespace TranscribeMe.ViewModel {
             if (file == null) { return; }
 
             if (Path.GetExtension(file.FilePath) == ".mp4") {
-
-                var prev = new PreviewDialog {
-                    DataContext = new PreviewDialogViewModel(new Uri(file.FilePath)),
-                    PrimaryButtonText = "Close"
+                PreviewDialog prev = new PreviewDialog() {
+                    DataContext = new PreviewDialogViewModel(new Uri(file.FilePath))
                 };
 
                 prev.MediaPlayer.Play();
+
+                prev.PrimaryButtonText = Lang.Close;
 
                 await prev.ShowAsync();
 
@@ -193,7 +197,9 @@ namespace TranscribeMe.ViewModel {
                     foreach (PdfLoadedPage loadedPage in pdfDoc.Pages) {
                         var text = loadedPage.ExtractText();
                         text = text.Trim();
-                        sb.Append(text);
+                        if (!string.IsNullOrWhiteSpace(text)) {
+                            sb.Append(text);
+                        }
                     }
                     break;
                 case ".docx":

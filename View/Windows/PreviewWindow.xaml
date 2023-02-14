@@ -6,7 +6,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:res="clr-namespace:TranscribeMe.Resources"
     xmlns:ui="http://schemas.modernwpf.com/2019"
-    xmlns:vm="clr-namespace:TranscribeMe.ViewModel"
     Width="600"
     Height="600"
     ui:ControlHelper.CornerRadius="20"
@@ -14,13 +13,10 @@
     ResizeMode="NoResize"
     mc:Ignorable="d">
 
-    <!--<Window.DataContext>
-        <vm:ReadOutLoudWindowViewModel />
-    </Window.DataContext>-->
 
     <StackPanel Margin="20">
         <ComboBox
-            ui:ControlHelper.PlaceholderText="{x:Static res:Lang.ColorSelect}"
+            ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Close}"
             ItemsSource="{Binding ColorPairs}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -37,12 +33,13 @@
             </ComboBox.ItemTemplate>
 
         </ComboBox>
-        <TextBox
-            Height="460"
-            Margin="0,20,0,0"
-            Focusable="False"
-            IsReadOnly="True"
-            Text="{Binding Text}"
-            TextWrapping="Wrap" />
+        <RichTextBox Name="richTextBox"
+                     Margin="0,20,0,0">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="{Binding Text}" />
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
     </StackPanel>
 </Window>

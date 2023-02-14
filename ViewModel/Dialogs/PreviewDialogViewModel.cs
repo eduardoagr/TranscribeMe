@@ -42,7 +42,7 @@ namespace TranscribeMe.ViewModel.Dialogs {
             SeekToMediaPositionCommand = new Command<MediaElement>(SeekToMediaPositionAction);
 
             _timer = new DispatcherTimer {
-                Interval = TimeSpan.FromMilliseconds(50)
+                Interval = TimeSpan.FromMilliseconds(500)
             };
             _timer.Tick += Timer_Tick;
             _timer.Start();
@@ -79,12 +79,11 @@ namespace TranscribeMe.ViewModel.Dialogs {
             if (IsPlaying) {
 
                 Content = IconFont.Pause;
-                obj.Pause();
 
             } else {
 
                 Content = IconFont.Play;
-                obj.Play();
+
             }
 
             IsPlaying = !IsPlaying;

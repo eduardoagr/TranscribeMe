@@ -1,10 +1,10 @@
 ﻿namespace TranscribeMe.Helpers {
     public class AvatarHelper {
-        public static ObservableCollection<ImageSource> GetAvatars() {
-            var avatars = new ObservableCollection<ImageSource>();
-            for (int i = 0; i < 25; i++) {
-                avatars.Add(new BitmapImage(
-                    new Uri($"/Images/{i}.png", UriKind.Relative)));
+        public static ObservableCollection<string> GetAvatars() {
+            var avatars = new ObservableCollection<string>();
+            for (int i = 0; i < 26; i++) {
+                var imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", $"{i}.png");
+                avatars.Add(imagePath);
             }
             return avatars;
         }

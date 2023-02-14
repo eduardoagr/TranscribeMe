@@ -1,9 +1,8 @@
-﻿using Clipboard = System.Windows.Clipboard;
-
-namespace TranscribeMe.ViewModel {
+﻿namespace TranscribeMe.ViewModel.Pages {
 
     [AddINotifyPropertyChangedInterface]
-    public class AudioPageViewModel {
+
+    public class TranslatePageViewModel {
 
         public string? FilePath { get; set; }
 
@@ -13,15 +12,15 @@ namespace TranscribeMe.ViewModel {
 
         public Dictionary<string, string>? LanguagesDictionary { get; set; }
 
-        public string? MicrosofWordtDocumentPath { get; set; }
+        public string? DocumentPath { get; set; }
 
         public Visibility ProcessMsgVisibility { get; set; }
 
-        public Visibility MicrosofWordPathVisibility { get; set; }
+        public Visibility PathVisibility { get; set; }
 
         public Command PickFileCommad { get; set; }
 
-        public Command OpenDocxCommnd { get; set; }
+        public Command OpenDocCommnd { get; set; }
 
         public Command CopyDocumentPathCommand { get; set; }
 
@@ -49,15 +48,15 @@ namespace TranscribeMe.ViewModel {
             }
         }
 
-        public AudioPageViewModel() {
+        public TranslatePageViewModel() {
 
             LanguagesDictionary = LanguagesHelper.GetLanguages();
             ProcessMsgVisibility = Visibility.Hidden;
-            MicrosofWordPathVisibility = Visibility.Hidden;
+            PathVisibility = Visibility.Hidden;
             PickFileCommad = new Command(PickFileAction);
             StartCommand = new AsyncCommand(StartAction, CanStartAction);
             CopyDocumentPathCommand = new Command(CopyDocumentPathAction);
-            OpenDocxCommnd = new Command(OpenDocxAction);
+            OpenDocCommnd = new Command(OpenDocxAction);
 
             CanStartWorkButtonBePressed = true;
         }
@@ -71,38 +70,49 @@ namespace TranscribeMe.ViewModel {
 
 
         private void CopyDocumentPathAction() {
-            Clipboard.SetText(MicrosofWordtDocumentPath);
+            System.Windows.Clipboard.SetText(DocumentPath);
         }
 
         private async Task StartAction() {
+
+            AzureStorageService azureStorageService = new();
+
             IsBusy = true;
             ProcessMsgVisibility = Visibility.Visible;
-            MicrosofWordPathVisibility = Visibility.Hidden;
+            PathVisibility = Visibility.Hidden;
             CanStartWorkButtonBePressed = false;
 
-            var FileWithoutExtension = Path.GetFileNameWithoutExtension
-                (FilePath);
+            var inputDocument = Path.GetFullPath(FilePath!);
 
-            var AudioFolderPath = FolderHelper.CreateFolder(ConstantsHelpers.AUDIOS);
+            var sourceUri = await azureStorageService.UploadToAzureBlobStorageWithssaToken
+                (inputDocument!);
 
-            var AudioFileNamePath = Path.Combine(AudioFolderPath, $"{FileWithoutExtension}{ConstantsHelpers.WAV}");
+            var targetUri = await azureStorageService.GetTargetUri();
 
-            var ConvertedAudioPath = AudioHelper.mp3ToWav(FilePath!, AudioFileNamePath);
+            var translated = await AzureTranslationService.TranslatorAsync(sourceUri, targetUri,
+                SelectedLanguage);
 
-            var str = await AzureTranscriptionService.ConvertToTextAsync(ConvertedAudioPath,
-           FileWithoutExtension!, SelectedLanguage);
+            if (translated) {
 
-            var strCorrectd = await BingSpellCheckService.SpellingCorrector(str!, SelectedLanguage);
+                var translationsFolder = FolderHelper.CreateFolder(ConstantsHelpers.TRANSLATIONS);
 
-            DocPath = WordDocumentHelper.CreateWordDocument(strCorrectd,
-                FileWithoutExtension!, true);
+                var PathToSave = Path.Combine(translationsFolder, Path.GetFileName(inputDocument));
+
+                DocPath = await azureStorageService.DownloadFileFromBlobAsync(PathToSave, inputDocument);
+
+                await azureStorageService.DeteleFromBlobAsync(inputDocument,
+                    ConstantsHelpers.AZURE_CONTAINER_ORIGINAL_DOCUMENT);
+
+                await azureStorageService.DeteleFromBlobAsync(inputDocument,
+                    ConstantsHelpers.AZURE_CONTAINER_TRANSLATED_DOCUMENT);
+            }
 
             IsBusy = false;
-            ToastHelper.LaunchToastNotification(DocPath);
+            ToastHelper.LaunchToastNotification(DocPath!);
             ProcessMsgVisibility = Visibility.Hidden;
             CanStartWorkButtonBePressed = true;
-            MicrosofWordPathVisibility = Visibility.Visible;
-            MicrosofWordtDocumentPath = DocPath;
+            PathVisibility = Visibility.Visible;
+            DocumentPath = DocPath;
         }
 
         private bool CanStartAction(object arg) {
@@ -112,7 +122,7 @@ namespace TranscribeMe.ViewModel {
         }
 
         private void PickFileAction() {
-            var FullPath = DialogHelper.GetFilePath(ConstantsHelpers.AUDIOS);
+            var FullPath = DialogHelper.GetFilePath(ConstantsHelpers.DOCUMENTS);
             FilePath = FullPath;
 
             StartCommand?.RaiseCanExecuteChanged();

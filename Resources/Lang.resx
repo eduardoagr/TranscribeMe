@@ -189,6 +189,9 @@
   <data name="Green" xml:space="preserve">
     <value>Green</value>
   </data>
+  <data name="Help" xml:space="preserve">
+    <value>About transcribed</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -240,6 +243,9 @@
   <data name="Rename" xml:space="preserve">
     <value>Rename</value>
   </data>
+  <data name="Report" xml:space="preserve">
+    <value>Report a problem</value>
+  </data>
   <data name="SelectLenguague" xml:space="preserve">
     <value>Select Lenguague</value>
   </data>
@@ -259,7 +265,7 @@
     <value>Translate documents (pdf, docx, doc)</value>
   </data>
   <data name="TranslateInstructions" xml:space="preserve">
-    <value>pick a language</value>
+    <value>In what language so yu want it</value>
   </data>
   <data name="TraslateServiceTitle" xml:space="preserve">
     <value>Translate a Word or PDF document</value>

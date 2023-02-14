@@ -189,6 +189,9 @@
   <data name="Green" xml:space="preserve">
     <value>Verde</value>
   </data>
+  <data name="Help" xml:space="preserve">
+    <value>Acerca de transcribed</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Pantalla principal</value>
   </data>
@@ -240,6 +243,9 @@
   <data name="Rename" xml:space="preserve">
     <value>Renombrar</value>
   </data>
+  <data name="Report" xml:space="preserve">
+    <value>Reportar un problema </value>
+  </data>
   <data name="SelectLenguague" xml:space="preserve">
     <value>Escoja el idioma</value>
   </data>
@@ -265,7 +271,7 @@
     <value>Traducción de document</value>
   </data>
   <data name="TranslateInstructions" xml:space="preserve">
-    <value>En que idioma desea</value>
+    <value>En que idioma lo desea</value>
   </data>
   <data name="TraslateServiceTitle" xml:space="preserve">
     <value>Traducir un documento Word o PDF</value>
