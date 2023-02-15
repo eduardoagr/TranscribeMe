@@ -466,6 +466,15 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stop.
+        /// </summary>
+        public static string Stop {
+            get {
+                return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Extract text from an image (PNG, JPEG).
         /// </summary>
         public static string TextExtraction {

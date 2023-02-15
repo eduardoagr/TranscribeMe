@@ -1,10 +1,9 @@
-﻿using AxWMPLib;
-
-using System.Windows.Forms.Integration;
-
+﻿
 namespace TranscribeMe.View.Dialogs {
 
-    public partial class PreviewDialog : Window {
+    public partial class PreviewDialog : ContentDialog {
+
+
         public PreviewDialog(string filepath) {
             InitializeComponent();
 
@@ -14,10 +13,19 @@ namespace TranscribeMe.View.Dialogs {
             host.Child = player;
             player.URL = filepath;
             Closing += PreviewDialog_Closing;
+            Unloaded += PreviewDialog_Unloaded;
+        }
+
+        private void PreviewDialog_Unloaded(object sender, RoutedEventArgs e) {
+            player.Dispose();
         }
 
         private void PreviewDialog_Closing(object? sender, EventArgs e) {
             player.close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            this.Hide();
         }
     }
 }

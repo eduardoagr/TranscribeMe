@@ -22,6 +22,22 @@
         public const string AZURE_COMPUTER_VISION_REGION = "westeurope";
         public const string AZURE_COMPUTER_VISION_URL = $"https://imgextract.cognitiveservices.azure.com/";
 
+        //Azure Translate
+        public const string ENDPOINT = "https://docstranslate.cognitiveservices.azure.com/";
+        public const string KEY = "eaa01f1f83324b52b82681ce40a2695e";
+
+        //Azure blob container Names
+        public static string AZURE_CONTAINER_ORIGINAL_DOCUMENT = "original";
+        public static string AZURE_CONTAINER_USERSROOT = "users";
+        public static string AZURE_CONTAINER_TRANSLATED_DOCUMENT = "translated";
+        public const string AZURE_UPLOAD_DOUMMENRTS = "https://transcribemedocs.blob.core.windows.net/original";
+        public const string AZURE_DOWNLOAD_DOCUMENTS = "https://transcribemedocs.blob.core.windows.net/translated";
+
+        //Azure Language
+        public readonly static string AZURE_LANGUAGE_KEY = "b9ea1ff4e6f64d25a92406b6c9e23d02";
+        public readonly static string AZURE_LANGUAGE_URL = "https://read-text.cognitiveservices.azure.com/";
+        public readonly static string AZURE_LANGUAGE_REGION = "westeurope";
+
         //File Dialog
         public const string AUDIOFILES = "Audio Files (mp3)|*.mp3;";
         public const string VIDEOFILES = "Video Files (mp4)|*.mp4;";
@@ -40,16 +56,7 @@
         public const string TRANSCRIPTIONS = "Transcriptions";
         public const string IMAGETEXT = "Image Text";
 
-        //Azure Translate
-        public const string ENDPOINT = "https://docstranslate.cognitiveservices.azure.com/";
-        public const string KEY = "eaa01f1f83324b52b82681ce40a2695e";
-
-        //Azure blob container Names
-        public static string AZURE_CONTAINER_ORIGINAL_DOCUMENT = "original";
-        public static string AZURE_CONTAINER_USERSROOT = "users";
-        public static string AZURE_CONTAINER_TRANSLATED_DOCUMENT = "translated";
-        public const string AZURE_UPLOAD_DOUMMENRTS = "https://transcribemedocs.blob.core.windows.net/original";
-        public const string AZURE_DOWNLOAD_DOCUMENTS = "https://transcribemedocs.blob.core.windows.net/translated";
+   
 
         //File extensions
         public static string WAV = ".wav";

@@ -252,6 +252,9 @@
   <data name="Share" xml:space="preserve">
     <value>Compatir</value>
   </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Detener</value>
+  </data>
   <data name="String1" xml:space="preserve">
     <value>Iniciar sesión</value>
   </data>

@@ -14,7 +14,12 @@
     mc:Ignorable="d">
 
 
-    <StackPanel Margin="20">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <ComboBox
             ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Close}"
             ItemsSource="{Binding ColorPairs}">
@@ -31,15 +36,32 @@
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
-
         </ComboBox>
-        <RichTextBox Name="richTextBox"
-                     Margin="0,20,0,0">
+
+        <Button
+            Grid.Row="1"
+            Margin="0,5,0,0"
+                IsEnabled="{Binding IsPlayingEnabled}"
+            Command="{Binding SpeakButtonCommand}"
+            Content="{x:Static res:Lang.Read}"
+            FocusVisualStyle="{x:Null}" />
+
+        <Button Grid.Row="1"
+                Margin="60,5,0,0"
+                IsEnabled="{Binding IsStopEnabled}"
+                Command="{Binding StopSpeakButtonCommand}"
+                Content="{x:Static res:Lang.Stop}"
+                FocusVisualStyle="{x:Null}" />
+
+        <RichTextBox
+            Grid.Row="2"
+            Name="richTextBox"
+            Margin="0,5,0,0">
             <FlowDocument>
                 <Paragraph>
                     <Run Text="{Binding Text}" />
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-    </StackPanel>
+    </Grid>
 </Window>

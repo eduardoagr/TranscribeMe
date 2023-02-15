@@ -164,11 +164,11 @@ namespace TranscribeMe.ViewModel.Pages {
         private async void PreviewAction(FileItem file) {
             if (file == null) { return; }
 
-            if (Path.GetExtension(file.FilePath) == ".mp4") {
+            if (Path.GetExtension(file.FilePath) == ".wmv") {
                 PreviewDialog prev = new PreviewDialog((file.FilePath)) {
                     //DataContext = new PreviewDialogViewModel(new Uri(file.FilePath))
                 };
-                prev.Show();
+                await prev.ShowAsync();
 
             } else {
                 var str = GetText(file.FilePath);

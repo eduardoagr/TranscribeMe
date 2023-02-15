@@ -3,7 +3,7 @@ using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 
 namespace TranscribeMe.Services {
     [AddINotifyPropertyChangedInterface]
-    internal class AzureOcrService {
+    public class AzureOcrService {
         public static async Task<string> GiveTextAsync(string ImagePath) {
             ComputerVisionClient client = new
                 (new ApiKeyServiceClientCredentials(
