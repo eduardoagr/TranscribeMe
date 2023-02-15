@@ -190,7 +190,7 @@ namespace TranscribeMe.ViewModel.Pages {
                 case ".pdf":
                     PdfLoadedDocument pdfDoc = new(File.ReadAllBytes(filepath));
                     foreach (PdfLoadedPage loadedPage in pdfDoc.Pages) {
-                        var text = loadedPage.ExtractText();
+                        var text = loadedPage.ExtractText(true);
                         text = text.Trim();
                         if (!string.IsNullOrWhiteSpace(text)) {
                             sb.Append(text);
