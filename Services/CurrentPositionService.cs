@@ -1,5 +1,4 @@
 ﻿namespace TranscribeMe.Services {
-
     public class Address {
         public string? building {
             get; set;

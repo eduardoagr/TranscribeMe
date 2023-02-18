@@ -1,13 +1,11 @@
-﻿
-
-using Brush = System.Windows.Media.Brush;
+﻿using Brush = System.Windows.Media.Brush;
 
 namespace TranscribeMe.ViewModel.Windows {
 
     [AddINotifyPropertyChangedInterface]
     public class PreviewWindowViewModel {
 
-        private readonly AzureTextToSpeechService azureTextToSpeechService;
+        private AzureTextToSpeechService AzureTextToSpeech;
 
         public AsyncCommand SpeakButtonCommand { get; set; }
 
@@ -21,24 +19,24 @@ namespace TranscribeMe.ViewModel.Windows {
 
         public Dictionary<Brush, string> ColorPairs { get; set; }
 
-        public PreviewWindowViewModel(string text) {
-            azureTextToSpeechService = new AzureTextToSpeechService();
+        public PreviewWindowViewModel(string str) {
             IsPlayingEnabled = true;
+            AzureTextToSpeech = new AzureTextToSpeechService();
             IsStopEnabled = false;
-            Text = text;
+            Text = str;
             ColorPairs = ColorHelper.GetColors();
-            SpeakButtonCommand = new AsyncCommand(SpeakButtonctionAsync);
-            StopSpeakButtonCommand = new AsyncCommand(StopSpeakButtonActionAsync);
+            SpeakButtonCommand = new AsyncCommand(SpeakButtonction);
+            StopSpeakButtonCommand = new AsyncCommand(StopSpeakButtonAction);
         }
 
-        private async Task StopSpeakButtonActionAsync() {
-            azureTextToSpeechService.StopSpeaking();
+        private async Task StopSpeakButtonAction() {
+            await AzureTextToSpeech.StopSpeechAsync();
             IsPlayingEnabled = true;
             IsStopEnabled = false;
         }
 
-        private async Task SpeakButtonctionAsync() {
-            await azureTextToSpeechService.ReadOutLoudAsync(Text);
+        private async Task SpeakButtonction() {
+            await AzureTextToSpeech.ReadOutLoudAsync(Text);
             IsPlayingEnabled = false;
             IsStopEnabled = true;
         }

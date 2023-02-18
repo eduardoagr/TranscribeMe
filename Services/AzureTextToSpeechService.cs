@@ -2,8 +2,7 @@
 
     public class AzureTextToSpeechService {
 
-        private SpeechSynthesizer? synthesizer;
-        private bool IsSpeaking;
+        SpeechSynthesizer speechSynthesizer;
 
         public async Task ReadOutLoudAsync(string text) {
 
@@ -34,21 +33,16 @@
                     break;
             }
 
-            synthesizer = new SpeechSynthesizer(config);
-            IsSpeaking = true;
-            var result = await synthesizer.StartSpeakingTextAsync(text);
+            speechSynthesizer = new SpeechSynthesizer(config);
 
-            if (!IsSpeaking) {
-                await synthesizer.StopSpeakingAsync();
-            }
+            await speechSynthesizer.StartSpeakingTextAsync(text);
+
         }
 
 
-
-
-        public void StopSpeaking() {
-
-            IsSpeaking = false;
+        public async Task StopSpeechAsync() {
+            await speechSynthesizer.StopSpeakingAsync();
         }
+
     }
 }

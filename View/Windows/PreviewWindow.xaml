@@ -13,15 +13,15 @@
     ResizeMode="NoResize"
     mc:Ignorable="d">
 
-
-    <Grid Margin="20">
+    <Grid Margin="20,0,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
             <RowDefinition Height="Auto" />
-            <RowDefinition/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <ComboBox
-            ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Close}"
+            VerticalAlignment="Center"
+            ui:ControlHelper.PlaceholderText="{x:Static res:Lang.ColorSelect}"
             ItemsSource="{Binding ColorPairs}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -40,28 +40,28 @@
 
         <Button
             Grid.Row="1"
-            Margin="0,5,0,0"
-                IsEnabled="{Binding IsPlayingEnabled}"
+            Margin="0,20,0,0"
             Command="{Binding SpeakButtonCommand}"
             Content="{x:Static res:Lang.Read}"
-            FocusVisualStyle="{x:Null}" />
+            FocusVisualStyle="{x:Null}"
+            IsEnabled="{Binding IsPlayingEnabled}" />
 
-        <Button Grid.Row="1"
-                Margin="60,5,0,0"
-                IsEnabled="{Binding IsStopEnabled}"
-                Command="{Binding StopSpeakButtonCommand}"
-                Content="{x:Static res:Lang.Stop}"
-                FocusVisualStyle="{x:Null}" />
+        <Button
+            Grid.Row="1"
+            Margin="60,20,0,0"
+            Command="{Binding StopSpeakButtonCommand}"
+            Content="{x:Static res:Lang.Stop}"
+            FocusVisualStyle="{x:Null}"
+            IsEnabled="{Binding IsStopEnabled}" />
 
         <RichTextBox
-            Grid.Row="2"
-            Name="richTextBox"
-            Margin="0,5,0,0">
+            Grid.Row="2" Margin="0,10,20,20">
             <FlowDocument>
                 <Paragraph>
                     <Run Text="{Binding Text}" />
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
+
     </Grid>
 </Window>

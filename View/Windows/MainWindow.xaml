@@ -17,7 +17,6 @@
     ui:WindowHelper.UseModernWindowStyle="True"
     Icon="/Images/Home.png"
     ResizeMode="NoResize"
-    SnapsToDevicePixels="True"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 

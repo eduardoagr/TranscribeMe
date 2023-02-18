@@ -43,12 +43,6 @@ namespace TranscribeMe.ViewModel.Pages {
 
         public string? PreviewFileText { get; set; }
 
-        // HWND Constants
-        static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
-        static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
-        static readonly IntPtr HWND_TOP = new IntPtr(0);
-        static readonly IntPtr HWND_BOTTOM = new IntPtr(1);
-
         public FileExplorerPageViewModel() {
 
             PreviewFileText = Lang.Preview;
@@ -161,14 +155,26 @@ namespace TranscribeMe.ViewModel.Pages {
             return false;
         }
 
-        private async void PreviewAction(FileItem file) {
+        private void PreviewAction(FileItem file) {
             if (file == null) { return; }
 
-            if (Path.GetExtension(file.FilePath) == ".wmv") {
-                PreviewDialog prev = new PreviewDialog((file.FilePath)) {
+            if (Path.GetExtension(file.FilePath) == ".wmv" ||
+                Path.GetExtension(file.FilePath) == ".mp4") {
+                VideoPreviewDialog prev = new((file.FilePath)) {
                     //DataContext = new PreviewDialogViewModel(new Uri(file.FilePath))
                 };
-                await prev.ShowAsync();
+                var mainWindow = Application.Current.MainWindow;
+                double mainWindowLeft = mainWindow.Left;
+                double mainWindowTop = mainWindow.Top;
+
+
+                // Set the position of the new window to the left of the current window
+                prev.Left = mainWindowLeft - prev.Width + 1200; // 10 is the gap between windows
+                prev.Top = mainWindowTop;
+
+                // Show the new window
+
+                prev.Show();
 
             } else {
                 var str = GetText(file.FilePath);
@@ -200,12 +206,7 @@ namespace TranscribeMe.ViewModel.Pages {
                 case ".docx":
                 case ".doc":
                     WordDocument wordDocument = new(filepath);
-                    foreach (IWSection section in wordDocument.Sections) {
-                        foreach (IWParagraph paragraph in section.Body.Paragraphs) {
-                            string text = paragraph.Text;
-                            sb.Append(text);
-                        }
-                    }
+                    sb.Append(wordDocument.GetText());
                     break;
             }
 
