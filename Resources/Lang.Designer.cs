@@ -241,6 +241,15 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your file is too big.
+        /// </summary>
+        public static string FileBig {
+            get {
+                return ResourceManager.GetString("FileBig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language of the file.
         /// </summary>
         public static string FileLang {

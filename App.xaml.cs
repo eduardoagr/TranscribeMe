@@ -10,7 +10,7 @@ public partial class App : Application {
 
     public App() {
 
-        //For debuging purposes
+        //For debugging purposes
 
         Thread.CurrentThread.CurrentUICulture = new CultureInfo("es");
         //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");

@@ -177,6 +177,9 @@
   <data name="File" xml:space="preserve">
     <value>Select file</value>
   </data>
+  <data name="FileBig" xml:space="preserve">
+    <value>Your file is too big</value>
+  </data>
   <data name="FileLang" xml:space="preserve">
     <value>Language of the file</value>
   </data>

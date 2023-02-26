@@ -20,6 +20,10 @@
             ConstantsHelpers.AZURE_SPEECH_KEY,
             ConstantsHelpers.AZURE_SPEECH_REGION);
 
+
+            string logFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "logFile.log");
+            config.SetProperty(PropertyId.Speech_LogFilename, logFile);
+
             switch (lang.Iso6391Name) {
                 case "en":
                     config.SpeechSynthesisVoiceName = "Microsoft Server Speech Text to Speech Voice (en-US, SaraNeural)";
@@ -33,8 +37,9 @@
                     break;
             }
 
-            speechSynthesizer = new SpeechSynthesizer(config);
 
+
+            speechSynthesizer = new SpeechSynthesizer(config);
             await speechSynthesizer.StartSpeakingTextAsync(text);
 
         }

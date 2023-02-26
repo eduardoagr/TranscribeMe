@@ -1,6 +1,4 @@
-﻿
-
-using TranscribeMe.View.Dialogs;
+﻿using TranscribeMe.View.Dialogs;
 
 namespace TranscribeMe.ViewModel.Pages {
 
@@ -63,19 +61,22 @@ namespace TranscribeMe.ViewModel.Pages {
 
         private void ItemChangedAction(ListView obj) {
 
-            var item = obj!.SelectedItem as FileItem;
+            if (obj?.SelectedItem is FileItem item) {
 
-            if (item == null) {
+                if (item == null) {
 
-                return;
-            }
+                    return;
+                }
 
-            IsMenuOpen = Visibility.Visible;
+                IsMenuOpen = Visibility.Visible;
 
-            if (Path.GetExtension(item!.FilePath) == ".wav") {
-                IsReadVisible = Visibility.Collapsed;
-            } else {
-                IsReadVisible = Visibility.Visible;
+                if (Path.GetExtension(item!.FilePath) == ".wav"
+                    || Path.GetExtension(item!.FilePath) == ".mp4") {
+
+                    IsReadVisible = Visibility.Collapsed;
+                } else {
+                    IsReadVisible = Visibility.Visible;
+                }
             }
         }
 
@@ -84,7 +85,8 @@ namespace TranscribeMe.ViewModel.Pages {
                 ConstantsHelpers.TRANSLATIONS,
                 ConstantsHelpers.TRANSCRIPTIONS,
                 ConstantsHelpers.IMAGETEXT,
-                ConstantsHelpers.AUDIOS
+                ConstantsHelpers.AUDIOS,
+                ConstantsHelpers.VIDEOS
             };
         }
 
@@ -130,17 +132,70 @@ namespace TranscribeMe.ViewModel.Pages {
         }
 
         private void DeleteAction(FileItem file) {
-            if (file == null || IsFileLocked(file) == true) { return; }
+            if (file == null) { return; }
+
             // Check if the new file path already exists
             if (File.Exists(file!.FilePath)) {
                 File.Delete(file.FilePath);
             }
             GetFiles();
+
         }
 
-        private static bool IsFileLocked(FileItem file) {
+        private static void CloseFileUsed(FileItem file) {
             try {
                 using FileStream stream = File.Open(file.FilePath, FileMode.OpenOrCreate,
+                    FileAccess.Read, FileShare.None);
+                stream.Close();
+            } catch (IOException ex) when ((ex.HResult & 0x0000FFFF) == 32) {
+                using FileStream stream = File.Open(file.FilePath,
+                    FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                stream.Close();
+            }
+        }
+
+        private void PreviewAction(FileItem file) {
+            if (file == null) { return; }
+
+            if (Path.GetExtension(file.FilePath) == ".wmv" ||
+                Path.GetExtension(file.FilePath) == ".mp4") {
+                VideoPreviewDialog prev = new((file.FilePath));
+                var mainWindow = Application.Current.MainWindow;
+                double mainWindowLeft = mainWindow.Left;
+                double mainWindowTop = mainWindow.Top;
+
+
+                prev.Left = mainWindowLeft - prev.Width + 1200;
+                prev.Top = mainWindowTop;
+
+
+                prev.Show();
+
+            } else {
+                var str = GetText(file.FilePath);
+
+
+                if (IsFileLocked(file)) {
+
+                    CloseFileUsed(file);
+
+                    var prevWindow = new PreviewWindow {
+                        DataContext = new PreviewWindowViewModel(str)
+                    };
+                    prevWindow.Show();
+                } else {
+                    var prevWindow = new PreviewWindow {
+                        DataContext = new PreviewWindowViewModel(str)
+                    };
+                    prevWindow.Show();
+                }
+            }
+        }
+
+        private static bool IsFileLocked(FileItem fileItem) {
+
+            try {
+                using FileStream stream = File.Open(fileItem.FilePath, FileMode.OpenOrCreate,
                     FileAccess.Read, FileShare.None);
                 stream.Close();
             } catch (IOException) {
@@ -150,41 +205,7 @@ namespace TranscribeMe.ViewModel.Pages {
                 //or does not exist (has already been processed)
                 return true;
             }
-
-            //file is not locked
             return false;
-        }
-
-        private void PreviewAction(FileItem file) {
-            if (file == null) { return; }
-
-            if (Path.GetExtension(file.FilePath) == ".wmv" ||
-                Path.GetExtension(file.FilePath) == ".mp4") {
-                VideoPreviewDialog prev = new((file.FilePath)) {
-                    //DataContext = new PreviewDialogViewModel(new Uri(file.FilePath))
-                };
-                var mainWindow = Application.Current.MainWindow;
-                double mainWindowLeft = mainWindow.Left;
-                double mainWindowTop = mainWindow.Top;
-
-
-                // Set the position of the new window to the left of the current window
-                prev.Left = mainWindowLeft - prev.Width + 1200; // 10 is the gap between windows
-                prev.Top = mainWindowTop;
-
-                // Show the new window
-
-                prev.Show();
-
-            } else {
-                var str = GetText(file.FilePath);
-                if (Path.GetExtension(file.FilePath) != ".wav") {
-                    var prevWindow = new PreviewWindow {
-                        DataContext = new PreviewWindowViewModel(str)
-                    };
-                    prevWindow.Show();
-                }
-            }
         }
 
         private static string GetText(string filepath) {
@@ -216,28 +237,43 @@ namespace TranscribeMe.ViewModel.Pages {
         private async Task ShareActionAsync(FileItem item) {
             if (item == null) { return; }
 
-            var win = Application.Current.Windows[0];
-            var interop = DataTransferManager.As<IDataTransferManagerInterop>();
-            var hwnd = new WindowInteropHelper(win).Handle;
+            var value = item.FileLenght.Split(' ');
 
-            var pManager = interop.GetForWindow(hwnd, new(
-                "A5CAEE9B-8708-49D1-8D36-67D25A8DA00C"));
+            if (Path.GetExtension(item.FilePath) == ".mp4"
+                && Convert.ToDouble(value[0]) >= 1
+                && value[1].Equals("MB")) {
+                var dialog = new ContentDialog() {
 
-            var manager = DataTransferManager.FromAbi(pManager);
-            Marshal.Release(pManager);
-            interop.ShowShareUIForWindow(hwnd);
+                    Title = Lang.ErrorDialog,
+                    Content = Lang.FileBig,
+                    IsShadowEnabled = false,
+                    PrimaryButtonText = Lang.Close,
 
-            var file = await StorageFile.GetFileFromPathAsync(item.FilePath);
+                }.ShowAsync();
+            } else {
+                var win = Application.Current.Windows[0];
+                var interop = DataTransferManager.As<IDataTransferManagerInterop>();
+                var hwnd = new WindowInteropHelper(win).Handle;
 
-            manager.DataRequested += (sender, args) => {
-                var request = args.Request;
-                var data = request.Data;
+                var pManager = interop.GetForWindow(hwnd, new(
+                    "A5CAEE9B-8708-49D1-8D36-67D25A8DA00C"));
 
-                data.Properties.Title = "Share Text Example";
-                data.Properties.Description = "An example of how to share text.";
+                var manager = DataTransferManager.FromAbi(pManager);
+                Marshal.Release(pManager);
+                interop.ShowShareUIForWindow(hwnd);
 
-                data.SetStorageItems(new[] { file });
-            };
+                var file = await StorageFile.GetFileFromPathAsync(item.FilePath);
+
+                manager.DataRequested += (sender, args) => {
+                    var request = args.Request;
+                    var data = request.Data;
+
+                    data.Properties.Title = "Share Text Example";
+                    data.Properties.Description = "An example of how to share text.";
+
+                    data.SetStorageItems(new[] { file });
+                };
+            }
         }
 
         private void SearchAction(string SeachTerm) {

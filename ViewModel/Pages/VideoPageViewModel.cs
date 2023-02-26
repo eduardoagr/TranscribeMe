@@ -115,7 +115,7 @@
         }
 
         private void PickFileAction() {
-            var FullPath = DialogHelper.GetFilePath(ConstantsHelpers.VIDEO);
+            var FullPath = DialogHelper.GetFilePath(ConstantsHelpers.VIDEOS);
             FilePath = FullPath;
 
             StartCommand?.RaiseCanExecuteChanged();

@@ -11,7 +11,7 @@ namespace TranscribeMe.Helpers {
                 case ConstantsHelpers.AUDIOS:
                     filter = ConstantsHelpers.AUDIOFILES;
                     break;
-                case ConstantsHelpers.VIDEO:
+                case ConstantsHelpers.VIDEOS:
                     filter = ConstantsHelpers.VIDEOFILES;
                     break;
                 case ConstantsHelpers.IMAGES:

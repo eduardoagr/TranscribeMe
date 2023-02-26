@@ -141,7 +141,7 @@
 		<PackageReference Include="Azure.AI.TextAnalytics" Version="5.2.0" />
 		<PackageReference Include="Azure.AI.Translation.Document" Version="1.0.0" />
 		<PackageReference Include="Azure.Core" Version="1.28.0" />
-		<PackageReference Include="Azure.Storage.Blobs" Version="12.14.1" />
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.15.0" />
 		<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
 		<PackageReference Include="MahApps.Metro" Version="2.4.9" />
@@ -158,20 +158,23 @@
 		<PackageReference Include="NAudio.Lame" Version="2.0.1" />
 		<PackageReference Include="PropertyChanged.Fody" PrivateAssets="All" Version="4.1.0" />
 		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
-		<PackageReference Include="Syncfusion.DocIO.Wpf" Version="20.4.0.50" />
-		<PackageReference Include="Syncfusion.Licensing" Version="20.4.0.50" />
-		<PackageReference Include="Syncfusion.Pdf.Net.Core" Version="20.4.0.50" />
+		<PackageReference Include="Syncfusion.DocIO.Wpf" Version="20.4.0.51" />
+		<PackageReference Include="Syncfusion.Licensing" Version="20.4.0.51" />
+		<PackageReference Include="Syncfusion.Pdf.Net.Core" Version="20.4.0.51" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Reference Include="AxInterop.WMPLib">
 		  <HintPath>..\..\..\Downloads\AxInterop.WMPLib.dll</HintPath>
+		  <Private>True</Private>
 		</Reference>
 		<Reference Include="Interop.WMPLib">
 		  <HintPath>..\..\..\Downloads\Interop.WMPLib.dll</HintPath>
+		  <Private>True</Private>
 		</Reference>
 		<Reference Include="System.Speech">
 			<HintPath>..\..\..\..\..\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\System.Speech.dll</HintPath>
+			<Private>True</Private>
 		</Reference>
 	</ItemGroup>
 

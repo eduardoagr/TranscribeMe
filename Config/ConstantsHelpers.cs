@@ -39,7 +39,7 @@
         public readonly static string AZURE_LANGUAGE_REGION = "westeurope";
 
         //File Dialog
-        public const string AUDIOFILES = "Audio Files (mp3)|*.mp3;";
+        public const string AUDIOFILES = "Audio Files (*.wav, *.mp3)|*.wav;*.mp3";
         public const string VIDEOFILES = "Video Files (mp4)|*.mp4;";
         public const string DOCUMENTSFIILES = "Document Files (pdf, doc, docx)|*.pdf;*.doc;*.docx";
         public const string IMAGEFILES = "Image Files (jpeg, png)|*.jpeg;*.png;";
@@ -47,7 +47,7 @@
         //Name for the type of files folders
         public const string IMAGES = "Images";
         public const string AUDIOS = "Audios";
-        public const string VIDEO = "Video";
+        public const string VIDEOS = "Videos";
         public const string DOCUMENTS = "Documents";
 
         //Name of folders
@@ -56,7 +56,7 @@
         public const string TRANSCRIPTIONS = "Transcriptions";
         public const string IMAGETEXT = "Image Text";
 
-   
+
 
         //File extensions
         public static string WAV = ".wav";

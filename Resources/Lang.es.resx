@@ -169,13 +169,16 @@
     <value>Ingles</value>
   </data>
   <data name="ErrorDialog" xml:space="preserve">
-    <value>Ha ocurrido un error.</value>
+    <value>Ha ocurrido un error</value>
   </data>
   <data name="ES" xml:space="preserve">
     <value>Español</value>
   </data>
   <data name="File" xml:space="preserve">
     <value>Escoja un archivo</value>
+  </data>
+  <data name="FileBig" xml:space="preserve">
+    <value>Your file is too big</value>
   </data>
   <data name="FileLang" xml:space="preserve">
     <value>Lenguaje del archivo</value>
@@ -205,7 +208,7 @@
     <value>La dirección de correo electrónico no es válida</value>
   </data>
   <data name="INVALID_PASSWORD" xml:space="preserve">
-    <value>La contraseña es incorrecte</value>
+    <value>La contraseña es incorrecta</value>
   </data>
   <data name="LastName" xml:space="preserve">
     <value>Apellido</value>
