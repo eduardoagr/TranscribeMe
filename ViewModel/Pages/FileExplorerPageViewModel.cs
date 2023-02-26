@@ -239,8 +239,7 @@ namespace TranscribeMe.ViewModel.Pages {
 
             var value = item.FileLenght.Split(' ');
 
-            if (Path.GetExtension(item.FilePath) == ".mp4"
-                && Convert.ToDouble(value[0]) >= 1
+            if (Convert.ToDouble(value[0]) >= 1
                 && value[1].Equals("MB")) {
                 var dialog = new ContentDialog() {
 
