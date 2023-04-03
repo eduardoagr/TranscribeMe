@@ -118,12 +118,15 @@
                 ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Confirm}"
                 Text="{Binding User.Confirm, UpdateSourceTrigger=PropertyChanged}" />
 
-            <DatePicker Margin="0,10,0,0"
-                        ui:ControlHelper.CornerRadius="10"
-                        ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Birth}"
-                        FlowDirection="RightToLeft"
-                        FocusVisualStyle="{x:Null}"
-                        SelectedDate="{Binding User.DateOfBirth, UpdateSourceTrigger=PropertyChanged}" />
+            <DatePicker
+                x:Name="dp"
+                Margin="0,10,0,0"
+                ui:ControlHelper.PlaceholderText="{x:Static res:Lang.Birth}"
+                FlowDirection="RightToLeft"
+                FocusVisualStyle="{x:Null}"
+                SelectedDate="{Binding User.DateOfBirth, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                Validation.ErrorTemplate="{x:Null}" />
+
 
             <Button
                 Width="200"
