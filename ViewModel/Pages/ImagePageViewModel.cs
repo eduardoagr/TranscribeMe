@@ -69,7 +69,7 @@
             var textFromImage = await AzureOcrService.GiveTextAsync(FilePath!);
 
             DocPath = WordDocumentHelper.CreateWordDocument(textFromImage,
-                Path.GetFileNameWithoutExtension(FilePath)!, false);
+                Path.GetFileNameWithoutExtension(FilePath)!, "Ocr", false);
 
             IsBusy = false;
             ToastHelper.LaunchToastNotification(DocPath);

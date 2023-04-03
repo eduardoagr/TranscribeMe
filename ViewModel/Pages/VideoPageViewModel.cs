@@ -97,7 +97,7 @@
             var strCorrectd = await BingSpellCheckService.SpellingCorrector(str!, SelectedLanguage);
 
             DocPath = WordDocumentHelper.CreateWordDocument(strCorrectd,
-                Path.GetFileNameWithoutExtension(file)!, true);
+                Path.GetFileNameWithoutExtension(file)!, "Transcriptions", true);
 
             IsBusy = false;
             ToastHelper.LaunchToastNotification(DocPath);

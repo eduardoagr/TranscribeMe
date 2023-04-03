@@ -150,6 +150,12 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="DocName" xml:space="preserve">
+    <value>Doument name</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>Cannot createan empty document</value>
+  </data>
   <data name="DontHaveAccount" xml:space="preserve">
     <value>Don't have an account</value>
   </data>
@@ -189,6 +195,12 @@
   <data name="FirstName" xml:space="preserve">
     <value>First name</value>
   </data>
+  <data name="Format" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Generate file</value>
+  </data>
   <data name="Green" xml:space="preserve">
     <value>Green</value>
   </data>
@@ -216,6 +228,9 @@
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>Create a new document</value>
+  </data>
   <data name="OpenDoc" xml:space="preserve">
     <value>Open documnt</value>
   </data>
@@ -240,6 +255,9 @@
   <data name="Read" xml:space="preserve">
     <value>Read</value>
   </data>
+  <data name="Recognize" xml:space="preserve">
+    <value>Start recognizing</value>
+  </data>
   <data name="Red" xml:space="preserve">
     <value>Red</value>
   </data>
@@ -257,6 +275,12 @@
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
+  </data>
+  <data name="StopRecording" xml:space="preserve">
+    <value>Stop recognizing</value>
+  </data>
+  <data name="Suscription" xml:space="preserve">
+    <value>Acquire/renew a subscription.</value>
   </data>
   <data name="TextExtraction" xml:space="preserve">
     <value>Extract text from an image (PNG, JPEG)</value>

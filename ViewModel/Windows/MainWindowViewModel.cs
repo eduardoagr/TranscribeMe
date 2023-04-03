@@ -28,17 +28,16 @@ namespace TranscribeMe.ViewModel.Windows {
                 SendEmail();
             }
             if (SelectedItem.Name.Equals("acc") && frame != null) {
-                if (SelectedItem.Name.Equals("acc") && frame != null) {
-                    frame.LoadCompleted += (sender, eventArgs) => {
-                        if (eventArgs.Content is ProfilePage page) {
-                            page.DataContext = new ProfilePageViewModel(
-                                UserId!, DatabaseUrl!);
-                        }
-                    };
-                    frame.Navigate(SelectedItem.NavLink);
-                }
+                frame.LoadCompleted += (sender, eventArgs) => {
+                    if (eventArgs.Content is ProfilePage page) {
+                        page.DataContext = new ProfilePageViewModel(
+                            UserId!, DatabaseUrl!);
+                    }
+                };
+                frame.Navigate(SelectedItem.NavLink);
             }
         }
+        
 
         private static void SendEmail() {
 

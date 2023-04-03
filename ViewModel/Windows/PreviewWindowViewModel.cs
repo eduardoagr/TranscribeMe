@@ -1,48 +1,71 @@
-﻿using Brush = System.Windows.Media.Brush;
-
-namespace TranscribeMe.ViewModel.Windows {
+﻿namespace TranscribeMe.ViewModel.Windows {
 
     [AddINotifyPropertyChangedInterface]
     public class PreviewWindowViewModel {
 
-        private AzureTextToSpeechService AzureTextToSpeech;
+        private StringBuilder? sb;
 
-        public AsyncCommand SpeakButtonCommand { get; set; }
+        public Visibility isDocument { get; set; } = Visibility.Collapsed;
 
-        public AsyncCommand StopSpeakButtonCommand { get; set; }
+        public Visibility isPDF { get; set; } = Visibility.Collapsed;
 
-        public bool IsStopEnabled { get; set; }
+        public Stream? PdfData { get; set; }
 
-        public bool IsPlayingEnabled { get; set; }
+        public string? Text { get; set; }
 
-        public string Text { get; set; }
+        public PreviewWindowViewModel(FileItem file) {
 
-        public Dictionary<Brush, string> ColorPairs { get; set; }
+            sb = new();
 
-        public PreviewWindowViewModel(string str) {
-            IsPlayingEnabled = true;
-            AzureTextToSpeech = new AzureTextToSpeechService();
-            IsStopEnabled = false;
-            Text = str;
-            ColorPairs = ColorHelper.GetColors();
-            SpeakButtonCommand = new AsyncCommand(SpeakButtonction);
-            StopSpeakButtonCommand = new AsyncCommand(StopSpeakButtonAction);
+            Text = GetFile(file);
         }
 
-        private async Task StopSpeakButtonAction() {
-            await AzureTextToSpeech.StopSpeechAsync();
-            IsPlayingEnabled = true;
-            IsStopEnabled = false;
-        }
+        public PreviewWindowViewModel() { }
 
-        private async Task SpeakButtonction() {
-            await AzureTextToSpeech.ReadOutLoudAsync(Text);
-            IsPlayingEnabled = false;
-            IsStopEnabled = true;
-        }
+        private string GetFile(FileItem file) {
+            string fileExtension = Path.GetExtension(file.FilePath);
 
-        public PreviewWindowViewModel() {
-            ColorPairs = ColorHelper.GetColors();
+            switch (fileExtension) {
+                case ".doc":
+                case ".docx":
+                    if (FileHelper.IsFileLocked(file)) {
+                        FileHelper.CloseFileUsed(file);
+
+                        WordDocument wordDocument = new(file.FilePath);
+                        sb.Append(wordDocument.GetText());
+                        Text = sb.ToString();
+                        isDocument = Visibility.Visible;
+                        return Text;
+
+                    } else {
+
+                        WordDocument wordDocument = new(file.FilePath);
+                        sb.Append(wordDocument.GetText());
+                        Text = sb.ToString();
+                        isDocument = Visibility.Visible;
+                        return Text;
+                    }
+
+                case ".pdf":
+                    if (FileHelper.IsFileLocked(file)) {
+                        try {
+                            FileHelper.CloseFileUsed(file);
+                            PdfData = new FileStream(file.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                            isPDF = Visibility.Visible;
+                        } catch (IOException ex) {
+                            // Log the error or show a message to the user
+                            Debug.WriteLine(ex.Message);
+                        }
+                    } else {
+
+                        PdfData = new FileStream(file.FilePath, FileMode.OpenOrCreate);
+                        isPDF = Visibility.Visible;
+                    }
+
+                    break;
+            }
+
+            return string.Empty;
         }
     }
 }

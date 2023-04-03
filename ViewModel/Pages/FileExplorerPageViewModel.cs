@@ -70,9 +70,7 @@ namespace TranscribeMe.ViewModel.Pages {
 
                 IsMenuOpen = Visibility.Visible;
 
-                if (Path.GetExtension(item!.FilePath) == ".wav"
-                    || Path.GetExtension(item!.FilePath) == ".mp4") {
-
+                if (Path.GetExtension(item!.FilePath) == ".wav") {
                     IsReadVisible = Visibility.Collapsed;
                 } else {
                     IsReadVisible = Visibility.Visible;
@@ -142,23 +140,12 @@ namespace TranscribeMe.ViewModel.Pages {
 
         }
 
-        private static void CloseFileUsed(FileItem file) {
-            try {
-                using FileStream stream = File.Open(file.FilePath, FileMode.OpenOrCreate,
-                    FileAccess.Read, FileShare.None);
-                stream.Close();
-            } catch (IOException ex) when ((ex.HResult & 0x0000FFFF) == 32) {
-                using FileStream stream = File.Open(file.FilePath,
-                    FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                stream.Close();
-            }
-        }
-
         private void PreviewAction(FileItem file) {
             if (file == null) { return; }
 
             if (Path.GetExtension(file.FilePath) == ".wmv" ||
                 Path.GetExtension(file.FilePath) == ".mp4") {
+
                 VideoPreviewDialog prev = new((file.FilePath));
                 var mainWindow = Application.Current.MainWindow;
                 double mainWindowLeft = mainWindow.Left;
@@ -172,74 +159,35 @@ namespace TranscribeMe.ViewModel.Pages {
                 prev.Show();
 
             } else {
-                var str = GetText(file.FilePath);
 
+                if (FileHelper.IsFileLocked(file)) {
 
-                if (IsFileLocked(file)) {
-
-                    CloseFileUsed(file);
+                    FileHelper.CloseFileUsed(file);
 
                     var prevWindow = new PreviewWindow {
-                        DataContext = new PreviewWindowViewModel(str)
+                        DataContext = new PreviewWindowViewModel(file)
                     };
                     prevWindow.Show();
+
                 } else {
+
                     var prevWindow = new PreviewWindow {
-                        DataContext = new PreviewWindowViewModel(str)
+                        DataContext = new PreviewWindowViewModel(file)
                     };
                     prevWindow.Show();
                 }
+
             }
         }
 
-        private static bool IsFileLocked(FileItem fileItem) {
 
-            try {
-                using FileStream stream = File.Open(fileItem.FilePath, FileMode.OpenOrCreate,
-                    FileAccess.Read, FileShare.None);
-                stream.Close();
-            } catch (IOException) {
-                //the file is unavailable because it is:
-                //still being written to
-                //or being processed by another thread
-                //or does not exist (has already been processed)
-                return true;
-            }
-            return false;
-        }
-
-        private static string GetText(string filepath) {
-
-            StringBuilder sb = new();
-
-            switch (Path.GetExtension(filepath)) {
-
-                case ".pdf":
-                    PdfLoadedDocument pdfDoc = new(File.ReadAllBytes(filepath));
-                    foreach (PdfLoadedPage loadedPage in pdfDoc.Pages) {
-                        var text = loadedPage.ExtractText(true);
-                        text = text.Trim();
-                        if (!string.IsNullOrWhiteSpace(text)) {
-                            sb.Append(text);
-                        }
-                    }
-                    break;
-                case ".docx":
-                case ".doc":
-                    WordDocument wordDocument = new(filepath);
-                    sb.Append(wordDocument.GetText());
-                    break;
-            }
-
-            return sb.ToString();
-        }
 
         private async Task ShareActionAsync(FileItem item) {
             if (item == null) { return; }
 
             var value = item.FileLenght.Split(' ');
 
-            if (Convert.ToDouble(value[0]) >= 1
+            if (Convert.ToDouble(value[0]) >= 10
                 && value[1].Equals("MB")) {
                 var dialog = new ContentDialog() {
 

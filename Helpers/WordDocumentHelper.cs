@@ -4,15 +4,12 @@ namespace TranscribeMe.Helpers {
 
     public class WordDocumentHelper {
 
-        public static string CreateWordDocument(string text, string fileName, bool transcription) {
+        public static string CreateWordDocument(string text, string fileName, string folderName, bool transcription) {
 
             var doxcName = $"{fileName}.docx";
             var DocumentFolderPath = string.Empty;
-            if (transcription) {
-                DocumentFolderPath = FolderHelper.CreateFolder();
-            } else {
-                DocumentFolderPath = FolderHelper.CreateFolder(ConstantsHelpers.IMAGETEXT);
-            }
+
+            DocumentFolderPath = FolderHelper.CreateFolder(folderName);
 
             var docPath = Path.Combine(DocumentFolderPath, doxcName);
 

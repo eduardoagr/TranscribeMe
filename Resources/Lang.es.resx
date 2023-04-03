@@ -150,6 +150,12 @@
   <data name="Delete" xml:space="preserve">
     <value>Borrar</value>
   </data>
+  <data name="DocName" xml:space="preserve">
+    <value>Nombre del documento</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>No se puede crear un documento vacio</value>
+  </data>
   <data name="DontHaveAccount" xml:space="preserve">
     <value>No tiene una cuanta?</value>
   </data>
@@ -189,6 +195,12 @@
   <data name="FirstName" xml:space="preserve">
     <value>Nombre</value>
   </data>
+  <data name="Format" xml:space="preserve">
+    <value>Formato</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Generar archivo</value>
+  </data>
   <data name="Green" xml:space="preserve">
     <value>Verde</value>
   </data>
@@ -216,6 +228,9 @@
   <data name="Login" xml:space="preserve">
     <value>Iniciar sesión</value>
   </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>Crear un nuevo documento</value>
+  </data>
   <data name="OpenDoc" xml:space="preserve">
     <value>Abrir documento</value>
   </data>
@@ -240,6 +255,9 @@
   <data name="Read" xml:space="preserve">
     <value>Leer</value>
   </data>
+  <data name="Recognize" xml:space="preserve">
+    <value>Empezar a reonocer</value>
+  </data>
   <data name="Red" xml:space="preserve">
     <value>Rojo</value>
   </data>
@@ -258,8 +276,14 @@
   <data name="Stop" xml:space="preserve">
     <value>Detener</value>
   </data>
+  <data name="StopRecording" xml:space="preserve">
+    <value>Detener</value>
+  </data>
   <data name="String1" xml:space="preserve">
     <value>Iniciar sesión</value>
+  </data>
+  <data name="Suscription" xml:space="preserve">
+    <value>Adquirir o renovar una suscripción</value>
   </data>
   <data name="TextExtraction" xml:space="preserve">
     <value>Extraer texto de una imagen (PNG, JPEG)</value>

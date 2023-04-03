@@ -65,7 +65,7 @@
             <custom:NavButton
                 Padding="5"
                 FontFamily="{StaticResource mat}"
-                Icon="{x:Static fonts:IconFont.Ocr}"
+                Icon="{x:Static fonts:IconFont.TextRecognition}"
                 NavLink="View/Pages/ImagePage.xaml"
                 ToolTip="{x:Static res:Lang.TextExtraction}" />
 
@@ -89,7 +89,14 @@
                 FontFamily="{StaticResource mat}"
                 Icon="{x:Static fonts:IconFont.Cart}"
                 NavLink="View/Pages/VideoPage.xaml"
-                ToolTip="{x:Static res:Lang.VideoServiceTitle}" />
+                ToolTip="{x:Static res:Lang.Suscription}" />
+
+            <custom:NavButton
+                Padding="5"
+                FontFamily="{StaticResource mat}"
+                Icon="{x:Static fonts:IconFont.NewBox}"
+                NavLink="View/Pages/RecognitionPage.xaml"
+                ToolTip="{x:Static res:Lang.NewDocument}" />
 
             <Separator />
 

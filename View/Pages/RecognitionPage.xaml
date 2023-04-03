@@ -1,0 +1,60 @@
+﻿<Page
+    x:Class="TranscribeMe.View.Pages.RecognitionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Pages="clr-namespace:TranscribeMe.ViewModel.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TranscribeMe.View.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:res="clr-namespace:TranscribeMe.Resources"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    Title="RecognitionPage"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <Pages:RecognitionViewModel />
+    </Page.DataContext>
+    
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ComboBox
+            ui:ControlHelper.CornerRadius="10"
+            ui:ControlHelper.PlaceholderText="{x:Static res:Lang.EN}"
+            ItemsSource="{Binding LanguagesDictionary}"
+            SelectedValue="{Binding SelectedLanguage}"
+            SelectedValuePath="Value" />
+        <Button
+            Grid.Row="1"
+            Margin="0,20,0,0"
+            ui:ControlHelper.CornerRadius="10"
+            Background="{Binding BtonBackGround}"
+            Command="{Binding SpeechCommand}"
+            Content="{Binding BtonText}"
+            FocusVisualStyle="{x:Null}" />
+       
+        <TextBox
+            Grid.Row="2"
+            Margin="0,20,0,0"
+            ui:ControlHelper.CornerRadius="10"
+            Text="{Binding RecognizeText, UpdateSourceTrigger=PropertyChanged}"
+            TextWrapping="Wrap"
+            AcceptsReturn="True"/>
+
+        <Button Grid.Row="3"
+                Margin="0,10,0,0"
+                HorizontalAlignment="Right"
+                ui:ControlHelper.CornerRadius="10"
+                Command="{Binding GenerateCommand}"
+                CommandParameter="{Binding RecognizeText}"
+                Content="{x:Static res:Lang.Generate}"
+                FocusVisualStyle="{x:Null}" />
+    </Grid>
+</Page>

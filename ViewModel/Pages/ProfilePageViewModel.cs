@@ -17,11 +17,13 @@
 
         public string? UserId { get; set; }
 
-        public string SelectedItem { get; set; }
+        public string? SelectedItem { get; set; }
 
         public AzureStorageService AzureStorageService { get; set; }
 
         public FirebaseObject<LocalUser>? FirebaseUserObject { get; private set; }
+
+        private const string Node = "Users";
 
         #region Firebase configuraion
 
@@ -48,10 +50,6 @@
             FireService = new FirebaseServices(DatabaseUrl);
         }
 
-        public ProfilePageViewModel() {
-
-        }
-
 
         private async Task UpdateSaveCommandActionAsync() {
             if (BtonContent!.Equals(Lang.Edit)) {
@@ -69,7 +67,7 @@
 
         private async void LoadDataFromFirebase() {
             if (!string.IsNullOrEmpty(UserId)) {
-                FirebaseUserObject = await FireService.GetAsync("Users", UserId!);
+                FirebaseUserObject = await FireService.GetAsync(Node, UserId!);
             }
         }
 
@@ -82,11 +80,11 @@
                 FirebaseUserObject.Object.Username = FirebaseUserObject.Object.Username;
 
                 var image = await AzureStorageService.UploadToAzureBlobStorage(
-                    Path.GetFullPath(SelectedItem), FirebaseUserObject.Object.Id.ToLower());
+                    Path.GetFullPath(SelectedItem!), FirebaseUserObject.Object.Id.ToLower());
 
                 FirebaseUserObject.Object.PhotoUrl = image;
 
-                await FireService.UpdateAsync("Users", key, FirebaseUserObject);
+                await FireService.UpdateAsync(Node, key, FirebaseUserObject);
             }
         }
     }

@@ -2,8 +2,7 @@
 
     public class AzureTextToSpeechService {
 
-        SpeechSynthesizer speechSynthesizer;
-
+        SpeechSynthesizer? speechSynthesizer;
         public async Task ReadOutLoudAsync(string text) {
 
             var key = ConstantsHelpers.AZURE_LANGUAGE_KEY;
@@ -20,10 +19,6 @@
             ConstantsHelpers.AZURE_SPEECH_KEY,
             ConstantsHelpers.AZURE_SPEECH_REGION);
 
-
-            string logFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "logFile.log");
-            config.SetProperty(PropertyId.Speech_LogFilename, logFile);
-
             switch (lang.Iso6391Name) {
                 case "en":
                     config.SpeechSynthesisVoiceName = "Microsoft Server Speech Text to Speech Voice (en-US, SaraNeural)";
@@ -37,17 +32,21 @@
                     break;
             }
 
-
-
             speechSynthesizer = new SpeechSynthesizer(config);
             await speechSynthesizer.StartSpeakingTextAsync(text);
-
         }
-
 
         public async Task StopSpeechAsync() {
-            await speechSynthesizer.StopSpeakingAsync();
+            Debug.WriteLine("StopSpeechAsync called");
+            if (speechSynthesizer != null) {
+                try {
+                    Debug.WriteLine("Calling StopSpeakingAsync");
+                    await speechSynthesizer.StopSpeakingAsync();
+                    Debug.WriteLine("StopSpeakingAsync completed");
+                } catch (Exception e) {
+                    Debug.Write(e.Message);
+                }
+            }
         }
-
     }
 }

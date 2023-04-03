@@ -83,19 +83,23 @@ namespace TranscribeMe.ViewModel.Pages {
             var FileWithoutExtension = Path.GetFileNameWithoutExtension
                 (FilePath);
 
-            var AudioFolderPath = FolderHelper.CreateFolder(ConstantsHelpers.AUDIOS);
+            var AudioFolderPath = FolderHelper.CreateFolder(
+                ConstantsHelpers.AUDIOS);
 
-            var AudioFileNamePath = Path.Combine(AudioFolderPath, $"{FileWithoutExtension}{ConstantsHelpers.WAV}");
+            var AudioFileNamePath = Path.Combine(AudioFolderPath,
+                $"{FileWithoutExtension}{ConstantsHelpers.WAV}");
 
-            var ConvertedAudioPath = AudioHelper.mp3ToWav(FilePath!, AudioFileNamePath);
+            var ConvertedAudioPath = AudioHelper.mp3ToWav(
+                FilePath!, AudioFileNamePath);
 
-            var str = await AzureTranscriptionService.ConvertToTextAsync(ConvertedAudioPath,
+            var str = await AzureTranscriptionService.ConvertToTextAsync(
+                ConvertedAudioPath,
            FileWithoutExtension!, SelectedLanguage);
 
             var strCorrectd = await BingSpellCheckService.SpellingCorrector(str!, SelectedLanguage);
 
             DocPath = WordDocumentHelper.CreateWordDocument(strCorrectd,
-                FileWithoutExtension!, true);
+                FileWithoutExtension!, "Transcriptions", true);
 
             IsBusy = false;
             ToastHelper.LaunchToastNotification(DocPath);

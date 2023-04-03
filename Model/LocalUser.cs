@@ -1,6 +1,4 @@
-﻿
-
-using MvvmHelpers;
+﻿using MvvmHelpers;
 
 namespace TranscribeMe.Model {
 
@@ -18,7 +16,7 @@ namespace TranscribeMe.Model {
         private bool hasPaid;
         private bool isActive;
         private int age;
-        private DateTime dateOfBirth = new(2018, 05, 05);
+        private DateTime dateOfBirth;
         private DateTime suscriptionStart;
         private DateTime suscriptionEnd;
         readonly CultureInfo culture = CultureInfo.CurrentCulture;
