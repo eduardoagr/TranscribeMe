@@ -1,4 +1,4 @@
-﻿using ModernWpf.Controls.Primitives;
+﻿using TranscribeMe.View.Dialogs;
 
 using Brush = System.Windows.Media.Brush;
 using Brushes = System.Windows.Media.Brushes;
@@ -18,9 +18,11 @@ namespace TranscribeMe.ViewModel.Pages {
 
         public Dictionary<string, string>? LanguagesDictionary { get; set; }
 
-        public List<string> Options { get; set; }
 
         public Command<string> GenerateCommand { get; set; }
+
+        public bool IsButtonEnabled { get; set; } = false;
+
 
         private bool _isRecognizing;
 
@@ -31,7 +33,6 @@ namespace TranscribeMe.ViewModel.Pages {
 
         public RecognitionViewModel() {
 
-            Options = new List<string>() { "pdf", "docx" };
 
             LanguagesDictionary = LanguagesHelper.GetLanguages();
 
@@ -56,38 +57,32 @@ namespace TranscribeMe.ViewModel.Pages {
 
             if (!string.IsNullOrEmpty(text)) {
 
-                var box = new TextBox {
-                    Height = 30.0
-                };
-                ControlHelper.SetPlaceholderText(box, Lang.DocName);
+                var dlg = new GenerateFileDialog();
 
-                var dialog = new ContentDialog {
-                    Content = box,
-                    PrimaryButtonText = "OK",
-                    SecondaryButtonText = "Cancel",
-                    IsPrimaryButtonEnabled = !string.IsNullOrEmpty(box.Text)
+                dlg.DocNameTextBox.TextChanged += (sender, args) => {
+                    dlg.PrimaryBton.IsEnabled = !string.IsNullOrEmpty(dlg.DocNameTextBox.Text);
                 };
 
-                box.TextChanged += (sender, args) => {
-                    dialog.IsPrimaryButtonEnabled = !string.IsNullOrEmpty(box.Text);
-                };
-
-                dialog.PrimaryButtonClick += (sender, args) => {
-
-                    WordDocumentHelper.CreateWordDocument(text, box.Text, "Documents",
+                dlg.PrimaryBton.Click += (sender, args) => {
+                    string str = dlg.DocNameTextBox.Text;
+                    WordDocumentHelper.CreateWordDocument(str, text, "Documents",
                         false);
+
+                    dlg.Hide();
                 };
 
-                dialog.Content = box;
+                dlg.SecundaryBton.Click += (s, a) => {
+                    dlg.Hide();
+                };
 
-                await dialog.ShowAsync();
+
 
             } else {
                 var dialog = new ContentDialog() {
 
                     Title = Lang.ErrorDialog,
                     Content = Lang.Document,
-                    PrimaryButtonText = "OK"
+                    PrimaryButtonText = "OK",
                 };
 
                 await dialog.ShowAsync();

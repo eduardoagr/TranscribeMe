@@ -21,7 +21,6 @@
                 x:Name="PrimaryBtn"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                ui:ControlHelper.CornerRadius="10"
                 Content="{Binding CloseBtn}"
                 FocusVisualStyle="{x:Null}" />
     </Grid>

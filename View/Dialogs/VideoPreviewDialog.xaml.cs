@@ -5,20 +5,19 @@ using Color = System.Windows.Media.Color;
 namespace TranscribeMe.View.Dialogs {
 
     public partial class VideoPreviewDialog : Window {
-
-        AxWindowsMediaPlayer? player = null;
+        readonly AxWindowsMediaPlayer? player = null;
 
         public VideoPreviewDialog(string filepath) {
             InitializeComponent();
 
             player = host.Child as AxWindowsMediaPlayer;
             host.Child = player;
-            player.uiMode = "full";
+            player!.uiMode = "full";
             player.URL = filepath;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            player.Dispose();
+            player!.Dispose();
             this.Hide();
         }
 
