@@ -21,8 +21,9 @@ namespace TranscribeMe.ViewModel.Pages {
 
         public Command<string> GenerateCommand { get; set; }
 
-        public bool IsButtonEnabled { get; set; } = false;
+        public bool IsContentBtonEnabled { get; set; } = false;
 
+        public bool IsButtonEnabled => !string.IsNullOrEmpty(RecognizeText);
 
         private bool _isRecognizing;
 
@@ -75,6 +76,7 @@ namespace TranscribeMe.ViewModel.Pages {
                     dlg.Hide();
                 };
 
+                await dlg.ShowAsync();
 
 
             } else {

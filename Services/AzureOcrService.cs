@@ -1,5 +1,4 @@
-﻿using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
-using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
+﻿using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 
 namespace TranscribeMe.Services {
     [AddINotifyPropertyChangedInterface]

@@ -601,7 +601,7 @@ namespace TranscribeMe.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In what language so yu want it.
+        ///   Looks up a localized string similar to Translation language.
         /// </summary>
         public static string TranslateInstructions {
             get {

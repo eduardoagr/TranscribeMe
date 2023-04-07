@@ -1,5 +1,4 @@
-﻿using Azure;
-using Azure.AI.Translation.Document;
+﻿using Azure.AI.Translation.Document;
 
 namespace TranscribeMe.Services {
     public class AzureTranslationService {

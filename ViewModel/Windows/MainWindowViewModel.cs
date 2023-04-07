@@ -37,7 +37,7 @@ namespace TranscribeMe.ViewModel.Windows {
                 frame.Navigate(SelectedItem.NavLink);
             }
         }
-        
+
 
         private static void SendEmail() {
 

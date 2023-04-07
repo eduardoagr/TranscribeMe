@@ -55,6 +55,7 @@
                 Command="{Binding GenerateCommand}"
                 CommandParameter="{Binding RecognizeText}"
                 Content="{x:Static res:Lang.Generate}"
+                IsEnabled="{Binding IsButtonEnabled}"
                 FocusVisualStyle="{x:Null}" />
     </Grid>
 </Page>

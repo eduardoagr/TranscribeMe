@@ -298,7 +298,7 @@
     <value>Translate documents (pdf, docx, doc)</value>
   </data>
   <data name="TranslateInstructions" xml:space="preserve">
-    <value>In what language so yu want it</value>
+    <value>Translation language</value>
   </data>
   <data name="TraslateServiceTitle" xml:space="preserve">
     <value>Translate a Word or PDF document</value>

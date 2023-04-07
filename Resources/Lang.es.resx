@@ -187,7 +187,7 @@
     <value>Escoja un archivo</value>
   </data>
   <data name="FileBig" xml:space="preserve">
-    <value>Your file is too big</value>
+    <value>El archivo pesa mucho</value>
   </data>
   <data name="FileLang" xml:space="preserve">
     <value>Lenguaje del archivo</value>
