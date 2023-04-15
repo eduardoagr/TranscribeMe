@@ -2,7 +2,7 @@
     public static class ConstantsHelpers {
 
         //Syncfusion
-        public const string SYNCFUSION_KEY = "NzMxMzU0QDMyMzAyZTMzMmUzME5ScGlpRzZBZVl5SUpiVllvQjBNbXU1WTIwK0pPMFl4NVF6OGdIV09YQ2s9";
+        public const string SYNCFUSION_KEY = "MTczNDk4NkAzMjMxMmUzMTJlMzMzNVc4Rk9tOUxyRkFQVlZ2eUJJaVhqWnFyRko3dy9DZEgzL2ZXK2lnbTdsdWc9";
 
         //Azure speech recognition
         public const string AZURE_SPEECH_KEY = "3ea6fbe9f32f4c2093423008f28075c3";

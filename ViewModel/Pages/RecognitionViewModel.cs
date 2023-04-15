@@ -66,7 +66,7 @@ namespace TranscribeMe.ViewModel.Pages {
 
                 dlg.PrimaryBton.Click += (sender, args) => {
                     string str = dlg.DocNameTextBox.Text;
-                    WordDocumentHelper.CreateWordDocument(str, text, "Documents",
+                    WordDocumentHelper.CreateWordDocument(text, str, "Documents",
                         false);
 
                     dlg.Hide();

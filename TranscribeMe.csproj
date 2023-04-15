@@ -140,8 +140,8 @@
 	<ItemGroup>
 		<PackageReference Include="Azure.AI.TextAnalytics" Version="5.2.0" />
 		<PackageReference Include="Azure.AI.Translation.Document" Version="1.0.0" />
-		<PackageReference Include="Azure.Core" Version="1.30.0" />
-		<PackageReference Include="Azure.Storage.Blobs" Version="12.15.1" />
+		<PackageReference Include="Azure.Core" Version="1.31.0" />
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.16.0" />
 		<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
 		<PackageReference Include="MahApps.Metro" Version="2.4.9" />
@@ -158,9 +158,9 @@
 		<PackageReference Include="NAudio.Lame" Version="2.0.1" />
 		<PackageReference Include="PropertyChanged.Fody" PrivateAssets="All" Version="4.1.0" />
 		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
-		<PackageReference Include="Syncfusion.DocIO.Wpf" Version="21.1.38" />
-		<PackageReference Include="Syncfusion.Licensing" Version="21.1.38" />
-		<PackageReference Include="Syncfusion.PdfViewer.WPF" Version="21.1.38" />
+		<PackageReference Include="Syncfusion.DocIO.Wpf" Version="21.1.39" />
+		<PackageReference Include="Syncfusion.Licensing" Version="21.1.39" />
+		<PackageReference Include="Syncfusion.PdfViewer.WPF" Version="21.1.39" />
 	</ItemGroup>
 
 	<ItemGroup>
