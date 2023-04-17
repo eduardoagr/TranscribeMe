@@ -209,7 +209,7 @@
                 && !string.IsNullOrEmpty(User.Username)
                 && !string.IsNullOrEmpty(User.Confirm)
                 && User.Confirm == User.Password
-                && User.Password.Length == 6
+                && User.Password.Length >= 6
                 && new EmailAddressAttribute().IsValid(User.Email)
                 && User.DateOfBirth != DateTime.MinValue) {
                 return true;
