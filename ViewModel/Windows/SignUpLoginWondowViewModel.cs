@@ -52,7 +52,7 @@
             .RaiseCanExecuteChanged();
             User.PropertyChanged += (sender, args) => LoginCommand?
             .RaiseCanExecuteChanged();
-
+                
             AuthService = new FirebaseAuthService(config);
             FirebaseServices = new FirebaseServices(databaseUrl);
             RegisterCommand = new AsyncCommand(RegisterActionAsync, CanRegster);
